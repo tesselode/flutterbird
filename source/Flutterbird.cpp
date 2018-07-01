@@ -22,24 +22,38 @@ Flutterbird::~Flutterbird() {}
 
 void Flutterbird::ProcessDoubleReplacing(double** inputs, double** outputs, int nFrames)
 {
-	// Mutex is already locked for us.
-
-	double* in1 = inputs[0];
-	double* in2 = inputs[1];
-	double* out1 = outputs[0];
-	double* out2 = outputs[1];
-
-	for (int s = 0; s < nFrames; ++s, ++in1, ++in2, ++out1, ++out2)
+	for (int s = 0; s < nFrames; s++)
 	{
-		*out1 = *in1;
-		*out2 = *in2;
+		bufferL[writePosition] = inputs[0][s];
+		bufferR[writePosition] = inputs[1][s];
+		writePosition++;
+		if (writePosition == std::size(bufferL))
+			writePosition = 0;
+
+		outputs[0][s] = bufferL[readPosition];
+		outputs[1][s] = bufferR[readPosition];
+		readPosition++;
+		if (readPosition == std::size(bufferL))
+			readPosition = 0;
 	}
+}
+
+void Flutterbird::InitBuffer()
+{
+	bufferL.clear();
+	bufferR.clear();
+	for (int i = 0; i < bufferLength * GetSampleRate(); i++)
+		bufferL.push_back(0.0);
+	for (int i = 0; i < bufferLength * GetSampleRate(); i++)
+		bufferR.push_back(0.0);
 }
 
 void Flutterbird::Reset()
 {
 	TRACE;
 	IMutexLock lock(this);
+
+	InitBuffer();
 }
 
 void Flutterbird::OnParamChange(int paramIdx)

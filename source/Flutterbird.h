@@ -3,6 +3,9 @@
 
 #include "IPlug_include_in_plug_hdr.h"
 #include "Parameters.h"
+#include <vector>
+
+const int bufferLength = 10;
 
 class Flutterbird : public IPlug
 {
@@ -15,6 +18,12 @@ public:
 	void ProcessDoubleReplacing(double** inputs, double** outputs, int nFrames);
 
 private:
+	void InitBuffer();
+
+	std::vector<double> bufferL;
+	std::vector<double> bufferR;
+	int writePosition = 44100;
+	int readPosition = 0;
 };
 
 #endif
