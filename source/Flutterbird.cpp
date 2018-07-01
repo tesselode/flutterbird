@@ -20,21 +20,43 @@ Flutterbird::Flutterbird(IPlugInstanceInfo instanceInfo)
 
 Flutterbird::~Flutterbird() {}
 
+double Flutterbird::GetReadPosition()
+{
+	return writePosition + .001 * GetSampleRate() * (cos(counter * .001) - 1.0);
+}
+
+double Flutterbird::GetSample(std::vector<double> &buffer, double position)
+{
+	int p0 = wrap(floor(position) - 1, 0, std::size(buffer) - 1);
+	int p1 = wrap(floor(position), 0, std::size(buffer) - 1);
+	int p2 = wrap(ceil(position), 0, std::size(buffer) - 1);
+	int p3 = wrap(ceil(position) + 1, 0, std::size(buffer) - 1);
+
+	auto x = position - floor(position);
+	auto y0 = buffer[p0];
+	auto y1 = buffer[p1];
+	auto y2 = buffer[p2];
+	auto y3 = buffer[p3];
+
+	return interpolate(x, y0, y1, y2, y3);
+}
+
 void Flutterbird::ProcessDoubleReplacing(double** inputs, double** outputs, int nFrames)
 {
 	for (int s = 0; s < nFrames; s++)
 	{
+		counter++;
+
 		bufferL[writePosition] = inputs[0][s];
 		bufferR[writePosition] = inputs[1][s];
+		
+		auto readPosition = GetReadPosition();
+		outputs[0][s] = GetSample(bufferL, readPosition);
+		outputs[1][s] = GetSample(bufferR, readPosition);
+
 		writePosition++;
 		if (writePosition == std::size(bufferL))
 			writePosition = 0;
-
-		outputs[0][s] = bufferL[readPosition];
-		outputs[1][s] = bufferR[readPosition];
-		readPosition++;
-		if (readPosition == std::size(bufferL))
-			readPosition = 0;
 	}
 }
 

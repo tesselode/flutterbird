@@ -281,6 +281,7 @@
     <ClInclude Include="Flutterbird.h" />
     <ClInclude Include="Parameters.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Util.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\ASIO_SDK\asio.cpp" />
