@@ -5,6 +5,7 @@
     <ClCompile Include="..\..\WDL\IPlug\IPlugVST.cpp">
       <Filter>vst2</Filter>
     </ClCompile>
+    <ClCompile Include="Oscillator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Flutterbird.h" />
@@ -14,6 +15,7 @@
     </ClInclude>
     <ClInclude Include="Parameters.h" />
     <ClInclude Include="Util.h" />
+    <ClInclude Include="Oscillator.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Flutterbird.rc" />

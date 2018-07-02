@@ -238,6 +238,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\WDL\IPlug\IPlugVST.h" />
     <ClInclude Include="Flutterbird.h" />
+    <ClInclude Include="Oscillator.h" />
     <ClInclude Include="Parameters.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Util.h" />
@@ -245,6 +246,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\WDL\IPlug\IPlugVST.cpp" />
     <ClCompile Include="Flutterbird.cpp" />
+    <ClCompile Include="Oscillator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Flutterbird.rc" />

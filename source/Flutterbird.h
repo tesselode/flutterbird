@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include "IPlug_include_in_plug_hdr.h"
+#include "Oscillator.h"
 #include "Parameters.h"
 #include "Util.h"
 #include <vector>
@@ -20,15 +21,20 @@ public:
 	void ProcessDoubleReplacing(double** inputs, double** outputs, int nFrames);
 
 private:
+	void InitParmeters();
 	void InitBuffer();
 	double GetReadPosition();
 	double GetSample(std::vector<double> &buffer, double position);
 
+	double dt = 0.0;
 	std::vector<double> bufferL;
 	std::vector<double> bufferR;
+	Oscillator osc1;
+	Oscillator osc2;
+	Oscillator osc3;
+	Oscillator osc4;
 	int writePosition = 0;
-
-	int counter = 0;
+	double readOffset = 0.0;
 };
 
 #endif
