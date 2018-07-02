@@ -41,12 +41,14 @@ Flutterbird::~Flutterbird() {}
 double Flutterbird::GetReadPosition()
 {
 	double target = 0.0;
-	target += GetParam((int)Parameters::Osc1ToPitch)->Value() * osc1.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc1Waveform)->Value(), GetParam((int)Parameters::Osc1Frequency)->Value());
-	target += GetParam((int)Parameters::Osc2ToPitch)->Value() * osc2.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc2Waveform)->Value(), GetParam((int)Parameters::Osc2Frequency)->Value());
-	target += GetParam((int)Parameters::Osc3ToPitch)->Value() * osc3.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc3Waveform)->Value(), GetParam((int)Parameters::Osc3Frequency)->Value());
-	target += GetParam((int)Parameters::Osc4ToPitch)->Value() * osc4.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc4Waveform)->Value(), GetParam((int)Parameters::Osc4Frequency)->Value());
+	target += GetParam((int)Parameters::Osc1ToPitch)->Value() * osc1.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc1Waveform)->Value(), GetParam((int)Parameters::Osc1Frequency)->Value()) / GetParam((int)Parameters::Osc1Frequency)->Value();
+	target += GetParam((int)Parameters::Osc2ToPitch)->Value() * osc2.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc2Waveform)->Value(), GetParam((int)Parameters::Osc2Frequency)->Value()) / GetParam((int)Parameters::Osc2Frequency)->Value();
+	target += GetParam((int)Parameters::Osc3ToPitch)->Value() * osc3.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc3Waveform)->Value(), GetParam((int)Parameters::Osc3Frequency)->Value()) / GetParam((int)Parameters::Osc3Frequency)->Value();
+	target += GetParam((int)Parameters::Osc4ToPitch)->Value() * osc4.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc4Waveform)->Value(), GetParam((int)Parameters::Osc4Frequency)->Value()) / GetParam((int)Parameters::Osc4Frequency)->Value();
+	target *= bufferLength;
 	target = target < 0.0 ? 0.0 : target > bufferLength ? bufferLength : target;
 	readOffset += (target - readOffset) * 1.0 * dt;
+	readOffset -= readOffset * 100.0 * dt;
 	return writePosition - readOffset * GetSampleRate();
 }
 
