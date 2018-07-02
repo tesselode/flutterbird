@@ -8,15 +8,6 @@ void Flutterbird::InitParmeters()
 	GetParam((int)Parameters::Osc1Waveform)->InitEnum("Oscillator 1 waveform", (int)Waveforms::Sine, (int)Waveforms::numWaveforms);
 	GetParam((int)Parameters::Osc1Frequency)->InitDouble("Oscillator 1 frequency", 1.0, .01, 10.0, .01, "", "", 2.0);
 	GetParam((int)Parameters::Osc1ToPitch)->InitDouble("Oscillator 1 to pitch", 0.0, 0.0, 1.0, .01);
-	GetParam((int)Parameters::Osc2Waveform)->InitEnum("Oscillator 2 waveform", (int)Waveforms::Sine, (int)Waveforms::numWaveforms);
-	GetParam((int)Parameters::Osc2Frequency)->InitDouble("Oscillator 2 frequency", 1.0, .01, 10.0, .01, "", "", 2.0);
-	GetParam((int)Parameters::Osc2ToPitch)->InitDouble("Oscillator 2 to pitch", 0.0, 0.0, 1.0, .01);
-	GetParam((int)Parameters::Osc3Waveform)->InitEnum("Oscillator 3 waveform", (int)Waveforms::Sine, (int)Waveforms::numWaveforms);
-	GetParam((int)Parameters::Osc3Frequency)->InitDouble("Oscillator 3 frequency", 1.0, .01, 10.0, .01, "", "", 2.0);
-	GetParam((int)Parameters::Osc3ToPitch)->InitDouble("Oscillator 3 to pitch", 0.0, 0.0, 1.0, .01);
-	GetParam((int)Parameters::Osc4Waveform)->InitEnum("Oscillator 4 waveform", (int)Waveforms::Sine, (int)Waveforms::numWaveforms);
-	GetParam((int)Parameters::Osc4Frequency)->InitDouble("Oscillator 4 frequency", 1.0, .01, 10.0, .01, "", "", 2.0);
-	GetParam((int)Parameters::Osc4ToPitch)->InitDouble("Oscillator 4 to pitch", 0.0, 0.0, 1.0, .01);
 }
 
 Flutterbird::Flutterbird(IPlugInstanceInfo instanceInfo)
@@ -40,16 +31,9 @@ Flutterbird::~Flutterbird() {}
 
 double Flutterbird::GetReadPosition()
 {
-	double target = 0.0;
-	target += GetParam((int)Parameters::Osc1ToPitch)->Value() * osc1.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc1Waveform)->Value(), GetParam((int)Parameters::Osc1Frequency)->Value()) / GetParam((int)Parameters::Osc1Frequency)->Value();
-	target += GetParam((int)Parameters::Osc2ToPitch)->Value() * osc2.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc2Waveform)->Value(), GetParam((int)Parameters::Osc2Frequency)->Value()) / GetParam((int)Parameters::Osc2Frequency)->Value();
-	target += GetParam((int)Parameters::Osc3ToPitch)->Value() * osc3.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc3Waveform)->Value(), GetParam((int)Parameters::Osc3Frequency)->Value()) / GetParam((int)Parameters::Osc3Frequency)->Value();
-	target += GetParam((int)Parameters::Osc4ToPitch)->Value() * osc4.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc4Waveform)->Value(), GetParam((int)Parameters::Osc4Frequency)->Value()) / GetParam((int)Parameters::Osc4Frequency)->Value();
-	target *= bufferLength;
-	target = target < 0.0 ? 0.0 : target > bufferLength ? bufferLength : target;
-	readOffset += (target - readOffset) * 1.0 * dt;
-	readOffset -= readOffset * 100.0 * dt;
-	return writePosition - readOffset * GetSampleRate();
+	auto velocity = GetParam((int)Parameters::Osc1ToPitch)->Value() * osc1.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc1Waveform)->Value(), GetParam((int)Parameters::Osc1Frequency)->Value());
+	readOffset += velocity * dt;
+	return writePosition + readOffset * GetSampleRate();
 }
 
 double Flutterbird::GetSample(std::vector<double> &buffer, double position)
