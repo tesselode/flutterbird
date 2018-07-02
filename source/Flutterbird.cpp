@@ -31,9 +31,17 @@ Flutterbird::~Flutterbird() {}
 
 double Flutterbird::GetReadPosition()
 {
-	auto velocity = GetParam((int)Parameters::Osc1ToPitch)->Value() * osc1.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc1Waveform)->Value(), GetParam((int)Parameters::Osc1Frequency)->Value());
-	readOffset += velocity * dt;
-	return writePosition + readOffset * GetSampleRate();
+	osc1ToPitch += (GetParam((int)Parameters::Osc1ToPitch)->Value() - osc1ToPitch) * 10.0 * dt;
+
+	auto readOffset = 0.0;
+	readOffset += osc1ToPitch;
+
+	auto velocity = 0.0;
+	velocity += osc1ToPitch * osc1.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc1Waveform)->Value(), GetParam((int)Parameters::Osc1Frequency)->Value());
+
+	readPosition += velocity * dt;
+	readPosition -= readPosition * 1.0 * dt;
+	return writePosition - abs(readPosition + readOffset) * GetSampleRate();
 }
 
 double Flutterbird::GetSample(std::vector<double> &buffer, double position)

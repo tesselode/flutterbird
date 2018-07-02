@@ -34,7 +34,8 @@ private:
 	Oscillator osc3;
 	Oscillator osc4;
 	int writePosition = 0;
-	double readOffset = 0.0;
+	double readPosition = 0.0;
+	double osc1ToPitch = 0.0;
 };
 
 #endif
