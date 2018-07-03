@@ -7,7 +7,7 @@ void Flutterbird::InitParmeters()
 {
 	GetParam((int)Parameters::Osc1Waveform)->InitEnum("Oscillator 1 waveform", (int)Waveforms::Sine, (int)Waveforms::numWaveforms);
 	GetParam((int)Parameters::Osc1Frequency)->InitDouble("Oscillator 1 frequency", 1.0, .01, 10.0, .01, "", "", 2.0);
-	GetParam((int)Parameters::Osc1ToPitch)->InitDouble("Oscillator 1 to pitch", 0.0, 0.0, 1.0, .01);
+	GetParam((int)Parameters::Osc1ToPitch)->InitDouble("Oscillator 1 to pitch", 0.0, -1.0, 1.0, .01);
 }
 
 Flutterbird::Flutterbird(IPlugInstanceInfo instanceInfo)
@@ -37,7 +37,16 @@ double Flutterbird::GetReadPosition()
 	auto osc1ToPitch = GetParam((int)Parameters::Osc1ToPitch)->Value();
 
 	auto target = 0.0;
-	target += osc1ToPitch * osc1.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc1Waveform)->Value(), GetParam((int)Parameters::Osc1Frequency)->Value());
+	if (osc1ToPitch != 0.0)
+	{
+		auto oscValue = osc1.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc1Waveform)->Value(), GetParam((int)Parameters::Osc1Frequency)->Value());
+		if (osc1ToPitch < 0.0)
+		{
+			osc1ToPitch *= -1.0;
+			oscValue = 1.0 - oscValue;
+		}
+		target += osc1ToPitch * oscValue;
+	}
 
 	auto followSpeed = osc1ToPitch == 0.0 ? 10.0 : 1.0;
 	readPosition += (target - readPosition) * followSpeed * dt;
