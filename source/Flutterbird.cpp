@@ -96,6 +96,7 @@ void Flutterbird::InitBuffer()
 		bufferL.push_back(0.0);
 	for (int i = 0; i < bufferLength * GetSampleRate(); i++)
 		bufferR.push_back(0.0);
+	writePosition = 0;
 }
 
 void Flutterbird::Reset()
