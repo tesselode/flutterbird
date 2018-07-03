@@ -16,6 +16,9 @@ double Oscillator::Next(double dt, Waveforms waveform, double frequency)
 	case Waveforms::Square:
 		return phase < 0.5 ? 0.0 : 1.0;
 	case Waveforms::Drift:
-		return 0.0;
+		driftVelocity += random() * 10000.0 * frequency * dt;
+		driftVelocity -= driftVelocity * 2.0 * sqrt(frequency) * dt;
+		driftPhase += driftVelocity * dt;
+		return .5 + .5 * sin(driftPhase);
 	}
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cmath>
+#include "Util.h"
 
 enum class Waveforms
 {
@@ -19,5 +20,7 @@ public:
 
 private:
 	double phase = 0.0;
+	double driftVelocity = 0.0;
+	double driftPhase = 0.0;
 };
 
