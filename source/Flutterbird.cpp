@@ -17,8 +17,11 @@ Flutterbird::Flutterbird(IPlugInstanceInfo instanceInfo)
 
 	InitParmeters();
 
-	IGraphics* pGraphics = MakeGraphics(this, GUI_WIDTH, GUI_HEIGHT);
+	IGraphics* pGraphics = MakeGraphics(this, GUI_WIDTH, GUI_HEIGHT, 120);
 	pGraphics->AttachPanelBackground(&COLOR_GRAY);
+
+	debugText = new ITextControl(this, IRECT(0, 0, 300, 300), new IText(24), "Test");
+	pGraphics->AttachControl(debugText);
 
 	IBitmap knob = pGraphics->LoadIBitmap(KNOB_ID, KNOB_FN, 60);
 
@@ -74,6 +77,8 @@ void Flutterbird::ProcessDoubleReplacing(double** inputs, double** outputs, int 
 		writePosition++;
 		if (writePosition == std::size(bufferL))
 			writePosition = 0;
+
+		debugText->SetTextFromPlug(strdup(std::to_string(writePosition - readPosition).c_str()));
 	}
 }
 

@@ -5,6 +5,7 @@
 #include "IPlug_include_in_plug_hdr.h"
 #include "Oscillator.h"
 #include "Parameters.h"
+#include <string>
 #include "Util.h"
 #include <vector>
 
@@ -36,6 +37,8 @@ private:
 	int writePosition = 0;
 	double readPosition = 0.0;
 	double osc1ToPitch = 0.0;
+
+	ITextControl* debugText;
 };
 
 #endif
