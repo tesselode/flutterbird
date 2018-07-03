@@ -34,17 +34,14 @@ Flutterbird::~Flutterbird() {}
 
 double Flutterbird::GetReadPosition()
 {
-	osc1ToPitch += (GetParam((int)Parameters::Osc1ToPitch)->Value() - osc1ToPitch) * 10.0 * dt;
+	auto osc1ToPitch = GetParam((int)Parameters::Osc1ToPitch)->Value();
 
-	auto readOffset = 0.0;
-	readOffset += osc1ToPitch;
+	auto target = 0.0;
+	target += osc1ToPitch * osc1.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc1Waveform)->Value(), GetParam((int)Parameters::Osc1Frequency)->Value());
 
-	auto velocity = 0.0;
-	velocity += osc1ToPitch * osc1.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc1Waveform)->Value(), GetParam((int)Parameters::Osc1Frequency)->Value());
-
-	readPosition += velocity * dt;
-	readPosition -= readPosition * 1.0 * dt;
-	return writePosition - abs(readPosition + readOffset) * GetSampleRate();
+	auto followSpeed = osc1ToPitch == 0.0 ? 10.0 : 1.0;
+	readPosition += (target - readPosition) * followSpeed * dt;
+	return writePosition - readPosition * GetSampleRate();
 }
 
 double Flutterbird::GetSample(std::vector<double> &buffer, double position)
@@ -78,7 +75,7 @@ void Flutterbird::ProcessDoubleReplacing(double** inputs, double** outputs, int 
 		if (writePosition == std::size(bufferL))
 			writePosition = 0;
 
-		debugText->SetTextFromPlug(strdup(std::to_string(writePosition - readPosition).c_str()));
+		//debugText->SetTextFromPlug(strdup(std::to_string(writePosition - readPosition).c_str()));
 	}
 }
 
