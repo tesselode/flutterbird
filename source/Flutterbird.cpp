@@ -23,6 +23,7 @@ void Flutterbird::InitParmeters()
 	GetParam((int)Parameters::Osc4ToVolume)->InitDouble("Oscillator 4 to volume", 0.0, -1.0, 1.0, .01);
 	GetParam((int)Parameters::GlobalToPitch)->InitDouble("Pitch modulation amount", .5, 0.0, 1.0, .01);
 	GetParam((int)Parameters::GlobalToVolume)->InitDouble("Volume modulation amount", .5, 0.0, 1.0, .01);
+	GetParam((int)Parameters::Mix)->InitDouble("Dry/wet mix", 1.0, 0.0, 1.0, .01);
 }
 
 Flutterbird::Flutterbird(IPlugInstanceInfo instanceInfo)
@@ -207,8 +208,9 @@ void Flutterbird::ProcessDoubleReplacing(double** inputs, double** outputs, int 
 		auto volume = GetVolume();
 		auto outL = GetSample(bufferL, readPosition) * volume;
 		auto outR = GetSample(bufferR, readPosition) * volume;
-		outputs[0][s] = outL;
-		outputs[1][s] = outR;
+		auto mix = GetParam((int)Parameters::Mix)->Value();
+		outputs[0][s] = inputs[0][s] * (1.0 - mix) + outL * mix;
+		outputs[1][s] = inputs[1][s] * (1.0 - mix) + outR * mix;
 
 		writePosition++;
 		if (writePosition == std::size(bufferL))

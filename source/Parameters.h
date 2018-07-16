@@ -20,5 +20,6 @@ enum class Parameters
 	Osc4ToVolume,
 	GlobalToPitch,
 	GlobalToVolume,
+	Mix,
 	numParameters,
 };
