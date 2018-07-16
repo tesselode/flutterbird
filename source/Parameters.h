@@ -18,5 +18,7 @@ enum class Parameters
 	Osc4Frequency,
 	Osc4ToPitch,
 	Osc4ToVolume,
+	GlobalToPitch,
+	GlobalToVolume,
 	numParameters,
 };

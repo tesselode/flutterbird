@@ -21,6 +21,8 @@ void Flutterbird::InitParmeters()
 	GetParam((int)Parameters::Osc4Frequency)->InitDouble("Oscillator 4 frequency", 1.0, .01, 10.0, .01, "", "", 2.0);
 	GetParam((int)Parameters::Osc4ToPitch)->InitDouble("Oscillator 4 to pitch", 0.0, -1.0, 1.0, .01);
 	GetParam((int)Parameters::Osc4ToVolume)->InitDouble("Oscillator 4 to volume", 0.0, 0.0, 1.0, .01);
+	GetParam((int)Parameters::GlobalToPitch)->InitDouble("Pitch modulation amount", .5, 0.0, 1.0, .01);
+	GetParam((int)Parameters::GlobalToVolume)->InitDouble("Volume modulation amount", .5, 0.0, 1.0, .01);
 }
 
 Flutterbird::Flutterbird(IPlugInstanceInfo instanceInfo)
@@ -68,10 +70,10 @@ void Flutterbird::UpdateOscillators()
 
 double Flutterbird::GetReadPosition()
 {
-	auto osc1ToPitch = GetParam((int)Parameters::Osc1ToPitch)->Value();
-	auto osc2ToPitch = GetParam((int)Parameters::Osc2ToPitch)->Value();
-	auto osc3ToPitch = GetParam((int)Parameters::Osc3ToPitch)->Value();
-	auto osc4ToPitch = GetParam((int)Parameters::Osc4ToPitch)->Value();
+	auto osc1ToPitch = GetParam((int)Parameters::Osc1ToPitch)->Value() * GetParam((int)Parameters::GlobalToPitch)->Value();
+	auto osc2ToPitch = GetParam((int)Parameters::Osc2ToPitch)->Value() * GetParam((int)Parameters::GlobalToPitch)->Value();
+	auto osc3ToPitch = GetParam((int)Parameters::Osc3ToPitch)->Value() * GetParam((int)Parameters::GlobalToPitch)->Value();
+	auto osc4ToPitch = GetParam((int)Parameters::Osc4ToPitch)->Value() * GetParam((int)Parameters::GlobalToPitch)->Value();
 	auto totalToPitch = osc1ToPitch + osc2ToPitch + osc3ToPitch + osc4ToPitch;
 
 	auto target = 0.0;
@@ -124,10 +126,10 @@ double Flutterbird::GetReadPosition()
 double Flutterbird::GetVolume()
 {
 	double target = 1.0;
-	target -= GetParam((int)Parameters::Osc1ToVolume)->Value() * osc1Value;
-	target -= GetParam((int)Parameters::Osc2ToVolume)->Value() * osc2Value;
-	target -= GetParam((int)Parameters::Osc3ToVolume)->Value() * osc3Value;
-	target -= GetParam((int)Parameters::Osc4ToVolume)->Value() * osc4Value;
+	target -= GetParam((int)Parameters::Osc1ToVolume)->Value() * GetParam((int)Parameters::GlobalToVolume)->Value() * osc1Value;
+	target -= GetParam((int)Parameters::Osc2ToVolume)->Value() * GetParam((int)Parameters::GlobalToVolume)->Value() * osc2Value;
+	target -= GetParam((int)Parameters::Osc3ToVolume)->Value() * GetParam((int)Parameters::GlobalToVolume)->Value() * osc3Value;
+	target -= GetParam((int)Parameters::Osc4ToVolume)->Value() * GetParam((int)Parameters::GlobalToVolume)->Value() * osc4Value;
 	target = target < 0.0 ? 0.0 : target;
 	volume += (target - volume) * 100.0 * dt;
 	return volume;
