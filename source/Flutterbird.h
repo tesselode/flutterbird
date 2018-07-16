@@ -26,6 +26,7 @@ private:
 	void InitBuffer();
 	void UpdateOscillators();
 	double GetReadPosition();
+	double GetVolume();
 	double GetSample(std::vector<double> &buffer, double position);
 
 	double dt = 0.0;
@@ -41,6 +42,7 @@ private:
 	double osc4Value = 0.0;
 	int writePosition = 0;
 	double readPosition = 0.0;
+	double volume = 1.0;
 
 	ITextControl* debugText;
 };

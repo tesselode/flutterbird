@@ -8,15 +8,19 @@ void Flutterbird::InitParmeters()
 	GetParam((int)Parameters::Osc1Waveform)->InitEnum("Oscillator 1 waveform", (int)Waveforms::Sine, (int)Waveforms::numWaveforms);
 	GetParam((int)Parameters::Osc1Frequency)->InitDouble("Oscillator 1 frequency", 1.0, .01, 10.0, .01, "", "", 2.0);
 	GetParam((int)Parameters::Osc1ToPitch)->InitDouble("Oscillator 1 to pitch", 0.0, -1.0, 1.0, .01);
+	GetParam((int)Parameters::Osc1ToVolume)->InitDouble("Oscillator 1 to volume", 0.0, 0.0, 1.0, .01);
 	GetParam((int)Parameters::Osc2Waveform)->InitEnum("Oscillator 2 waveform", (int)Waveforms::Sine, (int)Waveforms::numWaveforms);
 	GetParam((int)Parameters::Osc2Frequency)->InitDouble("Oscillator 2 frequency", 1.0, .01, 10.0, .01, "", "", 2.0);
 	GetParam((int)Parameters::Osc2ToPitch)->InitDouble("Oscillator 2 to pitch", 0.0, -1.0, 1.0, .01);
+	GetParam((int)Parameters::Osc2ToVolume)->InitDouble("Oscillator 2 to volume", 0.0, 0.0, 1.0, .01);
 	GetParam((int)Parameters::Osc3Waveform)->InitEnum("Oscillator 3 waveform", (int)Waveforms::Sine, (int)Waveforms::numWaveforms);
 	GetParam((int)Parameters::Osc3Frequency)->InitDouble("Oscillator 3 frequency", 1.0, .01, 10.0, .01, "", "", 2.0);
 	GetParam((int)Parameters::Osc3ToPitch)->InitDouble("Oscillator 3 to pitch", 0.0, -1.0, 1.0, .01);
+	GetParam((int)Parameters::Osc3ToVolume)->InitDouble("Oscillator 4 to volume", 0.0, 0.0, 1.0, .01);
 	GetParam((int)Parameters::Osc4Waveform)->InitEnum("Oscillator 4 waveform", (int)Waveforms::Sine, (int)Waveforms::numWaveforms);
 	GetParam((int)Parameters::Osc4Frequency)->InitDouble("Oscillator 4 frequency", 1.0, .01, 10.0, .01, "", "", 2.0);
 	GetParam((int)Parameters::Osc4ToPitch)->InitDouble("Oscillator 4 to pitch", 0.0, -1.0, 1.0, .01);
+	GetParam((int)Parameters::Osc4ToVolume)->InitDouble("Oscillator 4 to volume", 0.0, 0.0, 1.0, .01);
 }
 
 Flutterbird::Flutterbird(IPlugInstanceInfo instanceInfo)
@@ -47,14 +51,18 @@ void Flutterbird::UpdateOscillators()
 	auto osc2ToPitch = GetParam((int)Parameters::Osc2ToPitch)->Value();
 	auto osc3ToPitch = GetParam((int)Parameters::Osc3ToPitch)->Value();
 	auto osc4ToPitch = GetParam((int)Parameters::Osc4ToPitch)->Value();
+	auto osc1ToVolume = GetParam((int)Parameters::Osc1ToVolume)->Value();
+	auto osc2ToVolume = GetParam((int)Parameters::Osc2ToVolume)->Value();
+	auto osc3ToVolume = GetParam((int)Parameters::Osc3ToVolume)->Value();
+	auto osc4ToVolume = GetParam((int)Parameters::Osc4ToVolume)->Value();
 
-	if (osc1ToPitch != 0.0)
+	if (osc1ToPitch != 0.0 || osc1ToVolume != 0.0)
 		osc1Value = osc1.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc1Waveform)->Value(), GetParam((int)Parameters::Osc1Frequency)->Value());
-	if (osc2ToPitch != 0.0)
+	if (osc2ToPitch != 0.0 || osc2ToVolume != 0.0)
 		osc2Value = osc2.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc2Waveform)->Value(), GetParam((int)Parameters::Osc2Frequency)->Value());
-	if (osc3ToPitch != 0.0)
+	if (osc3ToPitch != 0.0 || osc3ToVolume != 0.0)
 		osc3Value = osc3.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc3Waveform)->Value(), GetParam((int)Parameters::Osc3Frequency)->Value());
-	if (osc4ToPitch != 0.0)
+	if (osc4ToPitch != 0.0 || osc4ToVolume != 0.0)
 		osc4Value = osc4.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc4Waveform)->Value(), GetParam((int)Parameters::Osc4Frequency)->Value());
 }
 
@@ -113,6 +121,18 @@ double Flutterbird::GetReadPosition()
 	return writePosition - readPosition * GetSampleRate();
 }
 
+double Flutterbird::GetVolume()
+{
+	double target = 1.0;
+	target -= GetParam((int)Parameters::Osc1ToVolume)->Value() * osc1Value;
+	target -= GetParam((int)Parameters::Osc2ToVolume)->Value() * osc2Value;
+	target -= GetParam((int)Parameters::Osc3ToVolume)->Value() * osc3Value;
+	target -= GetParam((int)Parameters::Osc4ToVolume)->Value() * osc4Value;
+	target = target < 0.0 ? 0.0 : target;
+	volume += (target - volume) * 100.0 * dt;
+	return volume;
+}
+
 double Flutterbird::GetSample(std::vector<double> &buffer, double position)
 {
 	int p0 = wrap(floor(position) - 1, 0, std::size(buffer) - 1);
@@ -139,8 +159,11 @@ void Flutterbird::ProcessDoubleReplacing(double** inputs, double** outputs, int 
 		bufferR[writePosition] = inputs[1][s];
 		
 		auto readPosition = GetReadPosition();
-		outputs[0][s] = GetSample(bufferL, readPosition);
-		outputs[1][s] = GetSample(bufferR, readPosition);
+		auto volume = GetVolume();
+		auto outL = GetSample(bufferL, readPosition) * volume;
+		auto outR = GetSample(bufferR, readPosition) * volume;
+		outputs[0][s] = outL;
+		outputs[1][s] = outR;
 
 		writePosition++;
 		if (writePosition == std::size(bufferL))
