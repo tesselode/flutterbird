@@ -8,19 +8,19 @@ void Flutterbird::InitParmeters()
 	GetParam((int)Parameters::Osc1Waveform)->InitEnum("Oscillator 1 waveform", (int)Waveforms::Sine, (int)Waveforms::numWaveforms);
 	GetParam((int)Parameters::Osc1Frequency)->InitDouble("Oscillator 1 frequency", 1.0, .01, 10.0, .01, "", "", 2.0);
 	GetParam((int)Parameters::Osc1ToPitch)->InitDouble("Oscillator 1 to pitch", 0.0, -1.0, 1.0, .01);
-	GetParam((int)Parameters::Osc1ToVolume)->InitDouble("Oscillator 1 to volume", 0.0, 0.0, 1.0, .01);
+	GetParam((int)Parameters::Osc1ToVolume)->InitDouble("Oscillator 1 to volume", 0.0, -1.0, 1.0, .01);
 	GetParam((int)Parameters::Osc2Waveform)->InitEnum("Oscillator 2 waveform", (int)Waveforms::Sine, (int)Waveforms::numWaveforms);
 	GetParam((int)Parameters::Osc2Frequency)->InitDouble("Oscillator 2 frequency", 1.0, .01, 10.0, .01, "", "", 2.0);
 	GetParam((int)Parameters::Osc2ToPitch)->InitDouble("Oscillator 2 to pitch", 0.0, -1.0, 1.0, .01);
-	GetParam((int)Parameters::Osc2ToVolume)->InitDouble("Oscillator 2 to volume", 0.0, 0.0, 1.0, .01);
+	GetParam((int)Parameters::Osc2ToVolume)->InitDouble("Oscillator 2 to volume", 0.0, -1.0, 1.0, .01);
 	GetParam((int)Parameters::Osc3Waveform)->InitEnum("Oscillator 3 waveform", (int)Waveforms::Sine, (int)Waveforms::numWaveforms);
 	GetParam((int)Parameters::Osc3Frequency)->InitDouble("Oscillator 3 frequency", 1.0, .01, 10.0, .01, "", "", 2.0);
 	GetParam((int)Parameters::Osc3ToPitch)->InitDouble("Oscillator 3 to pitch", 0.0, -1.0, 1.0, .01);
-	GetParam((int)Parameters::Osc3ToVolume)->InitDouble("Oscillator 4 to volume", 0.0, 0.0, 1.0, .01);
+	GetParam((int)Parameters::Osc3ToVolume)->InitDouble("Oscillator 4 to volume", 0.0, -1.0, 1.0, .01);
 	GetParam((int)Parameters::Osc4Waveform)->InitEnum("Oscillator 4 waveform", (int)Waveforms::Sine, (int)Waveforms::numWaveforms);
 	GetParam((int)Parameters::Osc4Frequency)->InitDouble("Oscillator 4 frequency", 1.0, .01, 10.0, .01, "", "", 2.0);
 	GetParam((int)Parameters::Osc4ToPitch)->InitDouble("Oscillator 4 to pitch", 0.0, -1.0, 1.0, .01);
-	GetParam((int)Parameters::Osc4ToVolume)->InitDouble("Oscillator 4 to volume", 0.0, 0.0, 1.0, .01);
+	GetParam((int)Parameters::Osc4ToVolume)->InitDouble("Oscillator 4 to volume", 0.0, -1.0, 1.0, .01);
 	GetParam((int)Parameters::GlobalToPitch)->InitDouble("Pitch modulation amount", .5, 0.0, 1.0, .01);
 	GetParam((int)Parameters::GlobalToVolume)->InitDouble("Volume modulation amount", .5, 0.0, 1.0, .01);
 }
@@ -125,11 +125,54 @@ double Flutterbird::GetReadPosition()
 
 double Flutterbird::GetVolume()
 {
+	auto osc1ToVolume = GetParam((int)Parameters::Osc1ToVolume)->Value() * GetParam((int)Parameters::GlobalToVolume)->Value();
+	auto osc2ToVolume = GetParam((int)Parameters::Osc2ToVolume)->Value() * GetParam((int)Parameters::GlobalToVolume)->Value();
+	auto osc3ToVolume = GetParam((int)Parameters::Osc3ToVolume)->Value() * GetParam((int)Parameters::GlobalToVolume)->Value();
+	auto osc4ToVolume = GetParam((int)Parameters::Osc4ToVolume)->Value() * GetParam((int)Parameters::GlobalToVolume)->Value();
+
 	double target = 1.0;
-	target -= GetParam((int)Parameters::Osc1ToVolume)->Value() * GetParam((int)Parameters::GlobalToVolume)->Value() * osc1Value;
-	target -= GetParam((int)Parameters::Osc2ToVolume)->Value() * GetParam((int)Parameters::GlobalToVolume)->Value() * osc2Value;
-	target -= GetParam((int)Parameters::Osc3ToVolume)->Value() * GetParam((int)Parameters::GlobalToVolume)->Value() * osc3Value;
-	target -= GetParam((int)Parameters::Osc4ToVolume)->Value() * GetParam((int)Parameters::GlobalToVolume)->Value() * osc4Value;
+
+	if (osc1ToVolume != 0.0)
+	{
+		auto oscValue = osc1Value;
+		if (osc1ToVolume < 0.0)
+		{
+			osc1ToVolume *= -1.0;
+			oscValue = 1.0 - oscValue;
+		}
+		target -= osc1ToVolume * oscValue;
+	}
+	if (osc2ToVolume != 0.0)
+	{
+		auto oscValue = osc2Value;
+		if (osc2ToVolume < 0.0)
+		{
+			osc2ToVolume *= -1.0;
+			oscValue = 1.0 - oscValue;
+		}	
+		target -= osc2ToVolume * oscValue;
+	}
+	if (osc3ToVolume != 0.0)
+	{
+		auto oscValue = osc3Value;
+		if (osc3ToVolume < 0.0)
+		{
+			osc3ToVolume *= -1.0;
+			oscValue = 1.0 - oscValue;
+		}
+		target -= osc3ToVolume * oscValue;
+	}
+	if (osc4ToVolume != 0.0)
+	{
+		auto oscValue = osc4Value;
+		if (osc4ToVolume < 0.0)
+		{
+			osc4ToVolume *= -1.0;
+			oscValue = 1.0 - oscValue;
+		}
+		target -= osc4ToVolume * oscValue;
+	}
+
 	target = target < 0.0 ? 0.0 : target;
 	volume += (target - volume) * 100.0 * dt;
 	return volume;
