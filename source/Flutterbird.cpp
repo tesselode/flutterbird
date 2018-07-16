@@ -8,6 +8,15 @@ void Flutterbird::InitParmeters()
 	GetParam((int)Parameters::Osc1Waveform)->InitEnum("Oscillator 1 waveform", (int)Waveforms::Sine, (int)Waveforms::numWaveforms);
 	GetParam((int)Parameters::Osc1Frequency)->InitDouble("Oscillator 1 frequency", 1.0, .01, 10.0, .01, "", "", 2.0);
 	GetParam((int)Parameters::Osc1ToPitch)->InitDouble("Oscillator 1 to pitch", 0.0, -1.0, 1.0, .01);
+	GetParam((int)Parameters::Osc2Waveform)->InitEnum("Oscillator 2 waveform", (int)Waveforms::Sine, (int)Waveforms::numWaveforms);
+	GetParam((int)Parameters::Osc2Frequency)->InitDouble("Oscillator 2 frequency", 1.0, .01, 10.0, .01, "", "", 2.0);
+	GetParam((int)Parameters::Osc2ToPitch)->InitDouble("Oscillator 2 to pitch", 0.0, -1.0, 1.0, .01);
+	GetParam((int)Parameters::Osc3Waveform)->InitEnum("Oscillator 3 waveform", (int)Waveforms::Sine, (int)Waveforms::numWaveforms);
+	GetParam((int)Parameters::Osc3Frequency)->InitDouble("Oscillator 3 frequency", 1.0, .01, 10.0, .01, "", "", 2.0);
+	GetParam((int)Parameters::Osc3ToPitch)->InitDouble("Oscillator 3 to pitch", 0.0, -1.0, 1.0, .01);
+	GetParam((int)Parameters::Osc4Waveform)->InitEnum("Oscillator 4 waveform", (int)Waveforms::Sine, (int)Waveforms::numWaveforms);
+	GetParam((int)Parameters::Osc4Frequency)->InitDouble("Oscillator 4 frequency", 1.0, .01, 10.0, .01, "", "", 2.0);
+	GetParam((int)Parameters::Osc4ToPitch)->InitDouble("Oscillator 4 to pitch", 0.0, -1.0, 1.0, .01);
 }
 
 Flutterbird::Flutterbird(IPlugInstanceInfo instanceInfo)
@@ -35,6 +44,10 @@ Flutterbird::~Flutterbird() {}
 double Flutterbird::GetReadPosition()
 {
 	auto osc1ToPitch = GetParam((int)Parameters::Osc1ToPitch)->Value();
+	auto osc2ToPitch = GetParam((int)Parameters::Osc2ToPitch)->Value();
+	auto osc3ToPitch = GetParam((int)Parameters::Osc3ToPitch)->Value();
+	auto osc4ToPitch = GetParam((int)Parameters::Osc4ToPitch)->Value();
+	auto totalToPitch = osc1ToPitch + osc2ToPitch + osc3ToPitch + osc4ToPitch;
 
 	auto target = 0.0;
 	if (osc1ToPitch != 0.0)
@@ -47,8 +60,38 @@ double Flutterbird::GetReadPosition()
 		}
 		target += osc1ToPitch * oscValue;
 	}
+	if (osc2ToPitch != 0.0)
+	{
+		auto oscValue = osc2.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc2Waveform)->Value(), GetParam((int)Parameters::Osc2Frequency)->Value());
+		if (osc2ToPitch < 0.0)
+		{
+			osc2ToPitch *= -1.0;
+			oscValue = 1.0 - oscValue;
+		}
+		target += osc2ToPitch * oscValue;
+	}
+	if (osc3ToPitch != 0.0)
+	{
+		auto oscValue = osc3.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc3Waveform)->Value(), GetParam((int)Parameters::Osc3Frequency)->Value());
+		if (osc3ToPitch < 0.0)
+		{
+			osc3ToPitch *= -1.0;
+			oscValue = 1.0 - oscValue;
+		}
+		target += osc3ToPitch * oscValue;
+	}
+	if (osc4ToPitch != 0.0)
+	{
+		auto oscValue = osc4.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc4Waveform)->Value(), GetParam((int)Parameters::Osc4Frequency)->Value());
+		if (osc4ToPitch < 0.0)
+		{
+			osc4ToPitch *= -1.0;
+			oscValue = 1.0 - oscValue;
+		}
+		target += osc4ToPitch * oscValue;
+	}
 
-	auto followSpeed = osc1ToPitch == 0.0 ? 10.0 : 1.0;
+	auto followSpeed = totalToPitch == 0.0 ? 10.0 : 1.0;
 	readPosition += (target - readPosition) * followSpeed * dt;
 	return writePosition - readPosition * GetSampleRate();
 }
