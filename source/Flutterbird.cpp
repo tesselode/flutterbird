@@ -41,6 +41,23 @@ Flutterbird::Flutterbird(IPlugInstanceInfo instanceInfo)
 
 Flutterbird::~Flutterbird() {}
 
+void Flutterbird::UpdateOscillators()
+{
+	auto osc1ToPitch = GetParam((int)Parameters::Osc1ToPitch)->Value();
+	auto osc2ToPitch = GetParam((int)Parameters::Osc2ToPitch)->Value();
+	auto osc3ToPitch = GetParam((int)Parameters::Osc3ToPitch)->Value();
+	auto osc4ToPitch = GetParam((int)Parameters::Osc4ToPitch)->Value();
+
+	if (osc1ToPitch != 0.0)
+		osc1Value = osc1.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc1Waveform)->Value(), GetParam((int)Parameters::Osc1Frequency)->Value());
+	if (osc2ToPitch != 0.0)
+		osc2Value = osc2.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc2Waveform)->Value(), GetParam((int)Parameters::Osc2Frequency)->Value());
+	if (osc3ToPitch != 0.0)
+		osc3Value = osc3.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc3Waveform)->Value(), GetParam((int)Parameters::Osc3Frequency)->Value());
+	if (osc4ToPitch != 0.0)
+		osc4Value = osc4.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc4Waveform)->Value(), GetParam((int)Parameters::Osc4Frequency)->Value());
+}
+
 double Flutterbird::GetReadPosition()
 {
 	auto osc1ToPitch = GetParam((int)Parameters::Osc1ToPitch)->Value();
@@ -52,7 +69,7 @@ double Flutterbird::GetReadPosition()
 	auto target = 0.0;
 	if (osc1ToPitch != 0.0)
 	{
-		auto oscValue = osc1.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc1Waveform)->Value(), GetParam((int)Parameters::Osc1Frequency)->Value());
+		auto oscValue = osc1Value;
 		if (osc1ToPitch < 0.0)
 		{
 			osc1ToPitch *= -1.0;
@@ -62,7 +79,7 @@ double Flutterbird::GetReadPosition()
 	}
 	if (osc2ToPitch != 0.0)
 	{
-		auto oscValue = osc2.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc2Waveform)->Value(), GetParam((int)Parameters::Osc2Frequency)->Value());
+		auto oscValue = osc2Value;
 		if (osc2ToPitch < 0.0)
 		{
 			osc2ToPitch *= -1.0;
@@ -72,7 +89,7 @@ double Flutterbird::GetReadPosition()
 	}
 	if (osc3ToPitch != 0.0)
 	{
-		auto oscValue = osc3.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc3Waveform)->Value(), GetParam((int)Parameters::Osc3Frequency)->Value());
+		auto oscValue = osc3Value;
 		if (osc3ToPitch < 0.0)
 		{
 			osc3ToPitch *= -1.0;
@@ -82,7 +99,7 @@ double Flutterbird::GetReadPosition()
 	}
 	if (osc4ToPitch != 0.0)
 	{
-		auto oscValue = osc4.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc4Waveform)->Value(), GetParam((int)Parameters::Osc4Frequency)->Value());
+		auto oscValue = osc4Value;
 		if (osc4ToPitch < 0.0)
 		{
 			osc4ToPitch *= -1.0;
@@ -116,6 +133,8 @@ void Flutterbird::ProcessDoubleReplacing(double** inputs, double** outputs, int 
 {
 	for (int s = 0; s < nFrames; s++)
 	{
+		UpdateOscillators();
+
 		bufferL[writePosition] = inputs[0][s];
 		bufferR[writePosition] = inputs[1][s];
 		

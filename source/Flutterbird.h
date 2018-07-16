@@ -24,6 +24,7 @@ public:
 private:
 	void InitParmeters();
 	void InitBuffer();
+	void UpdateOscillators();
 	double GetReadPosition();
 	double GetSample(std::vector<double> &buffer, double position);
 
@@ -34,6 +35,10 @@ private:
 	Oscillator osc2;
 	Oscillator osc3;
 	Oscillator osc4;
+	double osc1Value = 0.0;
+	double osc2Value = 0.0;
+	double osc3Value = 0.0;
+	double osc4Value = 0.0;
 	int writePosition = 0;
 	double readPosition = 0.0;
 
