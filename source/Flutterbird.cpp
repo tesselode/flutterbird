@@ -209,8 +209,8 @@ void Flutterbird::ProcessDoubleReplacing(double** inputs, double** outputs, int 
 		auto outL = GetSample(bufferL, readPosition) * volume;
 		auto outR = GetSample(bufferR, readPosition) * volume;
 		auto mix = GetParam((int)Parameters::Mix)->Value();
-		outputs[0][s] = inputs[0][s] * (1.0 - mix) + outL * mix;
-		outputs[1][s] = inputs[1][s] * (1.0 - mix) + outR * mix;
+		outputs[0][s] = inputs[0][s] * sqrt(1.0 - mix) + outL * sqrt(mix);
+		outputs[1][s] = inputs[1][s] * sqrt(1.0 - mix) + outR * sqrt(mix);
 
 		writePosition++;
 		if (writePosition == std::size(bufferL))
