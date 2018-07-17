@@ -279,6 +279,7 @@
     <ClInclude Include="app_wrapper\app_main.h" />
     <ClInclude Include="app_wrapper\app_resource.h" />
     <ClInclude Include="Flutterbird.h" />
+    <ClInclude Include="Knob.h" />
     <ClInclude Include="Oscillator.h" />
     <ClInclude Include="Parameters.h" />
     <ClInclude Include="resource.h" />
@@ -294,6 +295,7 @@
     <ClCompile Include="app_wrapper\app_dialog.cpp" />
     <ClCompile Include="app_wrapper\app_main.cpp" />
     <ClCompile Include="Flutterbird.cpp" />
+    <ClCompile Include="Knob.cpp" />
     <ClCompile Include="Oscillator.cpp" />
   </ItemGroup>
   <ItemGroup>

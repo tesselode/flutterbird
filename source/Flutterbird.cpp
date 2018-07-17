@@ -26,22 +26,49 @@ void Flutterbird::InitParmeters()
 	GetParam((int)Parameters::Mix)->InitDouble("Dry/wet mix", 1.0, 0.0, 1.0, .01);
 }
 
+void Flutterbird::InitGraphics()
+{
+	IGraphics* pGraphics = MakeGraphics(this, GUI_WIDTH, GUI_HEIGHT, 120);
+	pGraphics->AttachBackground(BG_ID, BG_FN);
+
+	/*debugText = new ITextControl(this, IRECT(0, 0, 300, 300), new IText(24), "Test");
+	pGraphics->AttachControl(debugText);*/
+
+	IBitmap knobLeft = pGraphics->LoadIBitmap(KNOBLEFT_ID, KNOBLEFT_FN, 53);
+	IBitmap knobMiddle = pGraphics->LoadIBitmap(KNOBMIDDLE_ID, KNOBMIDDLE_FN, 53);
+	IBitmap knobRight = pGraphics->LoadIBitmap(KNOBRIGHT_ID, KNOBRIGHT_FN, 53);
+	IBitmap waveformSwitch = pGraphics->LoadIBitmap(WAVEFORMSWITCH_ID, WAVEFORMSWITCH_FN, (int)Waveforms::numWaveforms);
+
+	pGraphics->AttachControl(new ISwitchControl(this, 60, 117.5, (int)Parameters::Osc1Waveform, &waveformSwitch));
+	pGraphics->AttachControl(new Knob(this, 132.5, 110, (int)Parameters::Osc1Frequency, &knobLeft));
+	pGraphics->AttachControl(new Knob(this, 212.5, 110, (int)Parameters::Osc1ToPitch, &knobMiddle));
+	pGraphics->AttachControl(new Knob(this, 292.5, 110, (int)Parameters::Osc1ToVolume, &knobMiddle));
+	pGraphics->AttachControl(new ISwitchControl(this, 60, 197.5, (int)Parameters::Osc2Waveform, &waveformSwitch));
+	pGraphics->AttachControl(new Knob(this, 132.5, 190, (int)Parameters::Osc2Frequency, &knobLeft));
+	pGraphics->AttachControl(new Knob(this, 212.5, 190, (int)Parameters::Osc2ToPitch, &knobMiddle));
+	pGraphics->AttachControl(new Knob(this, 292.5, 190, (int)Parameters::Osc2ToVolume, &knobMiddle));
+	pGraphics->AttachControl(new ISwitchControl(this, 60, 277.5, (int)Parameters::Osc3Waveform, &waveformSwitch));
+	pGraphics->AttachControl(new Knob(this, 132.5, 270, (int)Parameters::Osc3Frequency, &knobLeft));
+	pGraphics->AttachControl(new Knob(this, 212.5, 270, (int)Parameters::Osc3ToPitch, &knobMiddle));
+	pGraphics->AttachControl(new Knob(this, 292.5, 270, (int)Parameters::Osc3ToVolume, &knobMiddle));
+	pGraphics->AttachControl(new ISwitchControl(this, 60, 357.5, (int)Parameters::Osc4Waveform, &waveformSwitch));
+	pGraphics->AttachControl(new Knob(this, 132.5, 350, (int)Parameters::Osc4Frequency, &knobLeft));
+	pGraphics->AttachControl(new Knob(this, 212.5, 350, (int)Parameters::Osc4ToPitch, &knobMiddle));
+	pGraphics->AttachControl(new Knob(this, 292.5, 350, (int)Parameters::Osc4ToVolume, &knobMiddle));
+	pGraphics->AttachControl(new Knob(this, 212.5, 430, (int)Parameters::GlobalToPitch, &knobMiddle));
+	pGraphics->AttachControl(new Knob(this, 292.5, 430, (int)Parameters::GlobalToVolume, &knobMiddle));
+	pGraphics->AttachControl(new Knob(this, 292.5, -7.5, (int)Parameters::Mix, &knobLeft));
+
+	AttachGraphics(pGraphics);
+}
+
 Flutterbird::Flutterbird(IPlugInstanceInfo instanceInfo)
   :	IPLUG_CTOR((int)Parameters::numParameters, 128, instanceInfo)
 {
 	TRACE;
 
 	InitParmeters();
-
-	IGraphics* pGraphics = MakeGraphics(this, GUI_WIDTH, GUI_HEIGHT, 120);
-	pGraphics->AttachPanelBackground(&COLOR_GRAY);
-
-	debugText = new ITextControl(this, IRECT(0, 0, 300, 300), new IText(24), "Test");
-	pGraphics->AttachControl(debugText);
-
-	IBitmap knob = pGraphics->LoadIBitmap(KNOB_ID, KNOB_FN, 60);
-
-	AttachGraphics(pGraphics);
+	InitGraphics();
 
 	MakeDefaultPreset((char *) "-", 128);
 }

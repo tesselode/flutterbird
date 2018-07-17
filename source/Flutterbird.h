@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include "IPlug_include_in_plug_hdr.h"
+#include "Knob.h"
 #include "Oscillator.h"
 #include "Parameters.h"
 #include <string>
@@ -23,6 +24,7 @@ public:
 
 private:
 	void InitParmeters();
+	void InitGraphics();
 	void InitBuffer();
 	void UpdateOscillators();
 	double GetReadPosition();

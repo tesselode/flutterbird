@@ -6,6 +6,7 @@
       <Filter>vst2</Filter>
     </ClCompile>
     <ClCompile Include="Oscillator.cpp" />
+    <ClCompile Include="Knob.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Flutterbird.h" />
@@ -16,6 +17,7 @@
     <ClInclude Include="Parameters.h" />
     <ClInclude Include="Util.h" />
     <ClInclude Include="Oscillator.h" />
+    <ClInclude Include="Knob.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Flutterbird.rc" />
