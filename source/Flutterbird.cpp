@@ -48,7 +48,7 @@ void Flutterbird::InitParmeters()
 
 void Flutterbird::InitGraphics()
 {
-	IGraphics* pGraphics = MakeGraphics(this, GUI_WIDTH, GUI_HEIGHT, 120);
+	pGraphics = MakeGraphics(this, GUI_WIDTH, GUI_HEIGHT, 120);
 	pGraphics->AttachBackground(BG_ID, BG_FN);
 
 	/*debugText = new ITextControl(this, IRECT(0, 0, 300, 300), new IText(24), "Test");
@@ -290,4 +290,26 @@ void Flutterbird::Reset()
 void Flutterbird::OnParamChange(int paramIdx)
 {
 	IMutexLock lock(this);
+
+	switch (paramIdx)
+	{
+	case (int)Parameters::GlobalToPitch:
+	{
+		auto pitchModulationEnabled = GetParam(paramIdx)->Value() != 0.0;
+		pGraphics->GetControl(3)->GrayOut(!pitchModulationEnabled);
+		pGraphics->GetControl(7)->GrayOut(!pitchModulationEnabled);
+		pGraphics->GetControl(11)->GrayOut(!pitchModulationEnabled);
+		pGraphics->GetControl(15)->GrayOut(!pitchModulationEnabled);
+		break;
+	}
+	case (int)Parameters::GlobalToVolume:
+	{
+		auto volumeModulationEnabled = GetParam(paramIdx)->Value() != 0.0;
+		pGraphics->GetControl(4)->GrayOut(!volumeModulationEnabled);
+		pGraphics->GetControl(8)->GrayOut(!volumeModulationEnabled);
+		pGraphics->GetControl(12)->GrayOut(!volumeModulationEnabled);
+		pGraphics->GetControl(16)->GrayOut(!volumeModulationEnabled);
+		break;
+	}
+	}
 }

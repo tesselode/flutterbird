@@ -46,7 +46,8 @@ private:
 	double readPosition = 0.0;
 	double volume = 1.0;
 
-	ITextControl* debugText;
+	IGraphics* pGraphics;
+	//ITextControl* debugText;
 };
 
 #endif
