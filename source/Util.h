@@ -14,12 +14,18 @@ inline int wrap(int kX, int const kLowerBound, int const kUpperBound)
 // http://musicdsp.org/archive.php?classid=5#93
 inline float interpolate(float x, float y0, float y1, float y2, float y3)
 {
-	// 4-point, 3rd-order Hermite (x-form) 
+	/*
+	interpolation code from Polynomial Interpolators for
+	High-Quality Resampling of Oversampled Audio by Olli Niemitalo
+	http://yehar.com/blog/wp-content/uploads/2009/08/deip.pdf
+	*/
+
+	// 4-point, 2nd-order Watte tri-linear (x-form)
+	float ym1py2 = y0 + y3;
 	float c0 = y1;
-	float c1 = 0.5f * (y2 - y0);
-	float c2 = y0 - 2.5f * y1 + 2.f * y2 - 0.5f * y3;
-	float c3 = 1.5f * (y1 - y2) + 0.5f * (y3 - y0);
-	return ((c3 * x + c2) * x + c1) * x + c0;
+	float c1 = (3 / 2.0) * y2 - (1 / 2.0) * (y1 + ym1py2);
+	float c2 = 1 / 2.0 * (ym1py2 - y1 - y2);
+	return (c2*x + c1)*x + c0;
 }
 
 // random numbers
