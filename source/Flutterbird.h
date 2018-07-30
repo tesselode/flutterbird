@@ -12,6 +12,16 @@
 
 const int bufferLength = 10;
 
+enum class InterpolationModes
+{
+	Nearest,
+	Linear,
+	Hermite,
+	Optimal2X,
+	Optimal32X,
+	numInterpolationModes
+};
+
 class Flutterbird : public IPlug
 {
 public:

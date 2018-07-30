@@ -62,6 +62,7 @@ instrument determined by PLUG _IS _INST
 #define KNOBRIGHT_ID 103
 #define WAVEFORMSWITCH_ID 104
 #define BG_ID 105
+#define INTERPOLATIONMODESWITCH_ID 106
 
 // Image resource locations for this plug.
 #define KNOBLEFT_FN "resources/img/knob left.png"
@@ -69,10 +70,11 @@ instrument determined by PLUG _IS _INST
 #define KNOBRIGHT_FN "resources/img/knob right.png"
 #define WAVEFORMSWITCH_FN "resources/img/waveforms.png"
 #define BG_FN "resources/img/interface.png"
+#define INTERPOLATIONMODESWITCH_FN "resources/img/interpolation modes.png"
 
 // GUI default dimensions
 #define GUI_WIDTH 400
-#define GUI_HEIGHT 540
+#define GUI_HEIGHT 600
 
 // on MSVC, you must define SA_API in the resource editor preprocessor macros as well as the c++ ones
 #if defined(SA_API)

@@ -21,5 +21,6 @@ enum class Parameters
 	GlobalToPitch,
 	GlobalToVolume,
 	Mix,
+	InterpolationMode,
 	numParameters,
 };

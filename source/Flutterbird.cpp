@@ -44,6 +44,12 @@ void Flutterbird::InitParmeters()
 	GetParam((int)Parameters::GlobalToPitch)->InitDouble("Pitch modulation amount", .1, 0.0, 1.0, .01, "", "", 2.0);
 	GetParam((int)Parameters::GlobalToVolume)->InitDouble("Volume modulation amount", .5, 0.0, 1.0, .01);
 	GetParam((int)Parameters::Mix)->InitDouble("Dry/wet mix", 1.0, 0.0, 1.0, .01);
+	GetParam((int)Parameters::InterpolationMode)->InitEnum("Interpolation mode", (int)InterpolationModes::Hermite, (int)InterpolationModes::numInterpolationModes);
+	GetParam((int)Parameters::InterpolationMode)->SetDisplayText((int)InterpolationModes::Nearest, "Nearest neighbor");
+	GetParam((int)Parameters::InterpolationMode)->SetDisplayText((int)InterpolationModes::Linear, "Linear");
+	GetParam((int)Parameters::InterpolationMode)->SetDisplayText((int)InterpolationModes::Hermite, "Hermite");
+	GetParam((int)Parameters::InterpolationMode)->SetDisplayText((int)InterpolationModes::Optimal2X, "Optimal 2X");
+	GetParam((int)Parameters::InterpolationMode)->SetDisplayText((int)InterpolationModes::Optimal32X, "Optimal 32X");
 }
 
 void Flutterbird::InitGraphics()
@@ -58,26 +64,28 @@ void Flutterbird::InitGraphics()
 	IBitmap knobMiddle = pGraphics->LoadIBitmap(KNOBMIDDLE_ID, KNOBMIDDLE_FN, 53);
 	IBitmap knobRight = pGraphics->LoadIBitmap(KNOBRIGHT_ID, KNOBRIGHT_FN, 53);
 	IBitmap waveformSwitch = pGraphics->LoadIBitmap(WAVEFORMSWITCH_ID, WAVEFORMSWITCH_FN, (int)Waveforms::numWaveforms);
+	IBitmap interpolationModeSwitch = pGraphics->LoadIBitmap(INTERPOLATIONMODESWITCH_ID, INTERPOLATIONMODESWITCH_FN, (int)InterpolationModes::numInterpolationModes);
 
-	pGraphics->AttachControl(new ISwitchPopUpControl(this, 60, 117.5, (int)Parameters::Osc1Waveform, &waveformSwitch));
-	pGraphics->AttachControl(new Knob(this, 132.5, 110, (int)Parameters::Osc1Frequency, &knobLeft));
-	pGraphics->AttachControl(new Knob(this, 212.5, 110, (int)Parameters::Osc1ToPitch, &knobMiddle));
-	pGraphics->AttachControl(new Knob(this, 292.5, 110, (int)Parameters::Osc1ToVolume, &knobMiddle));
-	pGraphics->AttachControl(new ISwitchPopUpControl(this, 60, 197.5, (int)Parameters::Osc2Waveform, &waveformSwitch));
-	pGraphics->AttachControl(new Knob(this, 132.5, 190, (int)Parameters::Osc2Frequency, &knobLeft));
-	pGraphics->AttachControl(new Knob(this, 212.5, 190, (int)Parameters::Osc2ToPitch, &knobMiddle));
-	pGraphics->AttachControl(new Knob(this, 292.5, 190, (int)Parameters::Osc2ToVolume, &knobMiddle));
-	pGraphics->AttachControl(new ISwitchPopUpControl(this, 60, 277.5, (int)Parameters::Osc3Waveform, &waveformSwitch));
-	pGraphics->AttachControl(new Knob(this, 132.5, 270, (int)Parameters::Osc3Frequency, &knobLeft));
-	pGraphics->AttachControl(new Knob(this, 212.5, 270, (int)Parameters::Osc3ToPitch, &knobMiddle));
-	pGraphics->AttachControl(new Knob(this, 292.5, 270, (int)Parameters::Osc3ToVolume, &knobMiddle));
-	pGraphics->AttachControl(new ISwitchPopUpControl(this, 60, 357.5, (int)Parameters::Osc4Waveform, &waveformSwitch));
-	pGraphics->AttachControl(new Knob(this, 132.5, 350, (int)Parameters::Osc4Frequency, &knobLeft));
-	pGraphics->AttachControl(new Knob(this, 212.5, 350, (int)Parameters::Osc4ToPitch, &knobMiddle));
-	pGraphics->AttachControl(new Knob(this, 292.5, 350, (int)Parameters::Osc4ToVolume, &knobMiddle));
-	pGraphics->AttachControl(new Knob(this, 212.5, 430, (int)Parameters::GlobalToPitch, &knobLeft));
-	pGraphics->AttachControl(new Knob(this, 292.5, 430, (int)Parameters::GlobalToVolume, &knobLeft));
+	pGraphics->AttachControl(new ISwitchPopUpControl(this, 60, 180, (int)Parameters::Osc1Waveform, &waveformSwitch));
+	pGraphics->AttachControl(new Knob(this, 132.5, 172.5, (int)Parameters::Osc1Frequency, &knobLeft));
+	pGraphics->AttachControl(new Knob(this, 212.5, 172.5, (int)Parameters::Osc1ToPitch, &knobMiddle));
+	pGraphics->AttachControl(new Knob(this, 292.5, 172.5, (int)Parameters::Osc1ToVolume, &knobMiddle));
+	pGraphics->AttachControl(new ISwitchPopUpControl(this, 60, 260, (int)Parameters::Osc2Waveform, &waveformSwitch));
+	pGraphics->AttachControl(new Knob(this, 132.5, 252.5, (int)Parameters::Osc2Frequency, &knobLeft));
+	pGraphics->AttachControl(new Knob(this, 212.5, 252.5, (int)Parameters::Osc2ToPitch, &knobMiddle));
+	pGraphics->AttachControl(new Knob(this, 292.5, 252.5, (int)Parameters::Osc2ToVolume, &knobMiddle));
+	pGraphics->AttachControl(new ISwitchPopUpControl(this, 60, 340, (int)Parameters::Osc3Waveform, &waveformSwitch));
+	pGraphics->AttachControl(new Knob(this, 132.5, 332.5, (int)Parameters::Osc3Frequency, &knobLeft));
+	pGraphics->AttachControl(new Knob(this, 212.5, 332.5, (int)Parameters::Osc3ToPitch, &knobMiddle));
+	pGraphics->AttachControl(new Knob(this, 292.5, 332.5, (int)Parameters::Osc3ToVolume, &knobMiddle));
+	pGraphics->AttachControl(new ISwitchPopUpControl(this, 60, 420, (int)Parameters::Osc4Waveform, &waveformSwitch));
+	pGraphics->AttachControl(new Knob(this, 132.5, 412.5, (int)Parameters::Osc4Frequency, &knobLeft));
+	pGraphics->AttachControl(new Knob(this, 212.5, 412.5, (int)Parameters::Osc4ToPitch, &knobMiddle));
+	pGraphics->AttachControl(new Knob(this, 292.5, 412.5, (int)Parameters::Osc4ToVolume, &knobMiddle));
+	pGraphics->AttachControl(new Knob(this, 212.5, 492.5, (int)Parameters::GlobalToPitch, &knobLeft));
+	pGraphics->AttachControl(new Knob(this, 292.5, 492.5, (int)Parameters::GlobalToVolume, &knobLeft));
 	pGraphics->AttachControl(new Knob(this, 292.5, -7.5, (int)Parameters::Mix, &knobLeft));
+	pGraphics->AttachControl(new ISwitchPopUpControl(this, 235, 85, (int)Parameters::InterpolationMode, &interpolationModeSwitch));
 
 	AttachGraphics(pGraphics);
 }
