@@ -11,6 +11,7 @@
 #include <vector>
 
 const int bufferLength = 10;
+const int safetySamples = 4;
 
 enum class InterpolationModes
 {

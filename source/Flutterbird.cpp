@@ -176,7 +176,7 @@ double Flutterbird::GetReadPosition()
 
 	auto followSpeed = totalToPitch == 0.0 ? 10.0 : 1.0;
 	readPosition += (target - readPosition) * followSpeed * dt;
-	return writePosition - readPosition * GetSampleRate();
+	return writePosition - readPosition * GetSampleRate() - safetySamples;
 }
 
 double Flutterbird::GetVolume()
@@ -236,18 +236,22 @@ double Flutterbird::GetVolume()
 
 double Flutterbird::GetSample(std::vector<double> &buffer, double position)
 {
-	int p0 = wrap(floor(position) - 1, 0, std::size(buffer) - 1);
-	int p1 = wrap(floor(position), 0, std::size(buffer) - 1);
-	int p2 = wrap(ceil(position), 0, std::size(buffer) - 1);
-	int p3 = wrap(ceil(position) + 1, 0, std::size(buffer) - 1);
+	int p0 = wrap(floor(position) - 2, 0, std::size(buffer) - 1);
+	int p1 = wrap(floor(position) - 1, 0, std::size(buffer) - 1);
+	int p2 = wrap(floor(position), 0, std::size(buffer) - 1);
+	int p3 = wrap(ceil(position), 0, std::size(buffer) - 1);
+	int p4 = wrap(ceil(position) + 1, 0, std::size(buffer) - 1);
+	int p5 = wrap(ceil(position) + 2, 0, std::size(buffer) - 1);
 
 	auto x = position - floor(position);
 	auto y0 = buffer[p0];
 	auto y1 = buffer[p1];
 	auto y2 = buffer[p2];
 	auto y3 = buffer[p3];
+	auto y4 = buffer[p4];
+	auto y5 = buffer[p5];
 
-	return interpolate(x, y0, y1, y2, y3);
+	return interpolate(x, y0, y1, y2, y3, y4, y5);
 }
 
 void Flutterbird::ProcessDoubleReplacing(double** inputs, double** outputs, int nFrames)
