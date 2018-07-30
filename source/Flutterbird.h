@@ -13,16 +13,6 @@
 const int bufferLength = 10;
 const int safetySamples = 4;
 
-enum class InterpolationModes
-{
-	Nearest,
-	Linear,
-	Hermite,
-	Optimal2X,
-	Optimal32X,
-	numInterpolationModes
-};
-
 class Flutterbird : public IPlug
 {
 public:

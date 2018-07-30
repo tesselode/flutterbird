@@ -251,7 +251,8 @@ double Flutterbird::GetSample(std::vector<double> &buffer, double position)
 	auto y4 = buffer[p4];
 	auto y5 = buffer[p5];
 
-	return interpolate(x, y0, y1, y2, y3, y4, y5);
+	auto mode = (InterpolationModes)(int)GetParam((int)Parameters::InterpolationMode)->Value();
+	return interpolate(mode, x, y0, y1, y2, y3, y4, y5);
 }
 
 void Flutterbird::ProcessDoubleReplacing(double** inputs, double** outputs, int nFrames)
