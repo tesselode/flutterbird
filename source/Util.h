@@ -15,9 +15,8 @@ enum class InterpolationModes
 {
 	Nearest,
 	Linear,
-	Hermite,
-	Optimal2X,
-	Optimal32X,
+	Watte,
+	Optimal,
 	numInterpolationModes
 };
 
@@ -36,16 +35,16 @@ inline float interpolate(InterpolationModes mode, float x, float y0, float y1, f
 		return y2;
 	case InterpolationModes::Linear:
 		return y2 + (y3 - y2) * x;
-	case InterpolationModes::Hermite:
+	case InterpolationModes::Watte:
 	{
-		// 4-point, 3rd-order Hermite (x-form)
+		// 4-point, 2nd-order Watte tri-linear (x-form)
+		float ym1py2 = y1 + y4;
 		float c0 = y2;
-		float c1 = 0.5f * (y3 - y1);
-		float c2 = y1 - 2.5f * y2 + 2.f * y3 - 0.5f * y4;
-		float c3 = 1.5f * (y2 - y3) + 0.5f * (y4 - y1);
-		return ((c3 * x + c2) * x + c1) * x + c0;
+		float c1 = (3/2.0) * y3 - (1/2.0) * (y2 + ym1py2);
+		float c2 = 1/2.0 * (ym1py2 - y2 - y3);
+		return (c2*x + c1)*x + c0;
 	}
-	case InterpolationModes::Optimal2X:
+	case InterpolationModes::Optimal:
 	{
 		// Optimal 2x (6-point, 5th-order) (z-form)
 		float z = x - 1 / 2.0;
@@ -64,27 +63,6 @@ inline float interpolate(InterpolationModes mode, float x, float y0, float y1, f
 			+ even3 * 0.01866750929921070;
 		float c5 = odd1 * 0.04317950185225609 + odd2 * -0.01802814255926417
 			+ odd3 * 0.00152170021558204;
-		return ((((c5*z + c4)*z + c3)*z + c2)*z + c1)*z + c0;
-	}
-	case InterpolationModes::Optimal32X:
-	{
-		// Optimal 32x (6-point, 5th-order) (z-form)
-		float z = x - 1 / 2.0;
-		float even1 = y3 + y2, odd1 = y3 - y2;
-		float even2 = y4 + y1, odd2 = y4 - y1;
-		float even3 = y5 + y0, odd3 = y5 - y0;
-		float c0 = even1 * 0.42685983409379380 + even2 * 0.07238123511170030
-			+ even3 * 0.00075893079450573;
-		float c1 = odd1 * 0.35831772348893259 + odd2 * 0.20451644554758297
-			+ odd3 * 0.00562658797241955;
-		float c2 = even1 * -0.217009177221292431 + even2 * 0.20051376594086157
-			+ even3 * 0.01649541128040211;
-		float c3 = odd1 * -0.25112715343740988 + odd2 * 0.04223025992200458
-			+ odd3 * 0.02488727472995134;
-		float c4 = even1 * 0.04166946673533273 + even2 * -0.06250420114356986
-			+ even3 * 0.02083473440841799;
-		float c5 = odd1 * 0.08349799235675044 + odd2 * -0.04174912841630993
-			+ odd3 * 0.00834987866042734;
 		return ((((c5*z + c4)*z + c3)*z + c2)*z + c1)*z + c0;
 	}
 	}

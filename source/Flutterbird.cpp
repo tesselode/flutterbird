@@ -44,12 +44,11 @@ void Flutterbird::InitParmeters()
 	GetParam((int)Parameters::GlobalToPitch)->InitDouble("Pitch modulation amount", .1, 0.0, 1.0, .01, "", "", 2.0);
 	GetParam((int)Parameters::GlobalToVolume)->InitDouble("Volume modulation amount", .5, 0.0, 1.0, .01);
 	GetParam((int)Parameters::Mix)->InitDouble("Dry/wet mix", 1.0, 0.0, 1.0, .01);
-	GetParam((int)Parameters::InterpolationMode)->InitEnum("Interpolation mode", (int)InterpolationModes::Hermite, (int)InterpolationModes::numInterpolationModes);
+	GetParam((int)Parameters::InterpolationMode)->InitEnum("Interpolation mode", (int)InterpolationModes::Watte, (int)InterpolationModes::numInterpolationModes);
 	GetParam((int)Parameters::InterpolationMode)->SetDisplayText((int)InterpolationModes::Nearest, "Nearest neighbor");
 	GetParam((int)Parameters::InterpolationMode)->SetDisplayText((int)InterpolationModes::Linear, "Linear");
-	GetParam((int)Parameters::InterpolationMode)->SetDisplayText((int)InterpolationModes::Hermite, "Hermite");
-	GetParam((int)Parameters::InterpolationMode)->SetDisplayText((int)InterpolationModes::Optimal2X, "Optimal 2X");
-	GetParam((int)Parameters::InterpolationMode)->SetDisplayText((int)InterpolationModes::Optimal32X, "Optimal 32X");
+	GetParam((int)Parameters::InterpolationMode)->SetDisplayText((int)InterpolationModes::Watte, "Watte tri-linear");
+	GetParam((int)Parameters::InterpolationMode)->SetDisplayText((int)InterpolationModes::Optimal, "Optimal 2X");
 }
 
 void Flutterbird::InitGraphics()
