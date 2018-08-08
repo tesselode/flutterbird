@@ -1,9 +1,9 @@
-#define PLUG_MFR "AndrewMinnich"
+#define PLUG_MFR "Andrew Minnich"
 #define PLUG_NAME "Flutterbird"
 
 #define PLUG_CLASS_NAME Flutterbird
 
-#define BUNDLE_MFR "AndrewMinnich"
+#define BUNDLE_MFR "Andrew Minnich"
 #define BUNDLE_NAME "Flutterbird"
 
 #define PLUG_ENTRY Flutterbird_Entry
