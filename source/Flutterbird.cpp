@@ -31,7 +31,7 @@ void Flutterbird::InitParmeters()
 	GetParam((int)Parameters::Osc3Waveform)->SetDisplayText((int)Waveforms::Drift, "Drift");
 	GetParam((int)Parameters::Osc3Frequency)->InitDouble("Oscillator 3 frequency", 5.0, .01, 10.0, .01, "", "", 2.0);
 	GetParam((int)Parameters::Osc3ToPitch)->InitDouble("Oscillator 3 to pitch", 0.0, -1.0, 1.0, .01);
-	GetParam((int)Parameters::Osc3ToVolume)->InitDouble("Oscillator 4 to volume", 0.0, -1.0, 1.0, .01);
+	GetParam((int)Parameters::Osc3ToVolume)->InitDouble("Oscillator 3 to volume", 0.0, -1.0, 1.0, .01);
 	GetParam((int)Parameters::Osc4Waveform)->InitEnum("Oscillator 4 waveform", (int)Waveforms::Sine, (int)Waveforms::numWaveforms);
 	GetParam((int)Parameters::Osc4Waveform)->SetDisplayText((int)Waveforms::Sine, "Sine");
 	GetParam((int)Parameters::Osc4Waveform)->SetDisplayText((int)Waveforms::Triangle, "Triangle");
