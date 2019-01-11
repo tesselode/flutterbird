@@ -270,6 +270,8 @@
     <ClInclude Include="..\..\..\IGraphics\Controls\ITextEntryControl.h">
       <Filter>IGraphics\Controls</Filter>
     </ClInclude>
+    <ClInclude Include="..\Util.h" />
+    <ClInclude Include="..\Oscillator.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resources">
