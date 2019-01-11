@@ -30,6 +30,7 @@ enum class Parameters
 	GlobalToPitch,
 	GlobalToVolume,
 	Mix,
+	TestTone,
 	NumParameters,
 };
 

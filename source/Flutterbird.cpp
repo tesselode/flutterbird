@@ -48,6 +48,7 @@ void Flutterbird::InitParameters()
 	GetParam((int)Parameters::GlobalToPitch)->InitDouble("Pitch modulation amount", .1, 0.0, 1.0, .01, "", 0, "", new IParam::ShapePowCurve(2.0));
 	GetParam((int)Parameters::GlobalToVolume)->InitDouble("Volume modulation amount", .5, 0.0, 1.0, .01);
 	GetParam((int)Parameters::Mix)->InitDouble("Dry/wet mix", 1.0, 0.0, 1.0, .01);
+	GetParam((int)Parameters::TestTone)->InitBool("Play test tone", false);
 }
 #endif
 
@@ -221,31 +222,31 @@ void Flutterbird::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 {
 	for (int s = 0; s < nFrames; s++)
 	{
+		// update oscillators
 		UpdateOscillators();
 
-		// write to the buffer
+		// do calculations
+		auto readPosition = GetReadPosition();
+		UpdateVolume();
+		auto mix = GetParam((int)Parameters::Mix)->Value();
+		auto dryVolume = sqrt(1.0 - mix);
+		auto wetVolume = sqrt(mix);
+
 		for (int c = 0; c < NOutChansConnected(); c++)
 		{
-			double in = inputs[c][s];
-			if (false)
+			// write to the buffer
+			auto in = inputs[c][s];
+			if (GetParam((int)Parameters::TestTone)->Value())
 			{
 				testTonePhase += 440.0 * dt;
 				while (testTonePhase >= 1.0) testTonePhase -= 1.0;
 				in = .25 * sin(testTonePhase * 4 * acos(0.0));
 			}
 			buffers[c][writePosition] = in;
-		}
 
-		// send wobbly audio to the output
-		auto readPosition = GetReadPosition();
-		UpdateVolume();
-		auto mix = GetParam((int)Parameters::Mix)->Value();
-		auto dryVolume = sqrt(1.0 - mix);
-		auto wetVolume = sqrt(mix);
-		for (int c = 0; c < NOutChansConnected(); c++)
-		{
+			// send wobbly audio to the output
 			auto out = GetSample(buffers[c], readPosition) * volume;
-			outputs[c][s] = inputs[c][s] * dryVolume + out * wetVolume;
+			outputs[c][s] = in * dryVolume + out * wetVolume;
 		}
 
 		// update write position
