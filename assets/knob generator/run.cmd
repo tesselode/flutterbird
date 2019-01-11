@@ -1,2 +1,0 @@
-moonc .
-love --console .
