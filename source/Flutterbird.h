@@ -8,7 +8,6 @@
 
 const int tapeLength = 10;
 const int numOscillators = 4;
-const int safetySamples = 2;
 
 enum class Parameters
 {

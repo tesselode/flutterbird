@@ -155,7 +155,7 @@ double Flutterbird::GetReadPosition()
 
 	auto followSpeed = totalToPitch == 0.0 ? 10.0 : 1.0;
 	readPosition += (target - readPosition) * followSpeed * dt;
-	return writePosition - readPosition * GetSampleRate() - safetySamples;
+	return writePosition - readPosition * GetSampleRate();
 }
 
 void Flutterbird::UpdateVolume()
