@@ -14,6 +14,7 @@ void Flutterbird::InitParameters()
 	GetParam((int)Parameters::Osc1Frequency)->InitDouble("Oscillator 1 frequency", .5, .01, 10.0, .01, "hz", 0, "", new IParam::ShapePowCurve(2.0));
 	GetParam((int)Parameters::Osc1ToPitch)->InitDouble("Oscillator 1 to pitch", 0.0, -1.0, 1.0, .01);
 	GetParam((int)Parameters::Osc1ToVolume)->InitDouble("Oscillator 1 to volume", 0.0, -1.0, 1.0, .01);
+	GetParam((int)Parameters::Osc1ToPanning)->InitDouble("Oscillator 1 to panning", 0.0, -1.0, 1.0, .01);
 	
 	GetParam((int)Parameters::Osc2Waveform)->InitEnum("Oscillator 2 waveform", (int)Waveforms::Sine, (int)Waveforms::NumWaveforms);
 	GetParam((int)Parameters::Osc2Waveform)->SetDisplayText((int)Waveforms::Sine, "Sine");
@@ -24,6 +25,7 @@ void Flutterbird::InitParameters()
 	GetParam((int)Parameters::Osc2Frequency)->InitDouble("Oscillator 2 frequency", 2.5, .01, 10.0, .01, "hz", 0, "", new IParam::ShapePowCurve(2.0));
 	GetParam((int)Parameters::Osc2ToPitch)->InitDouble("Oscillator 2 to pitch", 0.0, -1.0, 1.0, .01);
 	GetParam((int)Parameters::Osc2ToVolume)->InitDouble("Oscillator 2 to volume", 0.0, -1.0, 1.0, .01);
+	GetParam((int)Parameters::Osc2ToPanning)->InitDouble("Oscillator 2 to panning", 0.0, -1.0, 1.0, .01);
 
 	GetParam((int)Parameters::Osc3Waveform)->InitEnum("Oscillator 3 waveform", (int)Waveforms::Sine, (int)Waveforms::NumWaveforms);
 	GetParam((int)Parameters::Osc3Waveform)->SetDisplayText((int)Waveforms::Sine, "Sine");
@@ -34,6 +36,7 @@ void Flutterbird::InitParameters()
 	GetParam((int)Parameters::Osc3Frequency)->InitDouble("Oscillator 3 frequency", 5.0, .01, 10.0, .01, "hz", 0, "", new IParam::ShapePowCurve(2.0));
 	GetParam((int)Parameters::Osc3ToPitch)->InitDouble("Oscillator 3 to pitch", 0.0, -1.0, 1.0, .01);
 	GetParam((int)Parameters::Osc3ToVolume)->InitDouble("Oscillator 3 to volume", 0.0, -1.0, 1.0, .01);
+	GetParam((int)Parameters::Osc3ToPanning)->InitDouble("Oscillator 3 to panning", 0.0, -1.0, 1.0, .01);
 
 	GetParam((int)Parameters::Osc4Waveform)->InitEnum("Oscillator 4 waveform", (int)Waveforms::Sine, (int)Waveforms::NumWaveforms);
 	GetParam((int)Parameters::Osc4Waveform)->SetDisplayText((int)Waveforms::Sine, "Sine");
@@ -44,9 +47,11 @@ void Flutterbird::InitParameters()
 	GetParam((int)Parameters::Osc4Frequency)->InitDouble("Oscillator 4 frequency", 7.5, .01, 10.0, .01, "hz", 0, "", new IParam::ShapePowCurve(2.0));
 	GetParam((int)Parameters::Osc4ToPitch)->InitDouble("Oscillator 4 to pitch", 0.0, -1.0, 1.0, .01);
 	GetParam((int)Parameters::Osc4ToVolume)->InitDouble("Oscillator 4 to volume", 0.0, -1.0, 1.0, .01);
+	GetParam((int)Parameters::Osc4ToPanning)->InitDouble("Oscillator 4 to panning", 0.0, -1.0, 1.0, .01);
 
 	GetParam((int)Parameters::GlobalToPitch)->InitDouble("Pitch modulation amount", .1, 0.0, 1.0, .01, "", 0, "", new IParam::ShapePowCurve(2.0));
 	GetParam((int)Parameters::GlobalToVolume)->InitDouble("Volume modulation amount", .5, 0.0, 1.0, .01);
+	GetParam((int)Parameters::GlobalToPanning)->InitDouble("Panning modulation amount", .5, 0.0, 1.0, .01);
 	GetParam((int)Parameters::Mix)->InitDouble("Dry/wet mix", 1.0, 0.0, 1.0, .01);
 	GetParam((int)Parameters::TestTone)->InitBool("Play test tone", false);
 }
@@ -82,14 +87,18 @@ void Flutterbird::UpdateOscillators()
 	auto osc2ToVolume = GetParam((int)Parameters::Osc2ToVolume)->Value();
 	auto osc3ToVolume = GetParam((int)Parameters::Osc3ToVolume)->Value();
 	auto osc4ToVolume = GetParam((int)Parameters::Osc4ToVolume)->Value();
+	auto osc1ToPanning = GetParam((int)Parameters::Osc1ToPanning)->Value();
+	auto osc2ToPanning = GetParam((int)Parameters::Osc2ToPanning)->Value();
+	auto osc3ToPanning = GetParam((int)Parameters::Osc3ToPanning)->Value();
+	auto osc4ToPanning = GetParam((int)Parameters::Osc4ToPanning)->Value();
 
-	if (osc1ToPitch != 0.0 || osc1ToVolume != 0.0)
+	if (osc1ToPitch != 0.0 || osc1ToVolume != 0.0 || osc1ToPanning != 0.0)
 		osc1Value = osc1.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc1Waveform)->Value(), GetParam((int)Parameters::Osc1Frequency)->Value());
-	if (osc2ToPitch != 0.0 || osc2ToVolume != 0.0)
+	if (osc2ToPitch != 0.0 || osc2ToVolume != 0.0 || osc2ToPanning != 0.0)
 		osc2Value = osc2.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc2Waveform)->Value(), GetParam((int)Parameters::Osc2Frequency)->Value());
-	if (osc3ToPitch != 0.0 || osc3ToVolume != 0.0)
+	if (osc3ToPitch != 0.0 || osc3ToVolume != 0.0 || osc3ToPanning != 0.0)
 		osc3Value = osc3.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc3Waveform)->Value(), GetParam((int)Parameters::Osc3Frequency)->Value());
-	if (osc4ToPitch != 0.0 || osc4ToVolume != 0.0)
+	if (osc4ToPitch != 0.0 || osc4ToVolume != 0.0 || osc4ToPanning != 0.0)
 		osc4Value = osc4.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc4Waveform)->Value(), GetParam((int)Parameters::Osc4Frequency)->Value());
 }
 
@@ -202,6 +211,63 @@ void Flutterbird::UpdateVolume()
 	volume += (target - volume) * 100.0 * dt;
 }
 
+void Flutterbird::UpdatePanning()
+{
+	auto osc1ToPanning = GetParam((int)Parameters::Osc1ToPanning)->Value() * GetParam((int)Parameters::GlobalToPanning)->Value();
+	auto osc2ToPanning = GetParam((int)Parameters::Osc2ToPanning)->Value() * GetParam((int)Parameters::GlobalToPanning)->Value();
+	auto osc3ToPanning = GetParam((int)Parameters::Osc3ToPanning)->Value() * GetParam((int)Parameters::GlobalToPanning)->Value();
+	auto osc4ToPanning = GetParam((int)Parameters::Osc4ToPanning)->Value() * GetParam((int)Parameters::GlobalToPanning)->Value();
+
+	double target = 0.0;
+
+	if (osc1ToPanning != 0.0)
+	{
+		auto oscValue = osc1Value;
+		if (osc1ToPanning < 0.0)
+		{
+			osc1ToPanning *= -1.0;
+			oscValue = 1.0 - oscValue;
+		}
+		oscValue = -1.0 + 2.0 * oscValue;
+		target -= osc1ToPanning * oscValue;
+	}
+	if (osc2ToPanning != 0.0)
+	{
+		auto oscValue = osc2Value;
+		if (osc2ToPanning < 0.0)
+		{
+			osc2ToPanning *= -1.0;
+			oscValue = 1.0 - oscValue;
+		}
+		oscValue = -1.0 + 2.0 * oscValue;
+		target -= osc2ToPanning * oscValue;
+	}
+	if (osc3ToPanning != 0.0)
+	{
+		auto oscValue = osc3Value;
+		if (osc3ToPanning < 0.0)
+		{
+			osc3ToPanning *= -1.0;
+			oscValue = 1.0 - oscValue;
+		}
+		oscValue = -1.0 + 2.0 * oscValue;
+		target -= osc3ToPanning * oscValue;
+	}
+	if (osc4ToPanning != 0.0)
+	{
+		auto oscValue = osc4Value;
+		if (osc4ToPanning < 0.0)
+		{
+			osc4ToPanning *= -1.0;
+			oscValue = 1.0 - oscValue;
+		}
+		oscValue = -1.0 + 2.0 * oscValue;
+		target -= osc4ToPanning * oscValue;
+	}
+
+	panning += (target - panning) * 100.0 * dt;
+}
+
 double Flutterbird::GetSample(std::vector<double> &buffer, double position)
 {
 	int p0 = wrap(floor(position) - 1, 0, std::size(buffer) - 1);
@@ -228,6 +294,7 @@ void Flutterbird::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 		// do calculations
 		auto readPosition = GetReadPosition();
 		UpdateVolume();
+		UpdatePanning();
 		auto mix = GetParam((int)Parameters::Mix)->Value();
 		auto dryVolume = sqrt(1.0 - mix);
 		auto wetVolume = sqrt(mix);
@@ -247,6 +314,7 @@ void Flutterbird::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 		// send wobbly audio to the output
 		auto outL = GetSample(bufferL, readPosition) * volume;
 		auto outR = GetSample(bufferR, readPosition) * volume;
+		adjustPanning(outL, outR, panning, outL, outR);
 		outputs[0][s] = inL * dryVolume + outL * wetVolume;
 		outputs[1][s] = inR * dryVolume + outR * wetVolume;
 

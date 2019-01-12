@@ -15,20 +15,25 @@ enum class Parameters
 	Osc1Frequency,
 	Osc1ToPitch,
 	Osc1ToVolume,
+	Osc1ToPanning,
 	Osc2Waveform,
 	Osc2Frequency,
 	Osc2ToPitch,
 	Osc2ToVolume,
+	Osc2ToPanning,
 	Osc3Waveform,
 	Osc3Frequency,
 	Osc3ToPitch,
 	Osc3ToVolume,
+	Osc3ToPanning,
 	Osc4Waveform,
 	Osc4Frequency,
 	Osc4ToPitch,
 	Osc4ToVolume,
+	Osc4ToPanning,
 	GlobalToPitch,
 	GlobalToVolume,
+	GlobalToPanning,
 	Mix,
 	TestTone,
 	NumParameters,
@@ -51,6 +56,7 @@ private:
 	void UpdateOscillators();
 	double GetReadPosition();
 	void UpdateVolume();
+	void UpdatePanning();
 	double GetSample(std::vector<double>& buffer, double position);
 
 	double dt = 0.0;
@@ -68,6 +74,7 @@ private:
 	int writePosition = 0;
 	double readPosition = 0.0;
 	double volume = 1.0;
+	double panning = 0.0;
 
 	double testTonePhase = 0.0;
 #endif

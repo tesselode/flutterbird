@@ -11,7 +11,6 @@ inline int wrap(int kX, int const kLowerBound, int const kUpperBound)
 	return kLowerBound + (kX - kLowerBound) % range_size;
 }
 
-// http://musicdsp.org/archive.php?classid=5#93
 inline float interpolate(float x, float y0, float y1, float y2, float y3)
 {
 	/*
@@ -26,6 +25,14 @@ inline float interpolate(float x, float y0, float y1, float y2, float y3)
 	float c1 = (3 / 2.0) * y2 - (1 / 2.0) * (y1 + ym1py2);
 	float c2 = 1 / 2.0 * (ym1py2 - y1 - y2);
 	return (c2*x + c1)*x + c0;
+}
+
+inline void adjustPanning(double inL, double inR, double angle, double &outL, double &outR)
+{
+	auto c = cos(angle);
+	auto s = sin(angle);
+	outL = inL * c - inR * s;
+	outR = inL * s + inR * c;
 }
 
 // random numbers
