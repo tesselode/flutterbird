@@ -58,6 +58,21 @@ void Flutterbird::InitParameters()
 }
 #endif
 
+#if IPLUG_EDITOR
+void Flutterbird::InitGraphics()
+{
+	mMakeGraphicsFunc = [&]() {
+		return MakeGraphics(*this, PLUG_WIDTH, PLUG_HEIGHT, PLUG_FPS, 1.);
+	};
+
+	mLayoutFunc = [&](IGraphics* pGraphics) {
+		pGraphics->AttachCornerResizer(kUIResizerScale, false);
+		pGraphics->AttachPanelBackground(COLOR_GRAY);
+		pGraphics->AttachControl(new Knob(*this, IRECT(50, 50, 150, 150), KnobOrigin::Right, (int)Parameters::Osc1ToPitch));
+	};
+}
+#endif
+
 Flutterbird::Flutterbird(IPlugInstanceInfo instanceInfo)
 : IPLUG_CTOR((int)Parameters::NumParameters, 1, instanceInfo)
 {
@@ -65,15 +80,8 @@ Flutterbird::Flutterbird(IPlugInstanceInfo instanceInfo)
 	InitParameters();
 #endif
 
-#if IPLUG_EDITOR // All UI methods and member variables should be within an IPLUG_EDITOR guard, should you want distributed UI
-	mMakeGraphicsFunc = [&]() {
-		return MakeGraphics(*this, PLUG_WIDTH, PLUG_HEIGHT, PLUG_FPS, 1.);
-	};
-	
-	mLayoutFunc = [&](IGraphics* pGraphics) {
-		pGraphics->AttachCornerResizer(kUIResizerScale, false);
-		pGraphics->AttachPanelBackground(COLOR_GRAY);
-	};
+#if IPLUG_EDITOR
+	InitGraphics();
 #endif
 }
 

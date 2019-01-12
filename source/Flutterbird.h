@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include "IPlug_include_in_plug_hdr.h"
+#include "Knob.h"
 #include "Oscillator.h"
 #include <vector>
 #include "Util.h"
@@ -43,6 +44,7 @@ enum class Parameters
 class Flutterbird : public IPlug
 {
 public:
+	
 	Flutterbird(IPlugInstanceInfo instanceInfo);
 
 #if IPLUG_DSP
@@ -78,5 +80,9 @@ private:
 	double panning = 0.0;
 
 	double testTonePhase = 0.0;
+#endif
+
+#if IPLUG_EDITOR
+	void InitGraphics();
 #endif
 };

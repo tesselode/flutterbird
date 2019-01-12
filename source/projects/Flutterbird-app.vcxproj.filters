@@ -272,6 +272,7 @@
     </ClInclude>
     <ClInclude Include="..\Util.h" />
     <ClInclude Include="..\Oscillator.h" />
+    <ClInclude Include="..\Knob.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resources">
