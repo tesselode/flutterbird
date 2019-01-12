@@ -232,22 +232,23 @@ void Flutterbird::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 		auto dryVolume = sqrt(1.0 - mix);
 		auto wetVolume = sqrt(mix);
 
-		for (int c = 0; c < NOutChansConnected(); c++)
+		// write to the buffer
+		auto inL = inputs[0][s];
+		auto inR = inputs[1][s];
+		if (GetParam((int)Parameters::TestTone)->Value())
 		{
-			// write to the buffer
-			auto in = inputs[c][s];
-			if (GetParam((int)Parameters::TestTone)->Value())
-			{
-				testTonePhase += 440.0 * dt;
-				while (testTonePhase >= 1.0) testTonePhase -= 1.0;
-				in = .25 * sin(testTonePhase * 4 * acos(0.0));
-			}
-			buffers[c][writePosition] = in;
-
-			// send wobbly audio to the output
-			auto out = GetSample(buffers[c], readPosition) * volume;
-			outputs[c][s] = in * dryVolume + out * wetVolume;
+			testTonePhase += 440.0 * dt;
+			while (testTonePhase >= 1.0) testTonePhase -= 1.0;
+			inL = inR = .25 * sin(testTonePhase * 4 * acos(0.0));
 		}
+		bufferL[writePosition] = inL;
+		bufferR[writePosition] = inR;
+
+		// send wobbly audio to the output
+		auto outL = GetSample(bufferL, readPosition) * volume;
+		auto outR = GetSample(bufferR, readPosition) * volume;
+		outputs[0][s] = inL * dryVolume + outL * wetVolume;
+		outputs[1][s] = inR * dryVolume + outR * wetVolume;
 
 		// update write position
 		writePosition++;
@@ -257,14 +258,13 @@ void Flutterbird::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 
 void Flutterbird::InitBuffer()
 {
+	bufferL.clear();
+	bufferR.clear();
 	bufferLength = tapeLength * GetSampleRate();
-	buffers.clear();
-	for (int channel = 0; channel < NOutChansConnected(); channel++)
-		buffers.push_back(std::vector<double>());
-	for (auto &buffer : buffers)
+	for (int sample = 0; sample < bufferLength; sample++)
 	{
-		for (int sample = 0; sample < bufferLength; sample++)
-			buffer.push_back(0.0);
+		bufferL.push_back(0.0);
+		bufferR.push_back(0.0);
 	}
 	writePosition = 0;
 }

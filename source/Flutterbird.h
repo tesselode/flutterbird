@@ -55,7 +55,8 @@ private:
 
 	double dt = 0.0;
 	int bufferLength = 0;
-	std::vector<std::vector<double>> buffers;
+	std::vector<double> bufferL;
+	std::vector<double> bufferR;
 	Oscillator osc1;
 	Oscillator osc2;
 	Oscillator osc3;
