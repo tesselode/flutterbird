@@ -66,6 +66,7 @@ void Flutterbird::InitGraphics()
 	};
 
 	mLayoutFunc = [&](IGraphics* pGraphics) {
+		pGraphics->HandleMouseOver(true);
 		pGraphics->AttachCornerResizer(kUIResizerScale, false);
 		pGraphics->AttachPanelBackground(COLOR_GRAY);
 		pGraphics->AttachControl(new Knob(*this, IRECT(50, 50, 150, 150), KnobOrigin::Right, (int)Parameters::Osc1ToPitch));
