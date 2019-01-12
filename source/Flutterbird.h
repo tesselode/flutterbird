@@ -4,6 +4,7 @@
 #include "IPlug_include_in_plug_hdr.h"
 #include "Oscillator.h"
 #include <vector>
+#include "Util.h"
 
 const int tapeLength = 10;
 const int numOscillators = 4;
@@ -34,6 +35,7 @@ enum class Parameters
 	GlobalToPitch,
 	GlobalToVolume,
 	GlobalToPanning,
+	InfinitePanning,
 	Mix,
 	TestTone,
 	NumParameters,

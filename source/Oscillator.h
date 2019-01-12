@@ -24,7 +24,7 @@ public:
 		switch (waveform)
 		{
 		case Waveforms::Sine:
-			return .5 + .5 * sin(phase * 4.0 * acos(0.0));
+			return .5 + .5 * sin(phase * twoPi);
 		case Waveforms::Triangle:
 			return 1.0 - abs(2.0 * phase - 1.0);
 		case Waveforms::Saw:

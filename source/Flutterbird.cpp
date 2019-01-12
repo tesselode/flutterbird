@@ -14,7 +14,7 @@ void Flutterbird::InitParameters()
 	GetParam((int)Parameters::Osc1Frequency)->InitDouble("Oscillator 1 frequency", .5, .01, 10.0, .01, "hz", 0, "", new IParam::ShapePowCurve(2.0));
 	GetParam((int)Parameters::Osc1ToPitch)->InitDouble("Oscillator 1 to pitch", 0.0, -1.0, 1.0, .01);
 	GetParam((int)Parameters::Osc1ToVolume)->InitDouble("Oscillator 1 to volume", 0.0, -1.0, 1.0, .01);
-	GetParam((int)Parameters::Osc1ToPanning)->InitDouble("Oscillator 1 to panning", 0.0, -1.0, 1.0, .01);
+	GetParam((int)Parameters::Osc1ToPanning)->InitDouble("Oscillator 1 to panning", 0.0, -twoPi / 4, twoPi / 4, .01);
 	
 	GetParam((int)Parameters::Osc2Waveform)->InitEnum("Oscillator 2 waveform", (int)Waveforms::Sine, (int)Waveforms::NumWaveforms);
 	GetParam((int)Parameters::Osc2Waveform)->SetDisplayText((int)Waveforms::Sine, "Sine");
@@ -25,7 +25,7 @@ void Flutterbird::InitParameters()
 	GetParam((int)Parameters::Osc2Frequency)->InitDouble("Oscillator 2 frequency", 2.5, .01, 10.0, .01, "hz", 0, "", new IParam::ShapePowCurve(2.0));
 	GetParam((int)Parameters::Osc2ToPitch)->InitDouble("Oscillator 2 to pitch", 0.0, -1.0, 1.0, .01);
 	GetParam((int)Parameters::Osc2ToVolume)->InitDouble("Oscillator 2 to volume", 0.0, -1.0, 1.0, .01);
-	GetParam((int)Parameters::Osc2ToPanning)->InitDouble("Oscillator 2 to panning", 0.0, -1.0, 1.0, .01);
+	GetParam((int)Parameters::Osc2ToPanning)->InitDouble("Oscillator 2 to panning", 0.0, -twoPi / 4, twoPi / 4, .01);
 
 	GetParam((int)Parameters::Osc3Waveform)->InitEnum("Oscillator 3 waveform", (int)Waveforms::Sine, (int)Waveforms::NumWaveforms);
 	GetParam((int)Parameters::Osc3Waveform)->SetDisplayText((int)Waveforms::Sine, "Sine");
@@ -36,7 +36,7 @@ void Flutterbird::InitParameters()
 	GetParam((int)Parameters::Osc3Frequency)->InitDouble("Oscillator 3 frequency", 5.0, .01, 10.0, .01, "hz", 0, "", new IParam::ShapePowCurve(2.0));
 	GetParam((int)Parameters::Osc3ToPitch)->InitDouble("Oscillator 3 to pitch", 0.0, -1.0, 1.0, .01);
 	GetParam((int)Parameters::Osc3ToVolume)->InitDouble("Oscillator 3 to volume", 0.0, -1.0, 1.0, .01);
-	GetParam((int)Parameters::Osc3ToPanning)->InitDouble("Oscillator 3 to panning", 0.0, -1.0, 1.0, .01);
+	GetParam((int)Parameters::Osc3ToPanning)->InitDouble("Oscillator 3 to panning", 0.0, -twoPi / 4, twoPi / 4, .01);
 
 	GetParam((int)Parameters::Osc4Waveform)->InitEnum("Oscillator 4 waveform", (int)Waveforms::Sine, (int)Waveforms::NumWaveforms);
 	GetParam((int)Parameters::Osc4Waveform)->SetDisplayText((int)Waveforms::Sine, "Sine");
@@ -47,11 +47,12 @@ void Flutterbird::InitParameters()
 	GetParam((int)Parameters::Osc4Frequency)->InitDouble("Oscillator 4 frequency", 7.5, .01, 10.0, .01, "hz", 0, "", new IParam::ShapePowCurve(2.0));
 	GetParam((int)Parameters::Osc4ToPitch)->InitDouble("Oscillator 4 to pitch", 0.0, -1.0, 1.0, .01);
 	GetParam((int)Parameters::Osc4ToVolume)->InitDouble("Oscillator 4 to volume", 0.0, -1.0, 1.0, .01);
-	GetParam((int)Parameters::Osc4ToPanning)->InitDouble("Oscillator 4 to panning", 0.0, -1.0, 1.0, .01);
+	GetParam((int)Parameters::Osc4ToPanning)->InitDouble("Oscillator 4 to panning", 0.0, -twoPi / 4, twoPi / 4, .01);
 
 	GetParam((int)Parameters::GlobalToPitch)->InitDouble("Pitch modulation amount", .1, 0.0, 1.0, .01, "", 0, "", new IParam::ShapePowCurve(2.0));
 	GetParam((int)Parameters::GlobalToVolume)->InitDouble("Volume modulation amount", .5, 0.0, 1.0, .01);
 	GetParam((int)Parameters::GlobalToPanning)->InitDouble("Panning modulation amount", .5, 0.0, 1.0, .01);
+	GetParam((int)Parameters::InfinitePanning)->InitBool("Allow infinite panning", false);
 	GetParam((int)Parameters::Mix)->InitDouble("Dry/wet mix", 1.0, 0.0, 1.0, .01);
 	GetParam((int)Parameters::TestTone)->InitBool("Play test tone", false);
 }
@@ -264,7 +265,9 @@ void Flutterbird::UpdatePanning()
 		oscValue = -1.0 + 2.0 * oscValue;
 		target -= osc4ToPanning * oscValue;
 	}
-
+	
+	if (!GetParam((int)Parameters::InfinitePanning)->Value())
+		target = target < -twoPi / 8 ? -twoPi / 8 : target > twoPi / 8 ? twoPi / 8 : target;
 	panning += (target - panning) * 100.0 * dt;
 }
 
@@ -306,7 +309,7 @@ void Flutterbird::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 		{
 			testTonePhase += 440.0 * dt;
 			while (testTonePhase >= 1.0) testTonePhase -= 1.0;
-			inL = inR = .25 * sin(testTonePhase * 4 * acos(0.0));
+			inL = inR = .25 * sin(testTonePhase * twoPi);
 		}
 		bufferL[writePosition] = inL;
 		bufferR[writePosition] = inR;
