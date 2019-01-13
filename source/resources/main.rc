@@ -149,7 +149,7 @@ END
 3 TEXTINCLUDE 
 BEGIN
     "#include ""..\\config.h""\r\n"
-    "ROBOTTO_FN TTF ROBOTTO_FN\0"
+	"SVG_WAVEFORMS_FN SVG SVG_WAVEFORMS_FN"
 END
 
 #endif    // APSTUDIO_INVOKED
@@ -175,7 +175,7 @@ IDI_ICON1               ICON                    "Flutterbird.ico"
 // Generated from the TEXTINCLUDE 3 resource.
 //
 #include "..\config.h"
-ROBOTTO_FN TTF ROBOTTO_FN
+SVG_WAVEFORMS_FN SVG SVG_WAVEFORMS_FN
 /////////////////////////////////////////////////////////////////////////////
 #endif    // not APSTUDIO_INVOKED
 

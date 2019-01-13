@@ -6,6 +6,7 @@
 #include "Oscillator.h"
 #include <vector>
 #include "Util.h"
+#include "WaveformSwitch.h"
 
 const int tapeLength = 10;
 const int numOscillators = 4;

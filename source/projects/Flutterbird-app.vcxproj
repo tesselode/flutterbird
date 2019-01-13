@@ -333,6 +333,7 @@
     <ClInclude Include="..\Oscillator.h" />
     <ClInclude Include="..\resources\resource.h" />
     <ClInclude Include="..\Util.h" />
+    <ClInclude Include="..\WaveformSwitch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Dependencies\IPlug\RTAudio\include\asio.cpp" />

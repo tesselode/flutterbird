@@ -66,10 +66,13 @@ void Flutterbird::InitGraphics()
 	};
 
 	mLayoutFunc = [&](IGraphics* pGraphics) {
+		const ISVG waveformsSvg = pGraphics->LoadSVG(SVG_WAVEFORMS_FN);
+
 		pGraphics->HandleMouseOver(true);
 		pGraphics->AttachCornerResizer(kUIResizerScale, false);
 		pGraphics->AttachPanelBackground(COLOR_GRAY);
 		pGraphics->AttachControl(new Knob(*this, IRECT(50, 50, 150, 150), KnobOrigin::Right, (int)Parameters::Osc1ToPitch));
+		pGraphics->AttachControl(new WaveformSwitch(*this, IRECT(150, 50, 250, 250), waveformsSvg, (int)Parameters::Osc1Waveform));
 	};
 }
 #endif
