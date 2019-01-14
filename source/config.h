@@ -22,8 +22,9 @@
 #define PLUG_DOES_MPE 0
 #define PLUG_DOES_STATE_CHUNKS 0
 #define PLUG_HAS_UI 1
+#define PLUG_GUI_BASE_UNIT 80
 #define PLUG_WIDTH 80 * 6
-#define PLUG_HEIGHT 80 * 6
+#define PLUG_HEIGHT 80 * 7
 #define PLUG_FPS 120
 #define PLUG_SHARED_RESOURCES 0
 
@@ -50,4 +51,5 @@
 #define APP_SIGNAL_VECTOR_SIZE 64
 
 #define CAVEAT_FN "Caveat-Bold.ttf"
+#define RALEWAY_FN "Raleway-Semibold.ttf"
 #define SVG_WAVEFORMS_FN "waveforms.svg"

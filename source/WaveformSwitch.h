@@ -13,8 +13,8 @@ public:
 
 	void Draw(IGraphics& g) override
 	{
-		g.FillRect(lightColor, mRECT);
-		g.DrawRect(darkColor, mRECT, 0, 8.0f);
+		g.FillRect(themeColorWhite, mRECT);
+		g.DrawRect(themeColorDark, mRECT, 0, 8.0f);
 
 		auto svgY = mRECT.T - (mRECT.B - mRECT.T) * (int)GetParam()->Value();
 		auto svgH = (mRECT.B - mRECT.T) * mNumStates;

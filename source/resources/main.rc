@@ -150,6 +150,7 @@ END
 BEGIN
     "#include ""..\\config.h""\r\n"
 	"CAVEAT_FN TTF CAVEAT_FN\r\n"
+	"RALEWAY_FN TTF RALEWAY_FN\r\n"
 	"SVG_WAVEFORMS_FN SVG SVG_WAVEFORMS_FN\0"
 END
 
@@ -177,6 +178,7 @@ IDI_ICON1               ICON                    "Flutterbird.ico"
 //
 #include "..\config.h"
 CAVEAT_FN TTF CAVEAT_FN
+RALEWAY_FN TTF RALEWAY_FN
 SVG_WAVEFORMS_FN SVG SVG_WAVEFORMS_FN
 /////////////////////////////////////////////////////////////////////////////
 #endif    // not APSTUDIO_INVOKED
