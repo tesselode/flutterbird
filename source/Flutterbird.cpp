@@ -66,7 +66,8 @@ void Flutterbird::InitGraphics()
 	};
 
 	mLayoutFunc = [&](IGraphics* pGraphics) {
-		const ISVG waveformsSvg = pGraphics->LoadSVG(SVG_WAVEFORMS_FN);
+		auto waveformsSvg = pGraphics->LoadSVG(SVG_WAVEFORMS_FN);
+		auto bannerShading = pGraphics->LoadSVG(BANNER_SHADING_FN);
 		pGraphics->LoadFont(CAVEAT_FN);
 		pGraphics->LoadFont(RALEWAY_FN);
 		const IText handwritingText{ 60, themeColorWhite, "Caveat-Bold", IText::kStyleNormal, IText::kAlignNear, IText::kVAlignMiddle };
@@ -84,6 +85,7 @@ void Flutterbird::InitGraphics()
 		// top bar
 		auto topBar = IRECT(0, 0, PLUG_WIDTH, PLUG_GUI_BASE_UNIT * 1.5);
 		pGraphics->AttachControl(new IPanelControl(*this, topBar, themeColorAccent));
+		pGraphics->AttachControl(new ISVGControl(*this, topBar, bannerShading));
 		pGraphics->AttachControl(new ITextControl(*this, topBar.GetHPadded(-16.f),
 			"Flutterbird", handwritingText));
 		pGraphics->AttachControl(new Knob(*this, topBar.GetGridCell(0, columns - 1, 1, columns).GetScaledAboutCentre(scale),
