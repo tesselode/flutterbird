@@ -22,8 +22,8 @@
 #define PLUG_DOES_MPE 0
 #define PLUG_DOES_STATE_CHUNKS 0
 #define PLUG_HAS_UI 1
-#define PLUG_WIDTH 512
-#define PLUG_HEIGHT 512
+#define PLUG_WIDTH 384
+#define PLUG_HEIGHT 384
 #define PLUG_FPS 120
 #define PLUG_SHARED_RESOURCES 0
 
@@ -49,4 +49,5 @@
 #define APP_RESIZABLE 0
 #define APP_SIGNAL_VECTOR_SIZE 64
 
+#define CAVEAT_FN "Caveat-Bold.ttf"
 #define SVG_WAVEFORMS_FN "waveforms.svg"

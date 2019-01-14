@@ -1,6 +1,7 @@
 #pragma once
 
 #include "IControls.h"
+#include "Util.h"
 
 enum class KnobOrigin {
 	Left,
@@ -18,7 +19,7 @@ public:
 	{
 		const float v = mAngleMin + ((float)mValue * (mAngleMax - mAngleMin));
 		const float cx = mRECT.MW(), cy = mRECT.MH();
-		const float radius = (mRECT.W() / 2.5f);
+		const float radius = (mRECT.W() / 2.75f);
 		float originAngle;
 		switch (origin)
 		{
@@ -34,7 +35,7 @@ public:
 		}
 		float arcAngleA = originAngle < v ? originAngle : v;
 		float arcAngleB = arcAngleA == originAngle ? v : originAngle;
-		g.DrawArc(GetColor(kFR), cx, cy, radius, arcAngleA, arcAngleB, 0, 12.f);
+		g.DrawArc(accentColor, cx, cy, radius, arcAngleA, arcAngleB, 0, 12.f);
 		g.FillCircle(GetColor(kON), cx, cy, radius);
 		g.FillCircle(GetColor(kFG), cx, cy, radius * .8f);
 		if (mMouseIsOver)
