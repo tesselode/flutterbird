@@ -68,6 +68,7 @@ void Flutterbird::InitGraphics()
 	mLayoutFunc = [&](IGraphics* pGraphics) {
 		auto waveformsSvg = pGraphics->LoadSVG(SVG_WAVEFORMS_FN);
 		auto bannerShading = pGraphics->LoadSVG(BANNER_SHADING_FN);
+		auto toggleSvg = pGraphics->LoadSVG(SVG_TOGGLE_FN);
 		pGraphics->LoadFont(CAVEAT_FN);
 		pGraphics->LoadFont(RALEWAY_FN);
 		const IText handwritingText{ 60, themeColorWhite, "Caveat-Bold", IText::kStyleNormal, IText::kAlignNear, IText::kVAlignMiddle };
@@ -88,6 +89,18 @@ void Flutterbird::InitGraphics()
 		pGraphics->AttachControl(new ISVGControl(*this, topBar, bannerShading));
 		pGraphics->AttachControl(new ITextControl(*this, topBar.GetHPadded(-16.f),
 			"Flutterbird", handwritingText));
+		pGraphics->AttachControl(new WaveformSwitch(*this, topBar.GetGridCell(0, columns - 3, 1, columns)
+				.GetCentredInside(PLUG_GUI_BASE_UNIT * scale * switchScale, PLUG_GUI_BASE_UNIT * scale * switchScale)
+				.GetVShifted(PLUG_GUI_BASE_UNIT * -.1),
+			toggleSvg, (int)Parameters::TestTone));
+		pGraphics->AttachControl(new ITextControl(*this, topBar.GetGridCell(0, columns - 3, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .4),
+			"Test", labelText));
+		pGraphics->AttachControl(new WaveformSwitch(*this, topBar.GetGridCell(0, columns - 2, 1, columns)
+				.GetCentredInside(PLUG_GUI_BASE_UNIT * scale * switchScale, PLUG_GUI_BASE_UNIT * scale * switchScale)
+				.GetVShifted(PLUG_GUI_BASE_UNIT * -.1),
+			toggleSvg, (int)Parameters::InfinitePanning));
+		pGraphics->AttachControl(new ITextControl(*this, topBar.GetGridCell(0, columns - 2, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .4),
+			"Inf. pan", labelText));
 		pGraphics->AttachControl(new Knob(*this, topBar.GetGridCell(0, columns - 1, 1, columns).GetScaledAboutCentre(scale).GetVShifted(PLUG_GUI_BASE_UNIT * -.1),
 			KnobOrigin::Left, (int)Parameters::Mix));
 		pGraphics->AttachControl(new ITextControl(*this, topBar.GetGridCell(0, columns - 1, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .4),
@@ -162,14 +175,14 @@ void Flutterbird::InitGraphics()
 		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(3, 5, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Center, (int)Parameters::Osc4ToPanning));
 
-		pGraphics->AttachControl(new ITextControl(*this, mainSection.GetGridCell(4, 0, rows, 2).GetHPadded(-16.f),
+		pGraphics->AttachControl(new ITextControl(*this, mainSection.GetGridCell(4, 0, rows, 1).GetHPadded(-16.f),
 			"Total", handwritingText));
 		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(4, 3, rows, columns).GetScaledAboutCentre(scale),
-			KnobOrigin::Center, (int)Parameters::GlobalToPitch));
+			KnobOrigin::Left, (int)Parameters::GlobalToPitch));
 		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(4, 4, rows, columns).GetScaledAboutCentre(scale),
-			KnobOrigin::Center, (int)Parameters::GlobalToVolume));
+			KnobOrigin::Left, (int)Parameters::GlobalToVolume));
 		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(4, 5, rows, columns).GetScaledAboutCentre(scale),
-			KnobOrigin::Center, (int)Parameters::GlobalToPanning));
+			KnobOrigin::Left, (int)Parameters::GlobalToPanning));
 	};
 }
 #endif

@@ -53,4 +53,5 @@
 #define CAVEAT_FN "Caveat-Bold.ttf"
 #define RALEWAY_FN "Raleway-Semibold.ttf"
 #define SVG_WAVEFORMS_FN "waveforms.svg"
+#define SVG_TOGGLE_FN "toggle.svg"
 #define BANNER_SHADING_FN "banner_shading.svg"
