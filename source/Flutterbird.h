@@ -7,7 +7,7 @@
 #include "ThemeColors.h"
 #include <vector>
 #include "Util.h"
-#include "WaveformSwitch.h"
+#include "SvgSwitch.h"
 
 const int tapeLength = 10;
 const int numOscillators = 4;

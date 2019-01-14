@@ -273,8 +273,8 @@
     <ClInclude Include="..\Util.h" />
     <ClInclude Include="..\Oscillator.h" />
     <ClInclude Include="..\Knob.h" />
-    <ClInclude Include="..\WaveformSwitch.h" />
     <ClInclude Include="..\ThemeColors.h" />
+    <ClInclude Include="..\SvgSwitch.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resources">

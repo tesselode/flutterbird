@@ -3,10 +3,10 @@
 #include "IControls.h"
 #include "ThemeColors.h"
 
-class WaveformSwitch : public IVSwitchControl
+class SvgSwitch : public IVSwitchControl
 {
 public:
-	WaveformSwitch(IGEditorDelegate& dlg, IRECT bounds, ISVG svg, int paramIdx = kNoParameter)
+	SvgSwitch(IGEditorDelegate& dlg, IRECT bounds, ISVG svg, int paramIdx = kNoParameter)
 		: IVSwitchControl(dlg, bounds, paramIdx),
 		switchContents(svg)
 	{}
