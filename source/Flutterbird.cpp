@@ -68,7 +68,7 @@ void Flutterbird::InitGraphics()
 	mLayoutFunc = [&](IGraphics* pGraphics) {
 		const ISVG waveformsSvg = pGraphics->LoadSVG(SVG_WAVEFORMS_FN);
 		pGraphics->LoadFont(CAVEAT_FN);
-		const IText handwritingText{ 48, COLOR_WHITE, "Caveat-Bold", IText::kStyleBold, IText::kAlignNear, IText::kVAlignMiddle, 0 };
+		const IText handwritingText{ 60, lightColor, "Caveat-Bold", IText::kStyleBold, IText::kAlignNear, IText::kVAlignMiddle, 0 };
 
 		pGraphics->HandleMouseOver(true);
 		pGraphics->AttachCornerResizer(kUIResizerScale, false);

@@ -4,7 +4,6 @@
 #include "IGraphicsStructs.h"
 
 const double twoPi = 4 * acos(0.0);
-auto accentColor = IColor(255, 29, 128, 170);
 
 // https://stackoverflow.com/a/707426
 inline int wrap(int kX, int const kLowerBound, int const kUpperBound)

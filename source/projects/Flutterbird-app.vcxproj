@@ -332,6 +332,7 @@
     <ClInclude Include="..\Knob.h" />
     <ClInclude Include="..\Oscillator.h" />
     <ClInclude Include="..\resources\resource.h" />
+    <ClInclude Include="..\ThemeColors.h" />
     <ClInclude Include="..\Util.h" />
     <ClInclude Include="..\WaveformSwitch.h" />
   </ItemGroup>

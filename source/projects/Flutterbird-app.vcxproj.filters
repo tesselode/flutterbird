@@ -274,6 +274,7 @@
     <ClInclude Include="..\Oscillator.h" />
     <ClInclude Include="..\Knob.h" />
     <ClInclude Include="..\WaveformSwitch.h" />
+    <ClInclude Include="..\ThemeColors.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resources">

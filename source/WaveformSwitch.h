@@ -1,6 +1,7 @@
 #pragma once
 
 #include "IControls.h"
+#include "ThemeColors.h"
 
 class WaveformSwitch : public IVSwitchControl
 {
@@ -12,8 +13,8 @@ public:
 
 	void Draw(IGraphics& g) override
 	{
-		g.FillRect(IColor(255, 240, 240, 240), mRECT);
-		g.DrawRect(IColor(255, 50, 50, 50), mRECT, 0, 8.0f);
+		g.FillRect(lightColor, mRECT);
+		g.DrawRect(darkColor, mRECT, 0, 8.0f);
 
 		auto svgY = mRECT.T - (mRECT.B - mRECT.T) * (int)GetParam()->Value();
 		auto svgH = (mRECT.B - mRECT.T) * mNumStates;

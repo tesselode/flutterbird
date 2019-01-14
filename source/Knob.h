@@ -1,7 +1,7 @@
 #pragma once
 
 #include "IControls.h"
-#include "Util.h"
+#include "ThemeColors.h"
 
 enum class KnobOrigin {
 	Left,
@@ -35,12 +35,13 @@ public:
 		}
 		float arcAngleA = originAngle < v ? originAngle : v;
 		float arcAngleB = arcAngleA == originAngle ? v : originAngle;
+		g.DrawArc(darkColor, cx, cy, radius, mAngleMin, mAngleMax, 0, 12.f);
 		g.DrawArc(accentColor, cx, cy, radius, arcAngleA, arcAngleB, 0, 12.f);
-		g.FillCircle(GetColor(kON), cx, cy, radius);
-		g.FillCircle(GetColor(kFG), cx, cy, radius * .8f);
+		g.FillCircle(lightColor, cx, cy, radius);
+		g.FillCircle(mediumColor, cx, cy, radius * .8f);
 		if (mMouseIsOver)
-			g.FillCircle(GetColor(kHL), cx, cy, radius * 0.8f);
-		g.DrawRadialLine(GetColor(kFR), cx, cy, v, 0.5f * radius, .9f * radius, 0, 3.f);
+			g.FillCircle(IColor(25, 0, 0, 0), cx, cy, radius * 0.8f);
+		g.DrawRadialLine(accentColor, cx, cy, v, 0.5f * radius, .9f * radius, 0, 3.f);
 		if (mLabelBounds.H())
 			g.DrawText(mLabelText, mLabel.Get(), mLabelBounds);
 		if (mDisplayParamValue)

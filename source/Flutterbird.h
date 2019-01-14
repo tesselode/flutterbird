@@ -4,6 +4,7 @@
 #include "IPlug_include_in_plug_hdr.h"
 #include "Knob.h"
 #include "Oscillator.h"
+#include "ThemeColors.h"
 #include <vector>
 #include "Util.h"
 #include "WaveformSwitch.h"
