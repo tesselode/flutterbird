@@ -13,7 +13,7 @@ public:
 
 	void Draw(IGraphics& g) override
 	{
-		g.FillRect(themeColorWhite, mRECT);
+		g.FillRect(mMouseIsOver ? themeColorLight : themeColorWhite, mRECT);
 		g.DrawRect(themeColorDark, mRECT, 0, 8.0f);
 
 		auto svgY = mRECT.T - (mRECT.B - mRECT.T) * (int)GetParam()->Value();

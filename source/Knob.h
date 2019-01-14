@@ -37,10 +37,7 @@ public:
 		float arcAngleB = arcAngleA == originAngle ? v : originAngle;
 		g.DrawArc(themeColorDark, cx, cy, radius, mAngleMin, mAngleMax, 0, 12.f);
 		g.DrawArc(themeColorAccent, cx, cy, radius, arcAngleA, arcAngleB, 0, 12.f);
-		g.FillCircle(themeColorWhite, cx, cy, radius);
-		g.FillCircle(themeColorLight, cx, cy, radius * .8f);
-		if (mMouseIsOver)
-			g.FillCircle(IColor(25, 0, 0, 0), cx, cy, radius * 0.8f);
+		g.FillCircle(mMouseIsOver ? themeColorLight : themeColorWhite, cx, cy, radius);
 		g.DrawRadialLine(themeColorAccent, cx, cy, v, 0.5f * radius, .9f * radius, 0, 3.f);
 		if (mLabelBounds.H())
 			g.DrawText(mLabelText, mLabel.Get(), mLabelBounds);

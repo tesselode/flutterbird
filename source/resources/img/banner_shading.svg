@@ -37,9 +37,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="203.35699"
-     inkscape:cy="50.957405"
+     inkscape:zoom="2.8"
+     inkscape:cx="189.60156"
+     inkscape:cy="50.182862"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -78,7 +78,7 @@
      style="opacity:1;filter:url(#filter814)">
     <path
        style="opacity:0.25;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.39687499;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-       d="M 84.666669,265.24996 127,265.24997 v 31.75 l -63.499998,-1e-5 z"
+       d="M 68.791668,265.24996 127,265.24997 v 31.75 l -79.374999,-1e-5 z"
        id="rect1380"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccc" />
