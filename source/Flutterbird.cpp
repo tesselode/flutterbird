@@ -70,9 +70,57 @@ void Flutterbird::InitGraphics()
 
 		pGraphics->HandleMouseOver(true);
 		pGraphics->AttachCornerResizer(kUIResizerScale, false);
-		pGraphics->AttachPanelBackground(COLOR_GRAY);
-		pGraphics->AttachControl(new Knob(*this, IRECT(50, 50, 150, 150), KnobOrigin::Right, (int)Parameters::Osc1ToPitch));
-		pGraphics->AttachControl(new WaveformSwitch(*this, IRECT(150, 50, 250, 150), waveformsSvg, (int)Parameters::Osc1Waveform));
+		pGraphics->AttachPanelBackground(IColor(255, 25, 25, 25));
+
+		auto mainContent = IRECT(0, 0, PLUG_WIDTH, PLUG_HEIGHT);
+		auto rows = 5;
+		auto columns = 5;
+		auto scale = .8;
+		auto switchScale = .8;
+
+		pGraphics->AttachControl(new WaveformSwitch(*this, mainContent.GetGridCell(0, 0, rows, columns).GetScaledAboutCentre(scale * switchScale),
+			waveformsSvg, (int)Parameters::Osc1Waveform));
+		pGraphics->AttachControl(new Knob(*this, mainContent.GetGridCell(0, 1, rows, columns).GetScaledAboutCentre(scale),
+			KnobOrigin::Left, (int)Parameters::Osc1Frequency));
+		pGraphics->AttachControl(new Knob(*this, mainContent.GetGridCell(0, 2, rows, columns).GetScaledAboutCentre(scale),
+			KnobOrigin::Center, (int)Parameters::Osc1ToPitch));
+		pGraphics->AttachControl(new Knob(*this, mainContent.GetGridCell(0, 3, rows, columns).GetScaledAboutCentre(scale),
+			KnobOrigin::Center, (int)Parameters::Osc1ToVolume));
+		pGraphics->AttachControl(new Knob(*this, mainContent.GetGridCell(0, 4, rows, columns).GetScaledAboutCentre(scale),
+			KnobOrigin::Center, (int)Parameters::Osc1ToPanning));
+
+		pGraphics->AttachControl(new WaveformSwitch(*this, mainContent.GetGridCell(1, 0, rows, columns).GetScaledAboutCentre(scale * switchScale),
+			waveformsSvg, (int)Parameters::Osc2Waveform));
+		pGraphics->AttachControl(new Knob(*this, mainContent.GetGridCell(1, 1, rows, columns).GetScaledAboutCentre(scale),
+			KnobOrigin::Left, (int)Parameters::Osc2Frequency));
+		pGraphics->AttachControl(new Knob(*this, mainContent.GetGridCell(1, 2, rows, columns).GetScaledAboutCentre(scale),
+			KnobOrigin::Center, (int)Parameters::Osc2ToPitch));
+		pGraphics->AttachControl(new Knob(*this, mainContent.GetGridCell(1, 3, rows, columns).GetScaledAboutCentre(scale),
+			KnobOrigin::Center, (int)Parameters::Osc2ToVolume));
+		pGraphics->AttachControl(new Knob(*this, mainContent.GetGridCell(1, 4, rows, columns).GetScaledAboutCentre(scale),
+			KnobOrigin::Center, (int)Parameters::Osc2ToPanning));
+
+		pGraphics->AttachControl(new WaveformSwitch(*this, mainContent.GetGridCell(2, 0, rows, columns).GetScaledAboutCentre(scale * switchScale),
+			waveformsSvg, (int)Parameters::Osc3Waveform));
+		pGraphics->AttachControl(new Knob(*this, mainContent.GetGridCell(2, 1, rows, columns).GetScaledAboutCentre(scale),
+			KnobOrigin::Left, (int)Parameters::Osc3Frequency));
+		pGraphics->AttachControl(new Knob(*this, mainContent.GetGridCell(2, 2, rows, columns).GetScaledAboutCentre(scale),
+			KnobOrigin::Center, (int)Parameters::Osc3ToPitch));
+		pGraphics->AttachControl(new Knob(*this, mainContent.GetGridCell(2, 3, rows, columns).GetScaledAboutCentre(scale),
+			KnobOrigin::Center, (int)Parameters::Osc3ToVolume));
+		pGraphics->AttachControl(new Knob(*this, mainContent.GetGridCell(2, 4, rows, columns).GetScaledAboutCentre(scale),
+			KnobOrigin::Center, (int)Parameters::Osc3ToPanning));
+
+		pGraphics->AttachControl(new WaveformSwitch(*this, mainContent.GetGridCell(3, 0, rows, columns).GetScaledAboutCentre(scale * switchScale),
+			waveformsSvg, (int)Parameters::Osc4Waveform));
+		pGraphics->AttachControl(new Knob(*this, mainContent.GetGridCell(3, 1, rows, columns).GetScaledAboutCentre(scale),
+			KnobOrigin::Left, (int)Parameters::Osc4Frequency));
+		pGraphics->AttachControl(new Knob(*this, mainContent.GetGridCell(3, 2, rows, columns).GetScaledAboutCentre(scale),
+			KnobOrigin::Center, (int)Parameters::Osc4ToPitch));
+		pGraphics->AttachControl(new Knob(*this, mainContent.GetGridCell(3, 3, rows, columns).GetScaledAboutCentre(scale),
+			KnobOrigin::Center, (int)Parameters::Osc4ToVolume));
+		pGraphics->AttachControl(new Knob(*this, mainContent.GetGridCell(3, 4, rows, columns).GetScaledAboutCentre(scale),
+			KnobOrigin::Center, (int)Parameters::Osc4ToPanning));
 	};
 }
 #endif
