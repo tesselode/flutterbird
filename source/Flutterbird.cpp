@@ -79,8 +79,8 @@ void Flutterbird::InitGraphics()
 
 		auto rows = 5;
 		auto columns = 6;
-		auto scale = .8;
-		auto switchScale = .8;
+		auto scale = .85;
+		auto switchScale = .75;
 
 		// top bar
 		auto topBar = IRECT(0, 0, PLUG_WIDTH, PLUG_GUI_BASE_UNIT * 1.5);
@@ -88,20 +88,22 @@ void Flutterbird::InitGraphics()
 		pGraphics->AttachControl(new ISVGControl(*this, topBar, bannerShading));
 		pGraphics->AttachControl(new ITextControl(*this, topBar.GetHPadded(-16.f),
 			"Flutterbird", handwritingText));
-		pGraphics->AttachControl(new Knob(*this, topBar.GetGridCell(0, columns - 1, 1, columns).GetScaledAboutCentre(scale),
+		pGraphics->AttachControl(new Knob(*this, topBar.GetGridCell(0, columns - 1, 1, columns).GetScaledAboutCentre(scale).GetVShifted(PLUG_GUI_BASE_UNIT * -.1),
 			KnobOrigin::Left, (int)Parameters::Mix));
+		pGraphics->AttachControl(new ITextControl(*this, topBar.GetGridCell(0, columns - 1, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .4),
+			"Mix", labelText));
 
 		// labels
 		auto labelsRow = IRECT(0, topBar.B, PLUG_WIDTH, topBar.B + PLUG_GUI_BASE_UNIT * .5);
-		pGraphics->AttachControl(new ITextControl(*this, labelsRow.GetGridCell(0, 1, 1, columns),
+		pGraphics->AttachControl(new ITextControl(*this, labelsRow.GetGridCell(0, 1, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .1),
 			"Wave", labelText));
-		pGraphics->AttachControl(new ITextControl(*this, labelsRow.GetGridCell(0, 2, 1, columns),
+		pGraphics->AttachControl(new ITextControl(*this, labelsRow.GetGridCell(0, 2, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .1),
 			"Speed", labelText));
-		pGraphics->AttachControl(new ITextControl(*this, labelsRow.GetGridCell(0, 3, 1, columns),
+		pGraphics->AttachControl(new ITextControl(*this, labelsRow.GetGridCell(0, 3, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .1),
 			"Pitch", labelText));
-		pGraphics->AttachControl(new ITextControl(*this, labelsRow.GetGridCell(0, 4, 1, columns),
+		pGraphics->AttachControl(new ITextControl(*this, labelsRow.GetGridCell(0, 4, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .1),
 			"Volume", labelText));
-		pGraphics->AttachControl(new ITextControl(*this, labelsRow.GetGridCell(0, 5, 1, columns),
+		pGraphics->AttachControl(new ITextControl(*this, labelsRow.GetGridCell(0, 5, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .1),
 			"Pan", labelText));
 
 		// main controls

@@ -77,8 +77,8 @@
      transform="translate(0,-265.24996)"
      style="opacity:1;filter:url(#filter814)">
     <path
-       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.39687499;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal;opacity:0.1"
-       d="M 74.083335,265.24996 127,265.24997 v 31.75 l -74.083332,-1e-5 z"
+       style="opacity:0.25;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.39687499;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
+       d="M 84.666669,265.24996 127,265.24997 v 31.75 l -63.499998,-1e-5 z"
        id="rect1380"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccc" />
