@@ -23,10 +23,21 @@ public:
 		float arcStartAngle, arcEndAngle;
 		GetArcStartAndEndAngles(angle, arcStartAngle, arcEndAngle);
 
-		g.DrawArc(themeColorDark, cx, cy, radius, mAngleMin, mAngleMax, 0, 12.f);
-		g.DrawArc(themeColorAccent, cx, cy, radius, arcStartAngle, arcEndAngle, 0, 12.f);
-		g.FillCircle(mMouseIsOver ? themeColorLight : themeColorWhite, cx, cy, radius);
-		g.DrawRadialLine(themeColorAccent, cx, cy, angle, 0.5f * radius, .9f * radius, 0, 3.f);
+		if (IsGrayed())
+		{
+			g.DrawArc(themeColorDarkGrayed, cx, cy, radius, mAngleMin, mAngleMax, 0, 12.f);
+			g.DrawArc(themeColorAccentGrayed, cx, cy, radius, arcStartAngle, arcEndAngle, 0, 12.f);
+			g.FillCircle(mMouseIsOver ? themeColorLightGrayed : themeColorWhiteGrayed, cx, cy, radius);
+			g.DrawRadialLine(themeColorAccentGrayed, cx, cy, angle, 0.5f * radius, .9f * radius, 0, 3.f);
+		}
+		else
+		{
+			g.DrawArc(themeColorDark, cx, cy, radius, mAngleMin, mAngleMax, 0, 12.f);
+			g.DrawArc(themeColorAccent, cx, cy, radius, arcStartAngle, arcEndAngle, 0, 12.f);
+			g.FillCircle(mMouseIsOver ? themeColorLight : themeColorWhite, cx, cy, radius);
+			g.DrawRadialLine(themeColorAccent, cx, cy, angle, 0.5f * radius, .9f * radius, 0, 3.f);
+		}
+		
 	}
 
 private:

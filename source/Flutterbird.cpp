@@ -496,4 +496,41 @@ void Flutterbird::OnParamChange(int paramIdx)
 		break;
 	}
 }
+
+void Flutterbird::OnParamChangeUI(int paramIdx, EParamSource source)
+{
+	auto ui = GetUI();
+	if (!ui) return;
+
+	switch (paramIdx)
+	{
+	case (int)Parameters::GlobalToPitch:
+	{
+		auto pitchModulationEnabled = (bool)GetParam(Parameters::GlobalToPitch)->Value() != 0.0;
+		ui->GetControl(18)->GrayOut(!pitchModulationEnabled);
+		ui->GetControl(24)->GrayOut(!pitchModulationEnabled);
+		ui->GetControl(30)->GrayOut(!pitchModulationEnabled);
+		ui->GetControl(36)->GrayOut(!pitchModulationEnabled);
+		break;
+	}
+	case (int)Parameters::GlobalToVolume:
+	{
+		auto volumeModulationEnabled = (bool)GetParam(Parameters::GlobalToVolume)->Value() != 0.0;
+		ui->GetControl(19)->GrayOut(!volumeModulationEnabled);
+		ui->GetControl(25)->GrayOut(!volumeModulationEnabled);
+		ui->GetControl(31)->GrayOut(!volumeModulationEnabled);
+		ui->GetControl(37)->GrayOut(!volumeModulationEnabled);
+		break;
+	}
+	case (int)Parameters::GlobalToPanning:
+	{
+		auto panningModulationEnabled = (bool)GetParam(Parameters::GlobalToPanning)->Value() != 0.0;
+		ui->GetControl(20)->GrayOut(!panningModulationEnabled);
+		ui->GetControl(26)->GrayOut(!panningModulationEnabled);
+		ui->GetControl(32)->GrayOut(!panningModulationEnabled);
+		ui->GetControl(38)->GrayOut(!panningModulationEnabled);
+		break;
+	}
+	}
+}
 #endif

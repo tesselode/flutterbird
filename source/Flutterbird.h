@@ -55,6 +55,7 @@ public:
 	void OnReset() override;
 	IParam* GetParam(Parameters parameter);
 	void OnParamChange(int paramIdx);
+	void OnParamChangeUI(int paramIdx, EParamSource source = kUnknown);
 #endif
 
 private:
