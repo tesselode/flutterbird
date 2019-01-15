@@ -46,13 +46,13 @@ enum class Parameters
 class Flutterbird : public IPlug
 {
 public:
-	
 	Flutterbird(IPlugInstanceInfo instanceInfo);
 
 #if IPLUG_DSP
 	void ProcessBlock(sample** inputs, sample** outputs, int nFrames) override;
 	void InitBuffer();
 	void OnReset() override;
+	IParam* GetParam(Parameters parameter);
 #endif
 
 private:
