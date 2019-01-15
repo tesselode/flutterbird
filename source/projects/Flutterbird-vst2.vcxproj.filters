@@ -209,6 +209,10 @@
     </ClInclude>
     <ClInclude Include="..\Util.h" />
     <ClInclude Include="..\Oscillator.h" />
+    <ClInclude Include="..\Knob.h" />
+    <ClInclude Include="..\SmoothToggle.h" />
+    <ClInclude Include="..\SvgSwitchControl.h" />
+    <ClInclude Include="..\ThemeColors.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="IPlug">
