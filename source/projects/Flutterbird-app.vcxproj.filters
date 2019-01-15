@@ -275,6 +275,7 @@
     <ClInclude Include="..\Knob.h" />
     <ClInclude Include="..\ThemeColors.h" />
     <ClInclude Include="..\SvgSwitchControl.h" />
+    <ClInclude Include="..\SmoothToggle.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resources">

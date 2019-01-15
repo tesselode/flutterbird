@@ -7,6 +7,7 @@
 #include "ThemeColors.h"
 #include <vector>
 #include "Util.h"
+#include "SmoothToggle.h"
 #include "SvgSwitchControl.h"
 
 const int tapeLength = 10;
@@ -53,6 +54,7 @@ public:
 	void InitBuffer();
 	void OnReset() override;
 	IParam* GetParam(Parameters parameter);
+	void OnParamChange(int paramIdx);
 #endif
 
 private:
@@ -80,6 +82,7 @@ private:
 	double relativeReadPosition = 0.0;
 	double volume = 1.0;
 	double panning = 0.0;
+	SmoothToggle testToneSwitch;
 
 	double testTonePhase = 0.0;
 #endif

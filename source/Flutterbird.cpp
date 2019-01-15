@@ -427,6 +427,9 @@ void Flutterbird::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 {
 	for (int s = 0; s < nFrames; s++)
 	{
+		// update parameters
+		testToneSwitch.Update(dt);
+
 		// update oscillators
 		UpdateOscillators();
 
@@ -441,11 +444,13 @@ void Flutterbird::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 		// write to the buffer
 		auto inL = inputs[0][s];
 		auto inR = inputs[1][s];
-		if (GetParam(Parameters::TestTone)->Value())
+		if (testToneSwitch.value > 0.0)
 		{
 			testTonePhase += 440.0 * dt;
 			while (testTonePhase >= 1.0) testTonePhase -= 1.0;
-			inL = inR = .25 * sin(testTonePhase * twoPi);
+			auto testToneOut = .25 * sin(testTonePhase * twoPi);
+			inL = inputs[0][s] * (1.0 - testToneSwitch.value) + testToneOut * testToneSwitch.value;
+			inR = inputs[1][s] * (1.0 - testToneSwitch.value) + testToneOut * testToneSwitch.value;
 		}
 		bufferL[writePosition] = inL;
 		bufferR[writePosition] = inR;
@@ -480,5 +485,15 @@ void Flutterbird::OnReset()
 {
 	dt = 1.0 / GetSampleRate();
 	InitBuffer();
+}
+
+void Flutterbird::OnParamChange(int paramIdx)
+{
+	switch (paramIdx)
+	{
+	case (int)Parameters::TestTone:
+		testToneSwitch.on = (bool)GetParam(Parameters::TestTone)->Value();
+		break;
+	}
 }
 #endif
