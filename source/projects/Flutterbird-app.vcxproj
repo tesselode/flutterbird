@@ -334,7 +334,7 @@
     <ClInclude Include="..\resources\resource.h" />
     <ClInclude Include="..\ThemeColors.h" />
     <ClInclude Include="..\Util.h" />
-    <ClInclude Include="..\SvgSwitch.h" />
+    <ClInclude Include="..\SvgSwitchControl.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Dependencies\IPlug\RTAudio\include\asio.cpp" />

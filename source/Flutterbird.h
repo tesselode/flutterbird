@@ -7,7 +7,7 @@
 #include "ThemeColors.h"
 #include <vector>
 #include "Util.h"
-#include "SvgSwitch.h"
+#include "SvgSwitchControl.h"
 
 const int tapeLength = 10;
 const int numOscillators = 4;
@@ -77,7 +77,7 @@ private:
 	double osc3Value = 0.0;
 	double osc4Value = 0.0;
 	int writePosition = 0;
-	double readPosition = 0.0;
+	double relativeReadPosition = 0.0;
 	double volume = 1.0;
 	double panning = 0.0;
 

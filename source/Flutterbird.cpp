@@ -66,11 +66,11 @@ void Flutterbird::InitGraphics()
 	};
 
 	mLayoutFunc = [&](IGraphics* pGraphics) {
-		auto waveformsSvg = pGraphics->LoadSVG(SVG_WAVEFORMS_FN);
-		auto bannerShading = pGraphics->LoadSVG(BANNER_SHADING_FN);
-		auto toggleSvg = pGraphics->LoadSVG(SVG_TOGGLE_FN);
-		pGraphics->LoadFont(CAVEAT_FN);
-		pGraphics->LoadFont(RALEWAY_FN);
+		auto waveformsSvg = pGraphics->LoadSVG(WAVEFORMS_SVG_FN);
+		auto bannerShadingSvg = pGraphics->LoadSVG(BANNER_SHADING_SVG_FN);
+		auto toggleSvg = pGraphics->LoadSVG(TOGGLE_SVG_FN);
+		pGraphics->LoadFont(CAVEAT_FONT_FN);
+		pGraphics->LoadFont(RALEWAY_FONT_FN);
 		const IText handwritingText{ 60, themeColorWhite, "Caveat-Bold", IText::kStyleNormal, IText::kAlignNear, IText::kVAlignMiddle };
 		const IText labelText{ 20, themeColorWhite, "Raleway-Semibold", IText::kStyleNormal, IText::kAlignCenter, IText::kVAlignMiddle };
 
@@ -86,16 +86,16 @@ void Flutterbird::InitGraphics()
 		// top bar
 		auto topBar = IRECT(0, 0, PLUG_WIDTH, PLUG_GUI_BASE_UNIT * 1.5);
 		pGraphics->AttachControl(new IPanelControl(*this, topBar, themeColorAccent));
-		pGraphics->AttachControl(new ISVGControl(*this, topBar, bannerShading));
+		pGraphics->AttachControl(new ISVGControl(*this, topBar, bannerShadingSvg));
 		pGraphics->AttachControl(new ITextControl(*this, topBar.GetHPadded(-16.f),
 			"Flutterbird", handwritingText));
-		pGraphics->AttachControl(new SvgSwitch(*this, topBar.GetGridCell(0, columns - 3, 1, columns)
+		pGraphics->AttachControl(new SvgSwitchControl(*this, topBar.GetGridCell(0, columns - 3, 1, columns)
 				.GetCentredInside(PLUG_GUI_BASE_UNIT * scale * switchScale, PLUG_GUI_BASE_UNIT * scale * switchScale)
 				.GetVShifted(PLUG_GUI_BASE_UNIT * -.1),
 			toggleSvg, (int)Parameters::TestTone));
 		pGraphics->AttachControl(new ITextControl(*this, topBar.GetGridCell(0, columns - 3, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .4),
 			"Test", labelText));
-		pGraphics->AttachControl(new SvgSwitch(*this, topBar.GetGridCell(0, columns - 2, 1, columns)
+		pGraphics->AttachControl(new SvgSwitchControl(*this, topBar.GetGridCell(0, columns - 2, 1, columns)
 				.GetCentredInside(PLUG_GUI_BASE_UNIT * scale * switchScale, PLUG_GUI_BASE_UNIT * scale * switchScale)
 				.GetVShifted(PLUG_GUI_BASE_UNIT * -.1),
 			toggleSvg, (int)Parameters::InfinitePanning));
@@ -125,7 +125,7 @@ void Flutterbird::InitGraphics()
 		// osc 1
 		pGraphics->AttachControl(new ITextControl(*this, mainSection.GetGridCell(0, 0, rows, columns).GetHPadded(-16.f),
 			"1", handwritingText));
-		pGraphics->AttachControl(new SvgSwitch(*this, mainSection.GetGridCell(0, 1, rows, columns).GetScaledAboutCentre(scale * switchScale),
+		pGraphics->AttachControl(new SvgSwitchControl(*this, mainSection.GetGridCell(0, 1, rows, columns).GetScaledAboutCentre(scale * switchScale),
 			waveformsSvg, (int)Parameters::Osc1Waveform));
 		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(0, 2, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Left, (int)Parameters::Osc1Frequency));
@@ -136,9 +136,10 @@ void Flutterbird::InitGraphics()
 		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(0, 5, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Center, (int)Parameters::Osc1ToPanning));
 
+		// osc 2
 		pGraphics->AttachControl(new ITextControl(*this, mainSection.GetGridCell(1, 0, rows, columns).GetHPadded(-16.f),
 			"2", handwritingText));
-		pGraphics->AttachControl(new SvgSwitch(*this, mainSection.GetGridCell(1, 1, rows, columns).GetScaledAboutCentre(scale * switchScale),
+		pGraphics->AttachControl(new SvgSwitchControl(*this, mainSection.GetGridCell(1, 1, rows, columns).GetScaledAboutCentre(scale * switchScale),
 			waveformsSvg, (int)Parameters::Osc2Waveform));
 		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(1, 2, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Left, (int)Parameters::Osc2Frequency));
@@ -149,9 +150,10 @@ void Flutterbird::InitGraphics()
 		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(1, 5, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Center, (int)Parameters::Osc2ToPanning));
 
+		// osc 3
 		pGraphics->AttachControl(new ITextControl(*this, mainSection.GetGridCell(2, 0, rows, columns).GetHPadded(-16.f),
 			"3", handwritingText));
-		pGraphics->AttachControl(new SvgSwitch(*this, mainSection.GetGridCell(2, 1, rows, columns).GetScaledAboutCentre(scale * switchScale),
+		pGraphics->AttachControl(new SvgSwitchControl(*this, mainSection.GetGridCell(2, 1, rows, columns).GetScaledAboutCentre(scale * switchScale),
 			waveformsSvg, (int)Parameters::Osc3Waveform));
 		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(2, 2, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Left, (int)Parameters::Osc3Frequency));
@@ -162,9 +164,10 @@ void Flutterbird::InitGraphics()
 		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(2, 5, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Center, (int)Parameters::Osc3ToPanning));
 
+		// osc 4
 		pGraphics->AttachControl(new ITextControl(*this, mainSection.GetGridCell(3, 0, rows, columns).GetHPadded(-16.f),
 			"4", handwritingText));
-		pGraphics->AttachControl(new SvgSwitch(*this, mainSection.GetGridCell(3, 1, rows, columns).GetScaledAboutCentre(scale * switchScale),
+		pGraphics->AttachControl(new SvgSwitchControl(*this, mainSection.GetGridCell(3, 1, rows, columns).GetScaledAboutCentre(scale * switchScale),
 			waveformsSvg, (int)Parameters::Osc4Waveform));
 		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(3, 2, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Left, (int)Parameters::Osc4Frequency));
@@ -175,6 +178,7 @@ void Flutterbird::InitGraphics()
 		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(3, 5, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Center, (int)Parameters::Osc4ToPanning));
 
+		// global amounts
 		pGraphics->AttachControl(new ITextControl(*this, mainSection.GetGridCell(4, 0, rows, 1).GetHPadded(-16.f),
 			"Total", handwritingText));
 		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(4, 3, rows, columns).GetScaledAboutCentre(scale),
@@ -215,13 +219,18 @@ void Flutterbird::UpdateOscillators()
 	auto osc3ToPanning = GetParam((int)Parameters::Osc3ToPanning)->Value();
 	auto osc4ToPanning = GetParam((int)Parameters::Osc4ToPanning)->Value();
 
-	if (osc1ToPitch != 0.0 || osc1ToVolume != 0.0 || osc1ToPanning != 0.0)
+	auto osc1Used = osc1ToPitch != 0.0 || osc1ToVolume != 0.0 || osc1ToPanning != 0.0;
+	auto osc2Used = osc2ToPitch != 0.0 || osc2ToVolume != 0.0 || osc2ToPanning != 0.0;
+	auto osc3Used = osc3ToPitch != 0.0 || osc3ToVolume != 0.0 || osc3ToPanning != 0.0;
+	auto osc4Used = osc4ToPitch != 0.0 || osc4ToVolume != 0.0 || osc4ToPanning != 0.0;
+
+	if (osc1Used)
 		osc1Value = osc1.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc1Waveform)->Value(), GetParam((int)Parameters::Osc1Frequency)->Value());
-	if (osc2ToPitch != 0.0 || osc2ToVolume != 0.0 || osc2ToPanning != 0.0)
+	if (osc2Used)
 		osc2Value = osc2.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc2Waveform)->Value(), GetParam((int)Parameters::Osc2Frequency)->Value());
-	if (osc3ToPitch != 0.0 || osc3ToVolume != 0.0 || osc3ToPanning != 0.0)
+	if (osc3Used)
 		osc3Value = osc3.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc3Waveform)->Value(), GetParam((int)Parameters::Osc3Frequency)->Value());
-	if (osc4ToPitch != 0.0 || osc4ToVolume != 0.0 || osc4ToPanning != 0.0)
+	if (osc4Used)
 		osc4Value = osc4.Next(dt, (Waveforms)(int)GetParam((int)Parameters::Osc4Waveform)->Value(), GetParam((int)Parameters::Osc4Frequency)->Value());
 }
 
@@ -276,8 +285,8 @@ double Flutterbird::GetReadPosition()
 	}
 
 	auto followSpeed = totalToPitch == 0.0 ? 10.0 : 1.0;
-	readPosition += (target - readPosition) * followSpeed * dt;
-	return writePosition - readPosition * GetSampleRate();
+	relativeReadPosition += (target - relativeReadPosition) * followSpeed * dt;
+	return writePosition - relativeReadPosition * GetSampleRate();
 }
 
 void Flutterbird::UpdateVolume()

@@ -50,8 +50,8 @@
 #define APP_RESIZABLE 0
 #define APP_SIGNAL_VECTOR_SIZE 64
 
-#define CAVEAT_FN "Caveat-Bold.ttf"
-#define RALEWAY_FN "Raleway-Semibold.ttf"
-#define SVG_WAVEFORMS_FN "waveforms.svg"
-#define SVG_TOGGLE_FN "toggle.svg"
-#define BANNER_SHADING_FN "banner_shading.svg"
+#define CAVEAT_FONT_FN "Caveat-Bold.ttf"
+#define RALEWAY_FONT_FN "Raleway-Semibold.ttf"
+#define WAVEFORMS_SVG_FN "waveforms.svg"
+#define TOGGLE_SVG_FN "toggle.svg"
+#define BANNER_SHADING_SVG_FN "banner_shading.svg"

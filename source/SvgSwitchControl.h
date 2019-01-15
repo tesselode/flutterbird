@@ -3,10 +3,10 @@
 #include "IControls.h"
 #include "ThemeColors.h"
 
-class SvgSwitch : public IVSwitchControl
+class SvgSwitchControl : public IVSwitchControl
 {
 public:
-	SvgSwitch(IGEditorDelegate& dlg, IRECT bounds, ISVG svg, int paramIdx = kNoParameter)
+	SvgSwitchControl(IGEditorDelegate& dlg, IRECT bounds, ISVG svg, int paramIdx = kNoParameter)
 		: IVSwitchControl(dlg, bounds, paramIdx),
 		switchContents(svg)
 	{}
@@ -25,5 +25,4 @@ public:
 
 private:
 	ISVG switchContents;
-	ILayerPtr layer;
 };

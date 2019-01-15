@@ -16,11 +16,15 @@ inline int wrap(int kX, int const kLowerBound, int const kUpperBound)
 	return kLowerBound + (kX - kLowerBound) % range_size;
 }
 
+/*
+	Given 4 samples and a point from 0-1 between y1 and y2, returns an
+	approximation of what the sample would be.
+*/
 inline float interpolate(float x, float y0, float y1, float y2, float y3)
 {
 	/*
 	interpolation code from Polynomial Interpolators for
-	High-Quality Resampling of Oversampled Audio by Olli Niemitalo
+	High-Quality Resampling of Oversampled Audio by Olli Niemitalo (p. 48)
 	http://yehar.com/blog/wp-content/uploads/2009/08/deip.pdf
 	*/
 
