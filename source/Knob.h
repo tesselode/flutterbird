@@ -11,8 +11,8 @@ enum class KnobOrigin {
 
 class Knob : public IVKnobControl {
 public:
-	Knob(IGEditorDelegate& dlg, IRECT bounds, KnobOrigin o, int paramIdx)
-		: IVKnobControl(dlg, bounds, paramIdx), origin(o)
+	Knob(IRECT bounds, KnobOrigin o, int paramIdx)
+		: IVKnobControl(bounds, paramIdx), origin(o)
 	{}
 
 	void Draw(IGraphics &g) override

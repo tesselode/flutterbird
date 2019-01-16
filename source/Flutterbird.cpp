@@ -90,107 +90,107 @@ void Flutterbird::InitGraphics()
 
 		// top bar
 		auto topBar = IRECT(0, 0, PLUG_WIDTH, PLUG_GUI_BASE_UNIT * 1.5);
-		pGraphics->AttachControl(new IPanelControl(*this, topBar, themeColorAccent));
-		pGraphics->AttachControl(new ISVGControl(*this, topBar, bannerShadingSvg));
-		pGraphics->AttachControl(new ITextControl(*this, topBar.GetHPadded(-16.f),
+		pGraphics->AttachControl(new IPanelControl(topBar, themeColorAccent));
+		pGraphics->AttachControl(new ISVGControl(topBar, bannerShadingSvg));
+		pGraphics->AttachControl(new ITextControl(topBar.GetHPadded(-16.f),
 			"Flutterbird", handwritingText));
-		pGraphics->AttachControl(new SvgSwitchControl(*this, topBar.GetGridCell(0, columns - 3, 1, columns)
+		pGraphics->AttachControl(new SvgSwitchControl(topBar.GetGridCell(0, columns - 3, 1, columns)
 				.GetCentredInside(PLUG_GUI_BASE_UNIT * scale * switchScale, PLUG_GUI_BASE_UNIT * scale * switchScale)
 				.GetVShifted(PLUG_GUI_BASE_UNIT * -.1),
 			toggleSvg, (int)Parameters::TestTone));
-		pGraphics->AttachControl(new ITextControl(*this, topBar.GetGridCell(0, columns - 3, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .4),
+		pGraphics->AttachControl(new ITextControl(topBar.GetGridCell(0, columns - 3, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .4),
 			"Test", labelText));
-		pGraphics->AttachControl(new SvgSwitchControl(*this, topBar.GetGridCell(0, columns - 2, 1, columns)
+		pGraphics->AttachControl(new SvgSwitchControl(topBar.GetGridCell(0, columns - 2, 1, columns)
 				.GetCentredInside(PLUG_GUI_BASE_UNIT * scale * switchScale, PLUG_GUI_BASE_UNIT * scale * switchScale)
 				.GetVShifted(PLUG_GUI_BASE_UNIT * -.1),
 			toggleSvg, (int)Parameters::InfinitePanning));
-		pGraphics->AttachControl(new ITextControl(*this, topBar.GetGridCell(0, columns - 2, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .4),
+		pGraphics->AttachControl(new ITextControl(topBar.GetGridCell(0, columns - 2, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .4),
 			"Inf. pan", labelText));
-		pGraphics->AttachControl(new Knob(*this, topBar.GetGridCell(0, columns - 1, 1, columns).GetScaledAboutCentre(scale).GetVShifted(PLUG_GUI_BASE_UNIT * -.1),
+		pGraphics->AttachControl(new Knob(topBar.GetGridCell(0, columns - 1, 1, columns).GetScaledAboutCentre(scale).GetVShifted(PLUG_GUI_BASE_UNIT * -.1),
 			KnobOrigin::Left, (int)Parameters::Mix));
-		pGraphics->AttachControl(new ITextControl(*this, topBar.GetGridCell(0, columns - 1, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .4),
+		pGraphics->AttachControl(new ITextControl(topBar.GetGridCell(0, columns - 1, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .4),
 			"Mix", labelText));
 
 		// labels
 		auto labelsRow = IRECT(0, topBar.B, PLUG_WIDTH, topBar.B + PLUG_GUI_BASE_UNIT * .5);
-		pGraphics->AttachControl(new ITextControl(*this, labelsRow.GetGridCell(0, 1, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .1),
+		pGraphics->AttachControl(new ITextControl(labelsRow.GetGridCell(0, 1, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .1),
 			"Wave", labelText));
-		pGraphics->AttachControl(new ITextControl(*this, labelsRow.GetGridCell(0, 2, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .1),
+		pGraphics->AttachControl(new ITextControl(labelsRow.GetGridCell(0, 2, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .1),
 			"Speed", labelText));
-		pGraphics->AttachControl(new ITextControl(*this, labelsRow.GetGridCell(0, 3, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .1),
+		pGraphics->AttachControl(new ITextControl(labelsRow.GetGridCell(0, 3, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .1),
 			"Pitch", labelText));
-		pGraphics->AttachControl(new ITextControl(*this, labelsRow.GetGridCell(0, 4, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .1),
+		pGraphics->AttachControl(new ITextControl(labelsRow.GetGridCell(0, 4, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .1),
 			"Volume", labelText));
-		pGraphics->AttachControl(new ITextControl(*this, labelsRow.GetGridCell(0, 5, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .1),
+		pGraphics->AttachControl(new ITextControl(labelsRow.GetGridCell(0, 5, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .1),
 			"Pan", labelText));
 
 		// main controls
 		auto mainSection = IRECT(0, labelsRow.B, PLUG_WIDTH, PLUG_HEIGHT);
 
 		// osc 1
-		pGraphics->AttachControl(new ITextControl(*this, mainSection.GetGridCell(0, 0, rows, columns).GetHPadded(-16.f),
+		pGraphics->AttachControl(new ITextControl(mainSection.GetGridCell(0, 0, rows, columns).GetHPadded(-16.f),
 			"1", handwritingText));
-		pGraphics->AttachControl(new SvgSwitchControl(*this, mainSection.GetGridCell(0, 1, rows, columns).GetScaledAboutCentre(scale * switchScale),
+		pGraphics->AttachControl(new SvgSwitchControl(mainSection.GetGridCell(0, 1, rows, columns).GetScaledAboutCentre(scale * switchScale),
 			waveformsSvg, (int)Parameters::Osc1Waveform));
-		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(0, 2, rows, columns).GetScaledAboutCentre(scale),
+		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(0, 2, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Left, (int)Parameters::Osc1Frequency));
-		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(0, 3, rows, columns).GetScaledAboutCentre(scale),
+		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(0, 3, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Center, (int)Parameters::Osc1ToPitch));
-		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(0, 4, rows, columns).GetScaledAboutCentre(scale),
+		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(0, 4, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Center, (int)Parameters::Osc1ToVolume));
-		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(0, 5, rows, columns).GetScaledAboutCentre(scale),
+		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(0, 5, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Center, (int)Parameters::Osc1ToPanning));
 
 		// osc 2
-		pGraphics->AttachControl(new ITextControl(*this, mainSection.GetGridCell(1, 0, rows, columns).GetHPadded(-16.f),
+		pGraphics->AttachControl(new ITextControl(mainSection.GetGridCell(1, 0, rows, columns).GetHPadded(-16.f),
 			"2", handwritingText));
-		pGraphics->AttachControl(new SvgSwitchControl(*this, mainSection.GetGridCell(1, 1, rows, columns).GetScaledAboutCentre(scale * switchScale),
+		pGraphics->AttachControl(new SvgSwitchControl(mainSection.GetGridCell(1, 1, rows, columns).GetScaledAboutCentre(scale * switchScale),
 			waveformsSvg, (int)Parameters::Osc2Waveform));
-		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(1, 2, rows, columns).GetScaledAboutCentre(scale),
+		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(1, 2, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Left, (int)Parameters::Osc2Frequency));
-		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(1, 3, rows, columns).GetScaledAboutCentre(scale),
+		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(1, 3, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Center, (int)Parameters::Osc2ToPitch));
-		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(1, 4, rows, columns).GetScaledAboutCentre(scale),
+		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(1, 4, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Center, (int)Parameters::Osc2ToVolume));
-		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(1, 5, rows, columns).GetScaledAboutCentre(scale),
+		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(1, 5, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Center, (int)Parameters::Osc2ToPanning));
 
 		// osc 3
-		pGraphics->AttachControl(new ITextControl(*this, mainSection.GetGridCell(2, 0, rows, columns).GetHPadded(-16.f),
+		pGraphics->AttachControl(new ITextControl(mainSection.GetGridCell(2, 0, rows, columns).GetHPadded(-16.f),
 			"3", handwritingText));
-		pGraphics->AttachControl(new SvgSwitchControl(*this, mainSection.GetGridCell(2, 1, rows, columns).GetScaledAboutCentre(scale * switchScale),
+		pGraphics->AttachControl(new SvgSwitchControl(mainSection.GetGridCell(2, 1, rows, columns).GetScaledAboutCentre(scale * switchScale),
 			waveformsSvg, (int)Parameters::Osc3Waveform));
-		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(2, 2, rows, columns).GetScaledAboutCentre(scale),
+		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(2, 2, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Left, (int)Parameters::Osc3Frequency));
-		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(2, 3, rows, columns).GetScaledAboutCentre(scale),
+		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(2, 3, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Center, (int)Parameters::Osc3ToPitch));
-		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(2, 4, rows, columns).GetScaledAboutCentre(scale),
+		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(2, 4, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Center, (int)Parameters::Osc3ToVolume));
-		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(2, 5, rows, columns).GetScaledAboutCentre(scale),
+		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(2, 5, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Center, (int)Parameters::Osc3ToPanning));
 
 		// osc 4
-		pGraphics->AttachControl(new ITextControl(*this, mainSection.GetGridCell(3, 0, rows, columns).GetHPadded(-16.f),
+		pGraphics->AttachControl(new ITextControl(mainSection.GetGridCell(3, 0, rows, columns).GetHPadded(-16.f),
 			"4", handwritingText));
-		pGraphics->AttachControl(new SvgSwitchControl(*this, mainSection.GetGridCell(3, 1, rows, columns).GetScaledAboutCentre(scale * switchScale),
+		pGraphics->AttachControl(new SvgSwitchControl(mainSection.GetGridCell(3, 1, rows, columns).GetScaledAboutCentre(scale * switchScale),
 			waveformsSvg, (int)Parameters::Osc4Waveform));
-		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(3, 2, rows, columns).GetScaledAboutCentre(scale),
+		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(3, 2, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Left, (int)Parameters::Osc4Frequency));
-		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(3, 3, rows, columns).GetScaledAboutCentre(scale),
+		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(3, 3, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Center, (int)Parameters::Osc4ToPitch));
-		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(3, 4, rows, columns).GetScaledAboutCentre(scale),
+		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(3, 4, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Center, (int)Parameters::Osc4ToVolume));
-		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(3, 5, rows, columns).GetScaledAboutCentre(scale),
+		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(3, 5, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Center, (int)Parameters::Osc4ToPanning));
 
 		// global amounts
-		pGraphics->AttachControl(new ITextControl(*this, mainSection.GetGridCell(4, 0, rows, 1).GetHPadded(-16.f),
+		pGraphics->AttachControl(new ITextControl(mainSection.GetGridCell(4, 0, rows, 1).GetHPadded(-16.f),
 			"Total", handwritingText));
-		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(4, 3, rows, columns).GetScaledAboutCentre(scale),
+		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(4, 3, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Left, (int)Parameters::GlobalToPitch));
-		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(4, 4, rows, columns).GetScaledAboutCentre(scale),
+		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(4, 4, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Left, (int)Parameters::GlobalToVolume));
-		pGraphics->AttachControl(new Knob(*this, mainSection.GetGridCell(4, 5, rows, columns).GetScaledAboutCentre(scale),
+		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(4, 5, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Left, (int)Parameters::GlobalToPanning));
 	};
 }

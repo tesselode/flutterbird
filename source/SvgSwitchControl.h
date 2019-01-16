@@ -6,8 +6,8 @@
 class SvgSwitchControl : public IVSwitchControl
 {
 public:
-	SvgSwitchControl(IGEditorDelegate& dlg, IRECT bounds, ISVG svg, int paramIdx = kNoParameter)
-		: IVSwitchControl(dlg, bounds, paramIdx),
+	SvgSwitchControl(IRECT bounds, ISVG svg, int paramIdx = kNoParameter)
+		: IVSwitchControl(bounds, paramIdx),
 		switchContents(svg)
 	{}
 
