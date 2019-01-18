@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cmath>
+#include <iomanip>
 #include "IPlug_include_in_plug_hdr.h"
 #include "Knob.h"
 #include "Oscillator.h"
@@ -8,6 +9,7 @@
 #include <vector>
 #include "Util.h"
 #include "SmoothToggle.h"
+#include <sstream>
 #include <string>
 #include "SvgSwitchControl.h"
 
