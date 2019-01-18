@@ -8,6 +8,7 @@
 #include <vector>
 #include "Util.h"
 #include "SmoothToggle.h"
+#include <string>
 #include "SvgSwitchControl.h"
 
 const int tapeLength = 10;
@@ -90,5 +91,8 @@ private:
 
 #if IPLUG_EDITOR
 	void InitGraphics();
+
+	ITextControl* parameterNameLabel;
+	ITextControl* parameterValueLabel;
 #endif
 };
