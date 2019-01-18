@@ -39,7 +39,6 @@ enum class Parameters
 	GlobalToPitch,
 	GlobalToVolume,
 	GlobalToPanning,
-	InfinitePanning,
 	Mix,
 	TestTone,
 	NumParameters,

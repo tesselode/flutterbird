@@ -57,7 +57,6 @@ void Flutterbird::InitParameters()
 	GetParam(Parameters::GlobalToPitch)->InitDouble("Total -> pitch", .1, 0.0, 1.0, .01, "", 0, "", new IParam::ShapePowCurve(2.0));
 	GetParam(Parameters::GlobalToVolume)->InitDouble("Total -> volume", .5, 0.0, 1.0, .01);
 	GetParam(Parameters::GlobalToPanning)->InitDouble("Total -> panning", .5, 0.0, 1.0, .01);
-	GetParam(Parameters::InfinitePanning)->InitBool("Allow infinite panning", false);
 	GetParam(Parameters::Mix)->InitDouble("Dry/wet mix", 1.0, 0.0, 1.0, .01);
 	GetParam(Parameters::TestTone)->InitBool("Test tone", false);
 }
@@ -101,18 +100,12 @@ void Flutterbird::InitGraphics()
 		parameterValueLabel = new ITextControl(topBar.GetHPadded(-16.f).GetVShifted(36.f),
 			"v2.0 beta 1", infoText);
 		pGraphics->AttachControl(parameterValueLabel);
-		pGraphics->AttachControl(new SvgSwitchControl(topBar.GetGridCell(0, columns - 3, 1, columns)
-				.GetCentredInside(PLUG_GUI_BASE_UNIT * scale * switchScale, PLUG_GUI_BASE_UNIT * scale * switchScale)
-				.GetVShifted(PLUG_GUI_BASE_UNIT * -.1),
-			toggleSvg, (int)Parameters::TestTone));
-		pGraphics->AttachControl(new ITextControl(topBar.GetGridCell(0, columns - 3, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .4),
-			"Test", labelText));
 		pGraphics->AttachControl(new SvgSwitchControl(topBar.GetGridCell(0, columns - 2, 1, columns)
 				.GetCentredInside(PLUG_GUI_BASE_UNIT * scale * switchScale, PLUG_GUI_BASE_UNIT * scale * switchScale)
 				.GetVShifted(PLUG_GUI_BASE_UNIT * -.1),
-			toggleSvg, (int)Parameters::InfinitePanning));
+			toggleSvg, (int)Parameters::TestTone));
 		pGraphics->AttachControl(new ITextControl(topBar.GetGridCell(0, columns - 2, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .4),
-			"Inf. pan", labelText));
+			"Test", labelText));
 		pGraphics->AttachControl(new Knob(topBar.GetGridCell(0, columns - 1, 1, columns).GetScaledAboutCentre(scale).GetVShifted(PLUG_GUI_BASE_UNIT * -.1),
 			KnobOrigin::Left, (int)Parameters::Mix));
 		pGraphics->AttachControl(new ITextControl(topBar.GetGridCell(0, columns - 1, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .4),
@@ -409,8 +402,7 @@ void Flutterbird::UpdatePanning()
 		target -= osc4ToPanning * oscValue;
 	}
 	
-	if (!GetParam(Parameters::InfinitePanning)->Value())
-		target = target < -twoPi / 8 ? -twoPi / 8 : target > twoPi / 8 ? twoPi / 8 : target;
+	target = target < -twoPi / 8 ? -twoPi / 8 : target > twoPi / 8 ? twoPi / 8 : target;
 	panning += (target - panning) * 100.0 * dt;
 }
 
