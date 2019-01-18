@@ -527,8 +527,7 @@ void Flutterbird::OnParamChangeUI(int paramIdx, EParamSource source)
 		parameterNameLabel->SetStr(param->GetNameForHost());
 		WDL_String valueString;
 		param->GetDisplayForHost(valueString);
-		auto s = std::string(valueString.Get()) + std::string(" ") + std::string(param->GetCustomUnit());
-		parameterValueLabel->SetStr(s.c_str());
+		parameterValueLabel->SetStr(valueString.Get());
 		break;
 	}
 	}
