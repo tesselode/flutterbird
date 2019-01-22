@@ -94,8 +94,8 @@ void Flutterbird::InitGraphics()
 		pGraphics->LoadFont(HANDWRITING_FONT_FN);
 		pGraphics->LoadFont(MONOSPACE_FONT_FN);
 		const IText handwritingText{ 60, themeColorWhite, "Caveat-Bold", IText::kStyleNormal, IText::kAlignNear, IText::kVAlignMiddle };
-		const IText labelText{ 18, themeColorWhite, "CourierPrimeSans-Italic", IText::kStyleNormal, IText::kAlignCenter, IText::kVAlignMiddle };
-		const IText infoText{ 18, themeColorWhite, "CourierPrimeSans-Italic", IText::kStyleNormal, IText::kAlignNear, IText::kVAlignMiddle };
+		const IText labelText{ 24, themeColorWhite, "SpaceMono-Italic", IText::kStyleNormal, IText::kAlignCenter, IText::kVAlignMiddle };
+		const IText infoText{ 24, themeColorWhite, "SpaceMono-Italic", IText::kStyleNormal, IText::kAlignNear, IText::kVAlignMiddle };
 
 		pGraphics->HandleMouseOver(true);
 		pGraphics->AttachCornerResizer(kUIResizerScale, false);
