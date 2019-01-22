@@ -50,8 +50,8 @@
 #define APP_RESIZABLE 0
 #define APP_SIGNAL_VECTOR_SIZE 64
 
-#define CAVEAT_FONT_FN "Caveat-Bold.ttf"
-#define RALEWAY_FONT_FN "Inconsolata-Bold.ttf"
+#define HANDWRITING_FONT_FN "Caveat-Bold.ttf"
+#define MONOSPACE_FONT_FN "CourierPrimeSans-Italic.ttf"
 #define WAVEFORMS_SVG_FN "waveforms.svg"
 #define TOGGLE_SVG_FN "toggle.svg"
 #define BANNER_SHADING_SVG_FN "banner_shading.svg"

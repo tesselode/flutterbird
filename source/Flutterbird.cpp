@@ -91,11 +91,11 @@ void Flutterbird::InitGraphics()
 		auto waveformsSvg = pGraphics->LoadSVG(WAVEFORMS_SVG_FN);
 		auto bannerShadingSvg = pGraphics->LoadSVG(BANNER_SHADING_SVG_FN);
 		auto toggleSvg = pGraphics->LoadSVG(TOGGLE_SVG_FN);
-		pGraphics->LoadFont(CAVEAT_FONT_FN);
-		pGraphics->LoadFont(RALEWAY_FONT_FN);
+		pGraphics->LoadFont(HANDWRITING_FONT_FN);
+		pGraphics->LoadFont(MONOSPACE_FONT_FN);
 		const IText handwritingText{ 60, themeColorWhite, "Caveat-Bold", IText::kStyleNormal, IText::kAlignNear, IText::kVAlignMiddle };
-		const IText labelText{ 20, themeColorWhite, "Inconsolata-Bold", IText::kStyleNormal, IText::kAlignCenter, IText::kVAlignMiddle };
-		const IText infoText{ 20, themeColorWhite, "Inconsolata-Bold", IText::kStyleNormal, IText::kAlignNear, IText::kVAlignMiddle };
+		const IText labelText{ 18, themeColorWhite, "CourierPrimeSans-Italic", IText::kStyleNormal, IText::kAlignCenter, IText::kVAlignMiddle };
+		const IText infoText{ 18, themeColorWhite, "CourierPrimeSans-Italic", IText::kStyleNormal, IText::kAlignNear, IText::kVAlignMiddle };
 
 		pGraphics->HandleMouseOver(true);
 		pGraphics->AttachCornerResizer(kUIResizerScale, false);
