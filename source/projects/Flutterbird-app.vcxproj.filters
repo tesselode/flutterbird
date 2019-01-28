@@ -86,6 +86,9 @@
     <ClCompile Include="..\..\..\IGraphics\Controls\ITextEntryControl.cpp">
       <Filter>IGraphics\Controls</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\IPlug\IPlugPaths.cpp">
+      <Filter>IPlug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Flutterbird.h" />
@@ -270,12 +273,15 @@
     <ClInclude Include="..\..\..\IGraphics\Controls\ITextEntryControl.h">
       <Filter>IGraphics\Controls</Filter>
     </ClInclude>
-    <ClInclude Include="..\Util.h" />
-    <ClInclude Include="..\Oscillator.h" />
+    <ClInclude Include="..\..\..\IPlug\IPlugPaths.h">
+      <Filter>IPlug</Filter>
+    </ClInclude>
     <ClInclude Include="..\Knob.h" />
-    <ClInclude Include="..\ThemeColors.h" />
-    <ClInclude Include="..\SvgSwitchControl.h" />
+    <ClInclude Include="..\Oscillator.h" />
     <ClInclude Include="..\SmoothToggle.h" />
+    <ClInclude Include="..\SvgSwitchControl.h" />
+    <ClInclude Include="..\ThemeColors.h" />
+    <ClInclude Include="..\Util.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resources">
