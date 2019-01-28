@@ -171,7 +171,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>$(APP_LIBS);%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>$(x64_LIB_PATHS);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <ResourceCompile />
     <ResourceCompile>
@@ -217,7 +216,6 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>$(APP_LIBS);%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>$(x64_LIB_PATHS);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <ResourceCompile>
       <PreprocessorDefinitions>SA_API</PreprocessorDefinitions>
@@ -239,7 +237,6 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>$(APP_LIBS);%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>$(WDL_PATH)\lice\$(SolutionDir)build-win\$(Platform)\Release\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <ResourceCompile>
       <PreprocessorDefinitions>SA_API</PreprocessorDefinitions>
@@ -261,7 +258,6 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>$(APP_LIBS);%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
-      <AdditionalLibraryDirectories>$(x64_LIB_PATHS);$(WDL_PATH)\lice\$(SolutionDir)build-win\$(Platform)\Release\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <ResourceCompile>
       <PreprocessorDefinitions>SA_API</PreprocessorDefinitions>
@@ -321,6 +317,7 @@
     <ClInclude Include="..\..\..\IPlug\IPlugLogger.h" />
     <ClInclude Include="..\..\..\IPlug\IPlugMidi.h" />
     <ClInclude Include="..\..\..\IPlug\IPlugParameter.h" />
+    <ClInclude Include="..\..\..\IPlug\IPlugPaths.h" />
     <ClInclude Include="..\..\..\IPlug\IPlugPlatform.h" />
     <ClInclude Include="..\..\..\IPlug\IPlugProcessor.h" />
     <ClInclude Include="..\..\..\IPlug\IPlugStructs.h" />
@@ -333,9 +330,9 @@
     <ClInclude Include="..\Oscillator.h" />
     <ClInclude Include="..\resources\resource.h" />
     <ClInclude Include="..\SmoothToggle.h" />
+    <ClInclude Include="..\SvgSwitchControl.h" />
     <ClInclude Include="..\ThemeColors.h" />
     <ClInclude Include="..\Util.h" />
-    <ClInclude Include="..\SvgSwitchControl.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Dependencies\IPlug\RTAudio\include\asio.cpp" />
@@ -405,6 +402,7 @@
     <ClCompile Include="..\..\..\IPlug\APP\IPlugAPP_main.cpp" />
     <ClCompile Include="..\..\..\IPlug\IPlugAPIBase.cpp" />
     <ClCompile Include="..\..\..\IPlug\IPlugParameter.cpp" />
+    <ClCompile Include="..\..\..\IPlug\IPlugPaths.cpp" />
     <ClCompile Include="..\..\..\IPlug\IPlugPluginBase.cpp" />
     <ClCompile Include="..\..\..\IPlug\IPlugProcessor.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Tracer|Win32'">true</ExcludedFromBuild>
