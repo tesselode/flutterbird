@@ -58,9 +58,13 @@ public:
 	IParam* GetParam(Parameters parameter);
 	void OnParamChange(int paramIdx);
 	void OnParamChangeUI(int paramIdx, EParamSource source = kUnknown);
+	bool SerializeState(IByteChunk& chunk) const override;
+	int UnserializeState(const IByteChunk& chunk, int startPos);
 #endif
 
 private:
+	bool showUnserializedStateMessage = false;
+
 #if IPLUG_DSP
 	void InitParameters();
 	void UpdateOscillators();
