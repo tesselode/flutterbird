@@ -34,10 +34,10 @@ void Flutterbird::InitParameters()
 	GetParam(Parameters::Osc1Waveform)->SetDisplayText((int)Waveforms::Saw, "Saw");
 	GetParam(Parameters::Osc1Waveform)->SetDisplayText((int)Waveforms::Square, "Square");
 	GetParam(Parameters::Osc1Waveform)->SetDisplayText((int)Waveforms::Drift, "Drift");
-	GetParam(Parameters::Osc1Frequency)->InitDouble("Osc 1 frequency", .5, .01, 10.0, .01, "", 0, "", new IParam::ShapePowCurve(2.0), IParam::EParamUnit::kUnitCustom, frequencyDisplayFunc);
-	GetParam(Parameters::Osc1ToPitch)->InitDouble("Osc 1 -> pitch", 0.0, -1.0, 1.0, .01, "", 0, "", nullptr, IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
-	GetParam(Parameters::Osc1ToVolume)->InitDouble("Osc 1 -> volume", 0.0, -1.0, 1.0, .01, "", 0, "", nullptr, IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
-	GetParam(Parameters::Osc1ToPanning)->InitDouble("Osc 1 -> panning", 0.0, -twoPi / 4, twoPi / 4, .01, "", 0, "", nullptr, IParam::EParamUnit::kUnitCustom, panningDisplayFunc);
+	GetParam(Parameters::Osc1Frequency)->InitDouble("Osc 1 frequency", .5, .01, 10.0, .01, "", 0, "", IParam::ShapePowCurve(2.0), IParam::EParamUnit::kUnitCustom, frequencyDisplayFunc);
+	GetParam(Parameters::Osc1ToPitch)->InitDouble("Osc 1 -> pitch", 0.0, -1.0, 1.0, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
+	GetParam(Parameters::Osc1ToVolume)->InitDouble("Osc 1 -> volume", 0.0, -1.0, 1.0, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
+	GetParam(Parameters::Osc1ToPanning)->InitDouble("Osc 1 -> panning", 0.0, -twoPi / 4, twoPi / 4, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, panningDisplayFunc);
 	
 	GetParam(Parameters::Osc2Waveform)->InitEnum("Osc 2 waveform", (int)Waveforms::Sine, (int)Waveforms::NumWaveforms);
 	GetParam(Parameters::Osc2Waveform)->SetDisplayText((int)Waveforms::Sine, "Sine");
@@ -45,10 +45,10 @@ void Flutterbird::InitParameters()
 	GetParam(Parameters::Osc2Waveform)->SetDisplayText((int)Waveforms::Saw, "Saw");
 	GetParam(Parameters::Osc2Waveform)->SetDisplayText((int)Waveforms::Square, "Square");
 	GetParam(Parameters::Osc2Waveform)->SetDisplayText((int)Waveforms::Drift, "Drift");
-	GetParam(Parameters::Osc2Frequency)->InitDouble("Osc 2 frequency", 2.5, .01, 10.0, .01, "", 0, "", new IParam::ShapePowCurve(2.0), IParam::EParamUnit::kUnitCustom, frequencyDisplayFunc);
-	GetParam(Parameters::Osc2ToPitch)->InitDouble("Osc 2 -> pitch", 0.0, -1.0, 1.0, .01, "", 0, "", nullptr, IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
-	GetParam(Parameters::Osc2ToVolume)->InitDouble("Osc 2 -> volume", 0.0, -1.0, 1.0, .01, "", 0, "", nullptr, IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
-	GetParam(Parameters::Osc2ToPanning)->InitDouble("Osc 2 -> panning", 0.0, -twoPi / 4, twoPi / 4, .01, "", 0, "", nullptr, IParam::EParamUnit::kUnitCustom, panningDisplayFunc);
+	GetParam(Parameters::Osc2Frequency)->InitDouble("Osc 2 frequency", 2.5, .01, 10.0, .01, "", 0, "", IParam::ShapePowCurve(2.0), IParam::EParamUnit::kUnitCustom, frequencyDisplayFunc);
+	GetParam(Parameters::Osc2ToPitch)->InitDouble("Osc 2 -> pitch", 0.0, -1.0, 1.0, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
+	GetParam(Parameters::Osc2ToVolume)->InitDouble("Osc 2 -> volume", 0.0, -1.0, 1.0, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
+	GetParam(Parameters::Osc2ToPanning)->InitDouble("Osc 2 -> panning", 0.0, -twoPi / 4, twoPi / 4, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, panningDisplayFunc);
 
 	GetParam(Parameters::Osc3Waveform)->InitEnum("Osc 3 waveform", (int)Waveforms::Sine, (int)Waveforms::NumWaveforms);
 	GetParam(Parameters::Osc3Waveform)->SetDisplayText((int)Waveforms::Sine, "Sine");
@@ -56,10 +56,10 @@ void Flutterbird::InitParameters()
 	GetParam(Parameters::Osc3Waveform)->SetDisplayText((int)Waveforms::Saw, "Saw");
 	GetParam(Parameters::Osc3Waveform)->SetDisplayText((int)Waveforms::Square, "Square");
 	GetParam(Parameters::Osc3Waveform)->SetDisplayText((int)Waveforms::Drift, "Drift");
-	GetParam(Parameters::Osc3Frequency)->InitDouble("Osc 3 frequency", 5.0, .01, 10.0, .01, "", 0, "", new IParam::ShapePowCurve(2.0), IParam::EParamUnit::kUnitCustom, frequencyDisplayFunc);
-	GetParam(Parameters::Osc3ToPitch)->InitDouble("Osc 3 -> pitch", 0.0, -1.0, 1.0, .01, "", 0, "", nullptr, IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
-	GetParam(Parameters::Osc3ToVolume)->InitDouble("Osc 3 -> volume", 0.0, -1.0, 1.0, .01, "", 0, "", nullptr, IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
-	GetParam(Parameters::Osc3ToPanning)->InitDouble("Osc 3 -> panning", 0.0, -twoPi / 4, twoPi / 4, .01, "", 0, "", nullptr, IParam::EParamUnit::kUnitCustom, panningDisplayFunc);
+	GetParam(Parameters::Osc3Frequency)->InitDouble("Osc 3 frequency", 5.0, .01, 10.0, .01, "", 0, "", IParam::ShapePowCurve(2.0), IParam::EParamUnit::kUnitCustom, frequencyDisplayFunc);
+	GetParam(Parameters::Osc3ToPitch)->InitDouble("Osc 3 -> pitch", 0.0, -1.0, 1.0, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
+	GetParam(Parameters::Osc3ToVolume)->InitDouble("Osc 3 -> volume", 0.0, -1.0, 1.0, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
+	GetParam(Parameters::Osc3ToPanning)->InitDouble("Osc 3 -> panning", 0.0, -twoPi / 4, twoPi / 4, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, panningDisplayFunc);
 
 	GetParam(Parameters::Osc4Waveform)->InitEnum("Osc 4 waveform", (int)Waveforms::Sine, (int)Waveforms::NumWaveforms);
 	GetParam(Parameters::Osc4Waveform)->SetDisplayText((int)Waveforms::Sine, "Sine");
@@ -67,15 +67,15 @@ void Flutterbird::InitParameters()
 	GetParam(Parameters::Osc4Waveform)->SetDisplayText((int)Waveforms::Saw, "Saw");
 	GetParam(Parameters::Osc4Waveform)->SetDisplayText((int)Waveforms::Square, "Square");
 	GetParam(Parameters::Osc4Waveform)->SetDisplayText((int)Waveforms::Drift, "Drift");
-	GetParam(Parameters::Osc4Frequency)->InitDouble("Osc 4 frequency", 7.5, .01, 10.0, .01, "", 0, "", new IParam::ShapePowCurve(2.0), IParam::EParamUnit::kUnitCustom, frequencyDisplayFunc);
-	GetParam(Parameters::Osc4ToPitch)->InitDouble("Osc 4 -> pitch", 0.0, -1.0, 1.0, .01, "", 0, "", nullptr, IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
-	GetParam(Parameters::Osc4ToVolume)->InitDouble("Osc 4 -> volume", 0.0, -1.0, 1.0, .01, "", 0, "", nullptr, IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
-	GetParam(Parameters::Osc4ToPanning)->InitDouble("Osc 4 -> panning", 0.0, -twoPi / 4, twoPi / 4, .01, "", 0, "", nullptr, IParam::EParamUnit::kUnitCustom, panningDisplayFunc);
+	GetParam(Parameters::Osc4Frequency)->InitDouble("Osc 4 frequency", 7.5, .01, 10.0, .01, "", 0, "", IParam::ShapePowCurve(2.0), IParam::EParamUnit::kUnitCustom, frequencyDisplayFunc);
+	GetParam(Parameters::Osc4ToPitch)->InitDouble("Osc 4 -> pitch", 0.0, -1.0, 1.0, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
+	GetParam(Parameters::Osc4ToVolume)->InitDouble("Osc 4 -> volume", 0.0, -1.0, 1.0, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
+	GetParam(Parameters::Osc4ToPanning)->InitDouble("Osc 4 -> panning", 0.0, -twoPi / 4, twoPi / 4, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, panningDisplayFunc);
 
-	GetParam(Parameters::GlobalToPitch)->InitDouble("Total -> pitch", .1, 0.0, 1.0, .01, "", 0, "", new IParam::ShapePowCurve(2.0), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
-	GetParam(Parameters::GlobalToVolume)->InitDouble("Total -> volume", .5, 0.0, 1.0, .01, "", 0, "", nullptr, IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
-	GetParam(Parameters::GlobalToPanning)->InitDouble("Total -> panning", .5, 0.0, 1.0, .01, "", 0, "", nullptr, IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
-	GetParam(Parameters::Mix)->InitDouble("Wet mix", 1.0, 0.0, 1.0, .01, "", 0, "", nullptr, IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
+	GetParam(Parameters::GlobalToPitch)->InitDouble("Total -> pitch", .1, 0.0, 1.0, .01, "", 0, "", IParam::ShapePowCurve(2.0), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
+	GetParam(Parameters::GlobalToVolume)->InitDouble("Total -> volume", .5, 0.0, 1.0, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
+	GetParam(Parameters::GlobalToPanning)->InitDouble("Total -> panning", .5, 0.0, 1.0, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
+	GetParam(Parameters::Mix)->InitDouble("Wet mix", 1.0, 0.0, 1.0, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
 	GetParam(Parameters::TestTone)->InitBool("Test tone", false);
 }
 #endif
