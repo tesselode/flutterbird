@@ -230,12 +230,15 @@ Flutterbird::Flutterbird(IPlugInstanceInfo instanceInfo)
 bool Flutterbird::SerializeState(IByteChunk & chunk) const
 {
 	TRACE;
+	chunk.PutStr("Flutterbird v2.0 alpha 1");
 	return SerializeParams(chunk);
 }
 
 int Flutterbird::UnserializeState(const IByteChunk & chunk, int startPos)
 {
 	TRACE;
+	WDL_String versionString;
+	startPos = chunk.GetStr(versionString, startPos);
 	return UnserializeParams(chunk, startPos);
 }
 
