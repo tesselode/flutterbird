@@ -236,7 +236,6 @@ bool Flutterbird::SerializeState(IByteChunk & chunk) const
 int Flutterbird::UnserializeState(const IByteChunk & chunk, int startPos)
 {
 	TRACE;
-	showUnserializedStateMessage = true;
 	return UnserializeParams(chunk, startPos);
 }
 
@@ -531,16 +530,6 @@ void Flutterbird::OnParamChangeUI(int paramIdx, EParamSource source)
 {
 	auto ui = GetUI();
 	if (!ui) return;
-
-	if (showUnserializedStateMessage)
-	{
-		ui->ShowMessageBox("unserialized state", "hi!", EMessageBoxType::kMB_OK);
-		showUnserializedStateMessage = false;
-	}
-	else
-	{
-		ui->ShowMessageBox("hmmmm", "hmmm", EMessageBoxType::kMB_OK);
-	}
 
 	switch (source)
 	{

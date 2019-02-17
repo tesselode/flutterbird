@@ -63,8 +63,6 @@ public:
 #endif
 
 private:
-	bool showUnserializedStateMessage = false;
-
 #if IPLUG_DSP
 	void InitParameters();
 	void UpdateOscillators();
