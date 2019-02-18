@@ -1,12 +1,12 @@
 #define PLUG_NAME "Flutterbird"
 #define PLUG_MFR "Tesselode"
 #define PLUG_VERSION_HEX 0x00010000
-#define PLUG_VERSION_STR "1.0.0"
+#define PLUG_VERSION_STR "2.0.0"
 #define PLUG_UNIQUE_ID 'TesF'
 #define PLUG_MFR_ID 'Tesa'
 #define PLUG_URL_STR "tesselode.github.io"
 #define PLUG_EMAIL_STR ""
-#define PLUG_COPYRIGHT_STR "Copyright 2017 Acme Inc"
+#define PLUG_COPYRIGHT_STR "Copyright 2019 Tesselode"
 #define PLUG_CLASS_NAME Flutterbird
 
 #define BUNDLE_NAME "Flutterbird"

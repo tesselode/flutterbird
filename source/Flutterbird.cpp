@@ -116,7 +116,7 @@ void Flutterbird::InitGraphics()
 			"Flutterbird", infoText);
 		pGraphics->AttachControl(parameterNameLabel);
 		parameterValueLabel = new ITextControl(topBar.GetHPadded(-16.f).GetVShifted(36.f),
-			"v2.0 beta 1", infoText);
+			"v2.0 alpha 1", infoText);
 		pGraphics->AttachControl(parameterValueLabel);
 		pGraphics->AttachControl(new SvgSwitchControl(topBar.GetGridCell(0, columns - 2, 1, columns)
 				.GetCentredInside(PLUG_GUI_BASE_UNIT * scale * switchScale, PLUG_GUI_BASE_UNIT * scale * switchScale)
