@@ -315,63 +315,25 @@ double Flutterbird::TempoSyncToFrequency(TempoSyncTimes value)
 	double numberOfBeats = 1;
 	switch (value)
 	{
-	case TempoSyncTimes::EightBars:
-		numberOfBeats = 32;
-		break;
-	case TempoSyncTimes::SixBars:
-		numberOfBeats = 24;
-		break;
-	case TempoSyncTimes::FourBars:
-		numberOfBeats = 16;
-		break;
-	case TempoSyncTimes::ThreeBars:
-		numberOfBeats = 12;
-		break;
-	case TempoSyncTimes::TwoBars:
-		numberOfBeats = 8;
-		break;
-	case TempoSyncTimes::DottedWhole:
-		numberOfBeats = 6;
-		break;
-	case TempoSyncTimes::Whole:
-		numberOfBeats = 4;
-		break;
-	case TempoSyncTimes::DottedHalf:
-		numberOfBeats = 3;
-		break;
-	case TempoSyncTimes::Half:
-		numberOfBeats = 2;
-		break;
-	case TempoSyncTimes::TripletHalf:
-		numberOfBeats = 4.0/3.0;
-		break;
-	case TempoSyncTimes::DottedQuarter:
-		numberOfBeats = 3.0/2.0;
-		break;
-	case TempoSyncTimes::Quarter:
-		numberOfBeats = 1;
-		break;
-	case TempoSyncTimes::TripletQuarter:
-		numberOfBeats = 2.0/3.0;
-		break;
-	case TempoSyncTimes::DottedEighth:
-		numberOfBeats = 3.0/4.0;
-		break;
-	case TempoSyncTimes::Eighth:
-		numberOfBeats = 1.0/2.0;
-		break;
-	case TempoSyncTimes::TripletEighth:
-		numberOfBeats = 1.0/3.0;
-		break;
-	case TempoSyncTimes::DottedSixteenth:
-		numberOfBeats = 3.0/8.0;
-		break;
-	case TempoSyncTimes::Sixteenth:
-		numberOfBeats = 1.0/4.0;
-		break;
-	case TempoSyncTimes::TripletSixteenth:
-		numberOfBeats = 1.0/6.0;
-		break;
+	case TempoSyncTimes::EightBars:        numberOfBeats = 32;      break;
+	case TempoSyncTimes::SixBars:          numberOfBeats = 24;      break;
+	case TempoSyncTimes::FourBars:         numberOfBeats = 16;      break;
+	case TempoSyncTimes::ThreeBars:        numberOfBeats = 12;      break;
+	case TempoSyncTimes::TwoBars:          numberOfBeats = 8;       break;
+	case TempoSyncTimes::DottedWhole:      numberOfBeats = 6;       break;
+	case TempoSyncTimes::Whole:            numberOfBeats = 4;       break;
+	case TempoSyncTimes::DottedHalf:       numberOfBeats = 3;       break;
+	case TempoSyncTimes::Half:             numberOfBeats = 2;       break;
+	case TempoSyncTimes::TripletHalf:      numberOfBeats = 4.0/3.0; break;
+	case TempoSyncTimes::DottedQuarter:    numberOfBeats = 3.0/2.0; break;
+	case TempoSyncTimes::Quarter:          numberOfBeats = 1;       break;
+	case TempoSyncTimes::TripletQuarter:   numberOfBeats = 2.0/3.0; break;
+	case TempoSyncTimes::DottedEighth:     numberOfBeats = 3.0/4.0; break;
+	case TempoSyncTimes::Eighth:           numberOfBeats = 1.0/2.0; break;
+	case TempoSyncTimes::TripletEighth:    numberOfBeats = 1.0/3.0; break;
+	case TempoSyncTimes::DottedSixteenth:  numberOfBeats = 3.0/8.0; break;
+	case TempoSyncTimes::Sixteenth:        numberOfBeats = 1.0/4.0; break;
+	case TempoSyncTimes::TripletSixteenth: numberOfBeats = 1.0/6.0; break;
 	}
 	return GetTempo() / (60.0 * numberOfBeats);
 }
