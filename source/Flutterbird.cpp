@@ -8,6 +8,38 @@ IParam* Flutterbird::GetParam(Parameters parameter)
 	return IEditorDelegate::GetParam((int)parameter);
 }
 
+void Flutterbird::SetWaveformParameterDisplayText(IParam* parameter)
+{
+	parameter->SetDisplayText((int)Waveforms::Sine, "Sine");
+	parameter->SetDisplayText((int)Waveforms::Triangle, "Triangle");
+	parameter->SetDisplayText((int)Waveforms::Saw, "Saw");
+	parameter->SetDisplayText((int)Waveforms::Square, "Square");
+	parameter->SetDisplayText((int)Waveforms::Drift, "Drift");
+}
+
+void Flutterbird::SetTempoSyncTimeParameterDisplayText(IParam* parameter)
+{
+	parameter->SetDisplayText((int)TempoSyncTimes::EightBars, "8 bars");
+	parameter->SetDisplayText((int)TempoSyncTimes::SixBars, "6 bars");
+	parameter->SetDisplayText((int)TempoSyncTimes::FourBars, "4 bars");
+	parameter->SetDisplayText((int)TempoSyncTimes::ThreeBars, "3 bars");
+	parameter->SetDisplayText((int)TempoSyncTimes::TwoBars, "2 bars");
+	parameter->SetDisplayText((int)TempoSyncTimes::DottedWhole, "6 beats");
+	parameter->SetDisplayText((int)TempoSyncTimes::Whole, "4 beats");
+	parameter->SetDisplayText((int)TempoSyncTimes::DottedHalf, "3 beats");
+	parameter->SetDisplayText((int)TempoSyncTimes::Half, "2 beats");
+	parameter->SetDisplayText((int)TempoSyncTimes::TripletHalf, "Triplet half");
+	parameter->SetDisplayText((int)TempoSyncTimes::DottedQuarter, "Dotted quarter");
+	parameter->SetDisplayText((int)TempoSyncTimes::Quarter, "Quarter");
+	parameter->SetDisplayText((int)TempoSyncTimes::TripletQuarter, "Triplet quarter");
+	parameter->SetDisplayText((int)TempoSyncTimes::DottedEighth, "Dotted eighth");
+	parameter->SetDisplayText((int)TempoSyncTimes::Eighth, "Eighth");
+	parameter->SetDisplayText((int)TempoSyncTimes::TripletEighth, "Triplet eighth");
+	parameter->SetDisplayText((int)TempoSyncTimes::DottedSixteenth, "Dotted sixteenth");
+	parameter->SetDisplayText((int)TempoSyncTimes::Sixteenth, "Sixteenth");
+	parameter->SetDisplayText((int)TempoSyncTimes::TripletSixteenth, "Triplet sixteenth");
+}
+
 void Flutterbird::InitParameters()
 {
 	auto frequencyDisplayFunc = IParam::DisplayFunc([](double value, WDL_String &out) {
@@ -29,129 +61,33 @@ void Flutterbird::InitParameters()
 	});
 
 	GetParam(Parameters::Osc1Waveform)->InitEnum("Osc 1 waveform", (int)Waveforms::Sine, (int)Waveforms::NumWaveforms);
-	GetParam(Parameters::Osc1Waveform)->SetDisplayText((int)Waveforms::Sine, "Sine");
-	GetParam(Parameters::Osc1Waveform)->SetDisplayText((int)Waveforms::Triangle, "Triangle");
-	GetParam(Parameters::Osc1Waveform)->SetDisplayText((int)Waveforms::Saw, "Saw");
-	GetParam(Parameters::Osc1Waveform)->SetDisplayText((int)Waveforms::Square, "Square");
-	GetParam(Parameters::Osc1Waveform)->SetDisplayText((int)Waveforms::Drift, "Drift");
 	GetParam(Parameters::Osc1Frequency)->InitDouble("Osc 1 frequency", .5, .01, 20.0, .01, "", 0, "", IParam::ShapePowCurve(2.0), IParam::EParamUnit::kUnitCustom, frequencyDisplayFunc);
 	GetParam(Parameters::Osc1TempoSyncEnabled)->InitBool("Osc 1 tempo sync enabled", false);
 	GetParam(Parameters::Osc1TempoSyncTime)->InitEnum("Osc 1 tempo sync time", (int)TempoSyncTimes::Quarter, (int)TempoSyncTimes::NumTempoSyncTimes);
-	GetParam(Parameters::Osc1TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::EightBars, "8 bars");
-	GetParam(Parameters::Osc1TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::SixBars, "6 bars");
-	GetParam(Parameters::Osc1TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::FourBars, "4 bars");
-	GetParam(Parameters::Osc1TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::ThreeBars, "3 bars");
-	GetParam(Parameters::Osc1TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::TwoBars, "2 bars");
-	GetParam(Parameters::Osc1TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::DottedWhole, "6 beats");
-	GetParam(Parameters::Osc1TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::Whole, "4 beats");
-	GetParam(Parameters::Osc1TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::DottedHalf, "3 beats");
-	GetParam(Parameters::Osc1TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::Half, "2 beats");
-	GetParam(Parameters::Osc1TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::TripletHalf, "Triplet half");
-	GetParam(Parameters::Osc1TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::DottedQuarter, "Dotted quarter");
-	GetParam(Parameters::Osc1TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::Quarter, "Quarter");
-	GetParam(Parameters::Osc1TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::TripletQuarter, "Triplet quarter");
-	GetParam(Parameters::Osc1TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::DottedEighth, "Dotted eighth");
-	GetParam(Parameters::Osc1TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::Eighth, "Eighth");
-	GetParam(Parameters::Osc1TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::TripletEighth, "Triplet eighth");
-	GetParam(Parameters::Osc1TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::DottedSixteenth, "Dotted sixteenth");
-	GetParam(Parameters::Osc1TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::Sixteenth, "Sixteenth");
-	GetParam(Parameters::Osc1TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::TripletSixteenth, "Triplet sixteenth");
 	GetParam(Parameters::Osc1ToPitch)->InitDouble("Osc 1 -> pitch", 0.0, -1.0, 1.0, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
 	GetParam(Parameters::Osc1ToVolume)->InitDouble("Osc 1 -> volume", 0.0, -1.0, 1.0, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
 	GetParam(Parameters::Osc1ToPanning)->InitDouble("Osc 1 -> panning", 0.0, -twoPi / 4, twoPi / 4, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, panningDisplayFunc);
 	
 	GetParam(Parameters::Osc2Waveform)->InitEnum("Osc 2 waveform", (int)Waveforms::Sine, (int)Waveforms::NumWaveforms);
-	GetParam(Parameters::Osc2Waveform)->SetDisplayText((int)Waveforms::Sine, "Sine");
-	GetParam(Parameters::Osc2Waveform)->SetDisplayText((int)Waveforms::Triangle, "Triangle");
-	GetParam(Parameters::Osc2Waveform)->SetDisplayText((int)Waveforms::Saw, "Saw");
-	GetParam(Parameters::Osc2Waveform)->SetDisplayText((int)Waveforms::Square, "Square");
-	GetParam(Parameters::Osc2Waveform)->SetDisplayText((int)Waveforms::Drift, "Drift");
 	GetParam(Parameters::Osc2Frequency)->InitDouble("Osc 2 frequency", 2.5, .01, 20.0, .01, "", 0, "", IParam::ShapePowCurve(2.0), IParam::EParamUnit::kUnitCustom, frequencyDisplayFunc);
 	GetParam(Parameters::Osc2TempoSyncEnabled)->InitBool("Osc 2 tempo sync enabled", false);
 	GetParam(Parameters::Osc2TempoSyncTime)->InitEnum("Osc 2 tempo sync time", (int)TempoSyncTimes::Quarter, (int)TempoSyncTimes::NumTempoSyncTimes);
-	GetParam(Parameters::Osc2TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::EightBars, "8 bars");
-	GetParam(Parameters::Osc2TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::SixBars, "6 bars");
-	GetParam(Parameters::Osc2TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::FourBars, "4 bars");
-	GetParam(Parameters::Osc2TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::ThreeBars, "3 bars");
-	GetParam(Parameters::Osc2TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::TwoBars, "2 bars");
-	GetParam(Parameters::Osc2TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::DottedWhole, "6 beats");
-	GetParam(Parameters::Osc2TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::Whole, "4 beats");
-	GetParam(Parameters::Osc2TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::DottedHalf, "3 beats");
-	GetParam(Parameters::Osc2TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::Half, "2 beats");
-	GetParam(Parameters::Osc2TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::TripletHalf, "Triplet half");
-	GetParam(Parameters::Osc2TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::DottedQuarter, "Dotted quarter");
-	GetParam(Parameters::Osc2TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::Quarter, "Quarter");
-	GetParam(Parameters::Osc2TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::TripletQuarter, "Triplet quarter");
-	GetParam(Parameters::Osc2TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::DottedEighth, "Dotted eighth");
-	GetParam(Parameters::Osc2TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::Eighth, "Eighth");
-	GetParam(Parameters::Osc2TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::TripletEighth, "Triplet eighth");
-	GetParam(Parameters::Osc2TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::DottedSixteenth, "Dotted sixteenth");
-	GetParam(Parameters::Osc2TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::Sixteenth, "Sixteenth");
-	GetParam(Parameters::Osc2TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::TripletSixteenth, "Triplet sixteenth");
 	GetParam(Parameters::Osc2ToPitch)->InitDouble("Osc 2 -> pitch", 0.0, -1.0, 1.0, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
 	GetParam(Parameters::Osc2ToVolume)->InitDouble("Osc 2 -> volume", 0.0, -1.0, 1.0, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
 	GetParam(Parameters::Osc2ToPanning)->InitDouble("Osc 2 -> panning", 0.0, -twoPi / 4, twoPi / 4, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, panningDisplayFunc);
 
 	GetParam(Parameters::Osc3Waveform)->InitEnum("Osc 3 waveform", (int)Waveforms::Sine, (int)Waveforms::NumWaveforms);
-	GetParam(Parameters::Osc3Waveform)->SetDisplayText((int)Waveforms::Sine, "Sine");
-	GetParam(Parameters::Osc3Waveform)->SetDisplayText((int)Waveforms::Triangle, "Triangle");
-	GetParam(Parameters::Osc3Waveform)->SetDisplayText((int)Waveforms::Saw, "Saw");
-	GetParam(Parameters::Osc3Waveform)->SetDisplayText((int)Waveforms::Square, "Square");
-	GetParam(Parameters::Osc3Waveform)->SetDisplayText((int)Waveforms::Drift, "Drift");
 	GetParam(Parameters::Osc3Frequency)->InitDouble("Osc 3 frequency", 5.0, .01, 20.0, .01, "", 0, "", IParam::ShapePowCurve(2.0), IParam::EParamUnit::kUnitCustom, frequencyDisplayFunc);
 	GetParam(Parameters::Osc3TempoSyncEnabled)->InitBool("Osc 3 tempo sync enabled", false);
 	GetParam(Parameters::Osc3TempoSyncTime)->InitEnum("Osc 3 tempo sync time", (int)TempoSyncTimes::Quarter, (int)TempoSyncTimes::NumTempoSyncTimes);
-	GetParam(Parameters::Osc3TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::EightBars, "8 bars");
-	GetParam(Parameters::Osc3TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::SixBars, "6 bars");
-	GetParam(Parameters::Osc3TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::FourBars, "4 bars");
-	GetParam(Parameters::Osc3TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::ThreeBars, "3 bars");
-	GetParam(Parameters::Osc3TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::TwoBars, "2 bars");
-	GetParam(Parameters::Osc3TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::DottedWhole, "6 beats");
-	GetParam(Parameters::Osc3TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::Whole, "4 beats");
-	GetParam(Parameters::Osc3TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::DottedHalf, "3 beats");
-	GetParam(Parameters::Osc3TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::Half, "2 beats");
-	GetParam(Parameters::Osc3TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::TripletHalf, "Triplet half");
-	GetParam(Parameters::Osc3TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::DottedQuarter, "Dotted quarter");
-	GetParam(Parameters::Osc3TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::Quarter, "Quarter");
-	GetParam(Parameters::Osc3TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::TripletQuarter, "Triplet quarter");
-	GetParam(Parameters::Osc3TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::DottedEighth, "Dotted eighth");
-	GetParam(Parameters::Osc3TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::Eighth, "Eighth");
-	GetParam(Parameters::Osc3TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::TripletEighth, "Triplet eighth");
-	GetParam(Parameters::Osc3TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::DottedSixteenth, "Dotted sixteenth");
-	GetParam(Parameters::Osc3TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::Sixteenth, "Sixteenth");
-	GetParam(Parameters::Osc3TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::TripletSixteenth, "Triplet sixteenth");
 	GetParam(Parameters::Osc3ToPitch)->InitDouble("Osc 3 -> pitch", 0.0, -1.0, 1.0, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
 	GetParam(Parameters::Osc3ToVolume)->InitDouble("Osc 3 -> volume", 0.0, -1.0, 1.0, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
 	GetParam(Parameters::Osc3ToPanning)->InitDouble("Osc 3 -> panning", 0.0, -twoPi / 4, twoPi / 4, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, panningDisplayFunc);
 
 	GetParam(Parameters::Osc4Waveform)->InitEnum("Osc 4 waveform", (int)Waveforms::Sine, (int)Waveforms::NumWaveforms);
-	GetParam(Parameters::Osc4Waveform)->SetDisplayText((int)Waveforms::Sine, "Sine");
-	GetParam(Parameters::Osc4Waveform)->SetDisplayText((int)Waveforms::Triangle, "Triangle");
-	GetParam(Parameters::Osc4Waveform)->SetDisplayText((int)Waveforms::Saw, "Saw");
-	GetParam(Parameters::Osc4Waveform)->SetDisplayText((int)Waveforms::Square, "Square");
-	GetParam(Parameters::Osc4Waveform)->SetDisplayText((int)Waveforms::Drift, "Drift");
 	GetParam(Parameters::Osc4Frequency)->InitDouble("Osc 4 frequency", 7.5, .01, 20.0, .01, "", 0, "", IParam::ShapePowCurve(2.0), IParam::EParamUnit::kUnitCustom, frequencyDisplayFunc);
 	GetParam(Parameters::Osc4TempoSyncEnabled)->InitBool("Osc 4 tempo sync enabled", false);
 	GetParam(Parameters::Osc4TempoSyncTime)->InitEnum("Osc 4 tempo sync time", (int)TempoSyncTimes::Quarter, (int)TempoSyncTimes::NumTempoSyncTimes);
-	GetParam(Parameters::Osc4TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::EightBars, "8 bars");
-	GetParam(Parameters::Osc4TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::SixBars, "6 bars");
-	GetParam(Parameters::Osc4TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::FourBars, "4 bars");
-	GetParam(Parameters::Osc4TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::ThreeBars, "3 bars");
-	GetParam(Parameters::Osc4TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::TwoBars, "2 bars");
-	GetParam(Parameters::Osc4TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::DottedWhole, "6 beats");
-	GetParam(Parameters::Osc4TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::Whole, "4 beats");
-	GetParam(Parameters::Osc4TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::DottedHalf, "3 beats");
-	GetParam(Parameters::Osc4TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::Half, "2 beats");
-	GetParam(Parameters::Osc4TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::TripletHalf, "Triplet half");
-	GetParam(Parameters::Osc4TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::DottedQuarter, "Dotted quarter");
-	GetParam(Parameters::Osc4TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::Quarter, "Quarter");
-	GetParam(Parameters::Osc4TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::TripletQuarter, "Triplet quarter");
-	GetParam(Parameters::Osc4TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::DottedEighth, "Dotted eighth");
-	GetParam(Parameters::Osc4TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::Eighth, "Eighth");
-	GetParam(Parameters::Osc4TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::TripletEighth, "Triplet eighth");
-	GetParam(Parameters::Osc4TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::DottedSixteenth, "Dotted sixteenth");
-	GetParam(Parameters::Osc4TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::Sixteenth, "Sixteenth");
-	GetParam(Parameters::Osc4TempoSyncTime)->SetDisplayText((int)TempoSyncTimes::TripletSixteenth, "Triplet sixteenth");
 	GetParam(Parameters::Osc4ToPitch)->InitDouble("Osc 4 -> pitch", 0.0, -1.0, 1.0, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
 	GetParam(Parameters::Osc4ToVolume)->InitDouble("Osc 4 -> volume", 0.0, -1.0, 1.0, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
 	GetParam(Parameters::Osc4ToPanning)->InitDouble("Osc 4 -> panning", 0.0, -twoPi / 4, twoPi / 4, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, panningDisplayFunc);
@@ -161,6 +97,16 @@ void Flutterbird::InitParameters()
 	GetParam(Parameters::GlobalToPanning)->InitDouble("Total -> panning", .5, 0.0, 1.0, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
 	GetParam(Parameters::Mix)->InitDouble("Wet mix", 1.0, 0.0, 1.0, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
 	GetParam(Parameters::TestTone)->InitBool("Test tone", false);
+
+	// set display text
+	SetWaveformParameterDisplayText(GetParam(Parameters::Osc1Waveform));
+	SetWaveformParameterDisplayText(GetParam(Parameters::Osc2Waveform));
+	SetWaveformParameterDisplayText(GetParam(Parameters::Osc3Waveform));
+	SetWaveformParameterDisplayText(GetParam(Parameters::Osc4Waveform));
+	SetTempoSyncTimeParameterDisplayText(GetParam(Parameters::Osc1TempoSyncTime));
+	SetTempoSyncTimeParameterDisplayText(GetParam(Parameters::Osc2TempoSyncTime));
+	SetTempoSyncTimeParameterDisplayText(GetParam(Parameters::Osc3TempoSyncTime));
+	SetTempoSyncTimeParameterDisplayText(GetParam(Parameters::Osc4TempoSyncTime));
 }
 #endif
 

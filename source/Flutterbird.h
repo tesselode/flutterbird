@@ -96,6 +96,8 @@ public:
 
 private:
 #if IPLUG_DSP
+	void SetWaveformParameterDisplayText(IParam * parameter);
+	void SetTempoSyncTimeParameterDisplayText(IParam * parameter);
 	void InitParameters();
 	double TempoSyncToFrequency(TempoSyncTimes value);
 	void UpdateOscillators();
