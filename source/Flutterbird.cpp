@@ -363,34 +363,34 @@ double Flutterbird::TempoSyncToFrequency(TempoSyncValues value)
 		numberOfBeats = 2;
 		break;
 	case TempoSyncValues::TripletHalf:
-		numberOfBeats = 4/3;
+		numberOfBeats = 4.0/3.0;
 		break;
 	case TempoSyncValues::DottedQuarter:
-		numberOfBeats = 3/2;
+		numberOfBeats = 3.0/2.0;
 		break;
 	case TempoSyncValues::Quarter:
 		numberOfBeats = 1;
 		break;
 	case TempoSyncValues::TripletQuarter:
-		numberOfBeats = 2/3;
+		numberOfBeats = 2.0/3.0;
 		break;
 	case TempoSyncValues::DottedEighth:
-		numberOfBeats = 3/4;
+		numberOfBeats = 3.0/4.0;
 		break;
 	case TempoSyncValues::Eighth:
-		numberOfBeats = 1/2;
+		numberOfBeats = 1.0/2.0;
 		break;
 	case TempoSyncValues::TripletEighth:
-		numberOfBeats = 1/3;
+		numberOfBeats = 1.0/3.0;
 		break;
 	case TempoSyncValues::DottedSixteenth:
-		numberOfBeats = 3/8;
+		numberOfBeats = 3.0/8.0;
 		break;
 	case TempoSyncValues::Sixteenth:
-		numberOfBeats = 1/4;
+		numberOfBeats = 1.0/4.0;
 		break;
 	case TempoSyncValues::TripletSixteenth:
-		numberOfBeats = 1/6;
+		numberOfBeats = 1.0/6.0;
 		break;
 	}
 	return GetTempo() / (60.0 * numberOfBeats);
@@ -633,7 +633,16 @@ void Flutterbird::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 {
 	for (int s = 0; s < nFrames; s++)
 	{
-		parameterValueLabel->SetStr(std::to_string(GetSamplePos()).c_str());
+		// reset oscillator phases on playback start
+		if (mTimeInfo.mTransportIsRunning && !playingPrevious)
+		{
+			osc1.Reset();
+			osc2.Reset();
+			osc3.Reset();
+			osc4.Reset();
+			relativeReadPosition = 0.0;
+		}
+		playingPrevious = mTimeInfo.mTransportIsRunning;
 
 		// update parameters
 		testToneSwitch.Update(dt);

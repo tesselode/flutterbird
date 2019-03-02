@@ -102,6 +102,7 @@ private:
 	double GetSample(std::vector<double>& buffer, double position);
 
 	double dt = 0.0;
+	bool playingPrevious = false;
 	int bufferLength = 0;
 	std::vector<double> bufferL;
 	std::vector<double> bufferR;
@@ -118,7 +119,6 @@ private:
 	double volume = 1.0;
 	double panning = 0.0;
 	SmoothToggle testToneSwitch;
-
 	double testTonePhase = 0.0;
 #endif
 
