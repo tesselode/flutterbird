@@ -20,25 +20,29 @@ enum class Parameters
 {
 	Osc1Waveform,
 	Osc1Frequency,
-	Osc1TempoSync,
+	Osc1TempoSyncEnabled,
+	Osc1TempoSyncTime,
 	Osc1ToPitch,
 	Osc1ToVolume,
 	Osc1ToPanning,
 	Osc2Waveform,
 	Osc2Frequency,
-	Osc2TempoSync,
+	Osc2TempoSyncEnabled,
+	Osc2TempoSyncTime,
 	Osc2ToPitch,
 	Osc2ToVolume,
 	Osc2ToPanning,
 	Osc3Waveform,
 	Osc3Frequency,
-	Osc3TempoSync,
+	Osc3TempoSyncEnabled,
+	Osc3TempoSyncTime,
 	Osc3ToPitch,
 	Osc3ToVolume,
 	Osc3ToPanning,
 	Osc4Waveform,
 	Osc4Frequency,
-	Osc4TempoSync,
+	Osc4TempoSyncEnabled,
+	Osc4TempoSyncTime,
 	Osc4ToPitch,
 	Osc4ToVolume,
 	Osc4ToPanning,
@@ -50,9 +54,8 @@ enum class Parameters
 	NumParameters,
 };
 
-enum class TempoSyncValues
+enum class TempoSyncTimes
 {
-	Off,
 	EightBars,
 	SixBars,
 	FourBars,
@@ -72,7 +75,7 @@ enum class TempoSyncValues
 	DottedSixteenth,
 	Sixteenth,
 	TripletSixteenth,
-	NumTempoSyncValues,
+	NumTempoSyncTimes,
 };
 
 class Flutterbird : public IPlug
@@ -94,7 +97,7 @@ public:
 private:
 #if IPLUG_DSP
 	void InitParameters();
-	double TempoSyncToFrequency(TempoSyncValues value);
+	double TempoSyncToFrequency(TempoSyncTimes value);
 	void UpdateOscillators();
 	double GetReadPosition();
 	void UpdateVolume();
@@ -127,5 +130,9 @@ private:
 
 	ITextControl* parameterNameLabel;
 	ITextControl* parameterValueLabel;
+	Knob* osc1FrequencyKnob;
+	Knob* osc2FrequencyKnob;
+	Knob* osc3FrequencyKnob;
+	Knob* osc4FrequencyKnob;
 #endif
 };

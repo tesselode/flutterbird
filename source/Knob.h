@@ -15,6 +15,13 @@ public:
 		: IVKnobControl(bounds, paramIdx), origin(o)
 	{}
 
+	void SetParameterIndex(int index)
+	{
+		mParamIdx = index;
+		mValue = GetParam()->GetNormalized();
+		SetDirty();
+	}
+
 	void Draw(IGraphics &g) override
 	{
 		const float cx = mRECT.MW(), cy = mRECT.MH();
