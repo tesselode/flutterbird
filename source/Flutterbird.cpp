@@ -183,7 +183,7 @@ void Flutterbird::InitGraphics()
 
 		pGraphics->HandleMouseOver(true);
 		pGraphics->AttachCornerResizer(kUIResizerScale, false);
-		pGraphics->AttachPanelBackground(IColor(255, 50, 50, 50));
+		pGraphics->AttachPanelBackground(themeColorBg);
 
 		auto rows = 5;
 		auto columns = 7;
