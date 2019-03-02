@@ -186,7 +186,7 @@ void Flutterbird::InitGraphics()
 		pGraphics->AttachPanelBackground(IColor(255, 50, 50, 50));
 
 		auto rows = 5;
-		auto columns = 6;
+		auto columns = 7;
 		auto scale = .85;
 		auto switchScale = .75;
 
@@ -220,10 +220,12 @@ void Flutterbird::InitGraphics()
 		pGraphics->AttachControl(new ITextControl(labelsRow.GetGridCell(0, 2, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .1),
 			"Speed", labelText));
 		pGraphics->AttachControl(new ITextControl(labelsRow.GetGridCell(0, 3, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .1),
-			"Pitch", labelText));
+			"Sync", labelText));
 		pGraphics->AttachControl(new ITextControl(labelsRow.GetGridCell(0, 4, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .1),
-			"Volume", labelText));
+			"Pitch", labelText));
 		pGraphics->AttachControl(new ITextControl(labelsRow.GetGridCell(0, 5, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .1),
+			"Volume", labelText));
+		pGraphics->AttachControl(new ITextControl(labelsRow.GetGridCell(0, 6, 1, columns).GetVShifted(PLUG_GUI_BASE_UNIT * .1),
 			"Pan", labelText));
 
 		// main controls
@@ -237,10 +239,12 @@ void Flutterbird::InitGraphics()
 		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(0, 2, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Left, (int)Parameters::Osc1Frequency));
 		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(0, 3, rows, columns).GetScaledAboutCentre(scale),
-			KnobOrigin::Center, (int)Parameters::Osc1ToPitch));
+			KnobOrigin::Left, (int)Parameters::Osc1TempoSync));
 		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(0, 4, rows, columns).GetScaledAboutCentre(scale),
-			KnobOrigin::Center, (int)Parameters::Osc1ToVolume));
+			KnobOrigin::Center, (int)Parameters::Osc1ToPitch));
 		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(0, 5, rows, columns).GetScaledAboutCentre(scale),
+			KnobOrigin::Center, (int)Parameters::Osc1ToVolume));
+		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(0, 6, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Center, (int)Parameters::Osc1ToPanning));
 
 		// osc 2
@@ -251,10 +255,12 @@ void Flutterbird::InitGraphics()
 		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(1, 2, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Left, (int)Parameters::Osc2Frequency));
 		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(1, 3, rows, columns).GetScaledAboutCentre(scale),
-			KnobOrigin::Center, (int)Parameters::Osc2ToPitch));
+			KnobOrigin::Left, (int)Parameters::Osc2TempoSync));
 		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(1, 4, rows, columns).GetScaledAboutCentre(scale),
-			KnobOrigin::Center, (int)Parameters::Osc2ToVolume));
+			KnobOrigin::Center, (int)Parameters::Osc2ToPitch));
 		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(1, 5, rows, columns).GetScaledAboutCentre(scale),
+			KnobOrigin::Center, (int)Parameters::Osc2ToVolume));
+		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(1, 6, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Center, (int)Parameters::Osc2ToPanning));
 
 		// osc 3
@@ -265,10 +271,12 @@ void Flutterbird::InitGraphics()
 		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(2, 2, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Left, (int)Parameters::Osc3Frequency));
 		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(2, 3, rows, columns).GetScaledAboutCentre(scale),
-			KnobOrigin::Center, (int)Parameters::Osc3ToPitch));
+			KnobOrigin::Left, (int)Parameters::Osc3TempoSync));
 		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(2, 4, rows, columns).GetScaledAboutCentre(scale),
-			KnobOrigin::Center, (int)Parameters::Osc3ToVolume));
+			KnobOrigin::Center, (int)Parameters::Osc3ToPitch));
 		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(2, 5, rows, columns).GetScaledAboutCentre(scale),
+			KnobOrigin::Center, (int)Parameters::Osc3ToVolume));
+		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(2, 6, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Center, (int)Parameters::Osc3ToPanning));
 
 		// osc 4
@@ -279,20 +287,22 @@ void Flutterbird::InitGraphics()
 		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(3, 2, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Left, (int)Parameters::Osc4Frequency));
 		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(3, 3, rows, columns).GetScaledAboutCentre(scale),
-			KnobOrigin::Center, (int)Parameters::Osc4ToPitch));
+			KnobOrigin::Left, (int)Parameters::Osc4TempoSync));
 		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(3, 4, rows, columns).GetScaledAboutCentre(scale),
-			KnobOrigin::Center, (int)Parameters::Osc4ToVolume));
+			KnobOrigin::Center, (int)Parameters::Osc4ToPitch));
 		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(3, 5, rows, columns).GetScaledAboutCentre(scale),
+			KnobOrigin::Center, (int)Parameters::Osc4ToVolume));
+		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(3, 6, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Center, (int)Parameters::Osc4ToPanning));
 
 		// global amounts
 		pGraphics->AttachControl(new ITextControl(mainSection.GetGridCell(4, 0, rows, 1).GetHPadded(-16.f),
-			"Total", handwritingText));
-		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(4, 3, rows, columns).GetScaledAboutCentre(scale),
-			KnobOrigin::Left, (int)Parameters::GlobalToPitch));
+			"Total amount", handwritingText));
 		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(4, 4, rows, columns).GetScaledAboutCentre(scale),
-			KnobOrigin::Left, (int)Parameters::GlobalToVolume));
+			KnobOrigin::Left, (int)Parameters::GlobalToPitch));
 		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(4, 5, rows, columns).GetScaledAboutCentre(scale),
+			KnobOrigin::Left, (int)Parameters::GlobalToVolume));
+		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(4, 6, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Left, (int)Parameters::GlobalToPanning));
 	};
 }
@@ -734,31 +744,55 @@ void Flutterbird::OnParamChangeUI(int paramIdx, EParamSource source)
 
 	switch (paramIdx)
 	{
+	case (int)Parameters::Osc1TempoSync:
+	{
+		auto osc1TempoSync = (TempoSyncValues)(int)GetParam(Parameters::Osc1TempoSync)->Value();
+		ui->GetControl(18)->GrayOut(osc1TempoSync != TempoSyncValues::Off);
+		break;
+	}
+	case (int)Parameters::Osc2TempoSync:
+	{
+		auto osc2TempoSync = (TempoSyncValues)(int)GetParam(Parameters::Osc2TempoSync)->Value();
+		ui->GetControl(25)->GrayOut(osc2TempoSync != TempoSyncValues::Off);
+		break;
+	}
+	case (int)Parameters::Osc3TempoSync:
+	{
+		auto osc3TempoSync = (TempoSyncValues)(int)GetParam(Parameters::Osc3TempoSync)->Value();
+		ui->GetControl(32)->GrayOut(osc3TempoSync != TempoSyncValues::Off);
+		break;
+	}
+	case (int)Parameters::Osc4TempoSync:
+	{
+		auto osc4TempoSync = (TempoSyncValues)(int)GetParam(Parameters::Osc4TempoSync)->Value();
+		ui->GetControl(39)->GrayOut(osc4TempoSync != TempoSyncValues::Off);
+		break;
+	}
 	case (int)Parameters::GlobalToPitch:
 	{
 		auto pitchModulationEnabled = (bool)GetParam(Parameters::GlobalToPitch)->Value() != 0.0;
-		ui->GetControl(18)->GrayOut(!pitchModulationEnabled);
-		ui->GetControl(24)->GrayOut(!pitchModulationEnabled);
-		ui->GetControl(30)->GrayOut(!pitchModulationEnabled);
-		ui->GetControl(36)->GrayOut(!pitchModulationEnabled);
+		ui->GetControl(20)->GrayOut(!pitchModulationEnabled);
+		ui->GetControl(27)->GrayOut(!pitchModulationEnabled);
+		ui->GetControl(34)->GrayOut(!pitchModulationEnabled);
+		ui->GetControl(41)->GrayOut(!pitchModulationEnabled);
 		break;
 	}
 	case (int)Parameters::GlobalToVolume:
 	{
 		auto volumeModulationEnabled = (bool)GetParam(Parameters::GlobalToVolume)->Value() != 0.0;
-		ui->GetControl(19)->GrayOut(!volumeModulationEnabled);
-		ui->GetControl(25)->GrayOut(!volumeModulationEnabled);
-		ui->GetControl(31)->GrayOut(!volumeModulationEnabled);
-		ui->GetControl(37)->GrayOut(!volumeModulationEnabled);
+		ui->GetControl(21)->GrayOut(!volumeModulationEnabled);
+		ui->GetControl(28)->GrayOut(!volumeModulationEnabled);
+		ui->GetControl(35)->GrayOut(!volumeModulationEnabled);
+		ui->GetControl(42)->GrayOut(!volumeModulationEnabled);
 		break;
 	}
 	case (int)Parameters::GlobalToPanning:
 	{
 		auto panningModulationEnabled = (bool)GetParam(Parameters::GlobalToPanning)->Value() != 0.0;
-		ui->GetControl(20)->GrayOut(!panningModulationEnabled);
-		ui->GetControl(26)->GrayOut(!panningModulationEnabled);
-		ui->GetControl(32)->GrayOut(!panningModulationEnabled);
-		ui->GetControl(38)->GrayOut(!panningModulationEnabled);
+		ui->GetControl(22)->GrayOut(!panningModulationEnabled);
+		ui->GetControl(29)->GrayOut(!panningModulationEnabled);
+		ui->GetControl(36)->GrayOut(!panningModulationEnabled);
+		ui->GetControl(43)->GrayOut(!panningModulationEnabled);
 		break;
 	}
 	}
