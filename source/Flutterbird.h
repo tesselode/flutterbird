@@ -20,21 +20,25 @@ enum class Parameters
 {
 	Osc1Waveform,
 	Osc1Frequency,
+	Osc1TempoSync,
 	Osc1ToPitch,
 	Osc1ToVolume,
 	Osc1ToPanning,
 	Osc2Waveform,
 	Osc2Frequency,
+	Osc2TempoSync,
 	Osc2ToPitch,
 	Osc2ToVolume,
 	Osc2ToPanning,
 	Osc3Waveform,
 	Osc3Frequency,
+	Osc3TempoSync,
 	Osc3ToPitch,
 	Osc3ToVolume,
 	Osc3ToPanning,
 	Osc4Waveform,
 	Osc4Frequency,
+	Osc4TempoSync,
 	Osc4ToPitch,
 	Osc4ToVolume,
 	Osc4ToPanning,
@@ -44,6 +48,31 @@ enum class Parameters
 	Mix,
 	TestTone,
 	NumParameters,
+};
+
+enum class TempoSyncValues
+{
+	Off,
+	EightBars,
+	SixBars,
+	FourBars,
+	ThreeBars,
+	TwoBars,
+	DottedWhole,
+	Whole,
+	DottedHalf,
+	Half,
+	TripletHalf,
+	DottedQuarter,
+	Quarter,
+	TripletQuarter,
+	DottedEighth,
+	Eighth,
+	TripletEighth,
+	DottedSixteenth,
+	Sixteenth,
+	TripletSixteenth,
+	NumTempoSyncValues,
 };
 
 class Flutterbird : public IPlug
@@ -65,6 +94,7 @@ public:
 private:
 #if IPLUG_DSP
 	void InitParameters();
+	double TempoSyncToFrequency(TempoSyncValues value);
 	void UpdateOscillators();
 	double GetReadPosition();
 	void UpdateVolume();

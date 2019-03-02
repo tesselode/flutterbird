@@ -16,6 +16,8 @@ enum class Waveforms
 class Oscillator
 {
 public:
+	void Oscillator::Reset() { phase = 0.0; }
+
 	double Oscillator::Next(double dt, Waveforms waveform, double frequency)
 	{
 		phase += frequency * dt;
