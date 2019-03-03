@@ -362,32 +362,32 @@ void Flutterbird::UpdateOscillators()
 	{
 		auto osc1TempoSyncEnabled = (bool)GetParam(Parameters::Osc1TempoSyncEnabled)->Value();
 		auto osc1TempoSyncTime = (TempoSyncTimes)(int)GetParam(Parameters::Osc1TempoSyncTime)->Value();
-		auto osc1Frequency = osc1TempoSyncEnabled ? GetParam(Parameters::Osc1Frequency)->Value()
-			: TempoSyncToFrequency(osc1TempoSyncTime);
+		auto osc1Frequency = osc1TempoSyncEnabled ? TempoSyncToFrequency(osc1TempoSyncTime)
+			: GetParam(Parameters::Osc1Frequency)->Value();
 		osc1Value = osc1.Next(dt, (Waveforms)(int)GetParam(Parameters::Osc1Waveform)->Value(), osc1Frequency);
 	}
 	if (osc2Used)
 	{
 		auto osc2TempoSyncEnabled = (bool)GetParam(Parameters::Osc2TempoSyncEnabled)->Value();
 		auto osc2TempoSyncTime = (TempoSyncTimes)(int)GetParam(Parameters::Osc2TempoSyncTime)->Value();
-		auto osc2Frequency = osc2TempoSyncEnabled ? GetParam(Parameters::Osc2Frequency)->Value()
-			: TempoSyncToFrequency(osc2TempoSyncTime);
+		auto osc2Frequency = osc2TempoSyncEnabled ? TempoSyncToFrequency(osc2TempoSyncTime)
+			: GetParam(Parameters::Osc2Frequency)->Value();
 		osc2Value = osc2.Next(dt, (Waveforms)(int)GetParam(Parameters::Osc2Waveform)->Value(), osc2Frequency);
 	}
 	if (osc3Used)
 	{
 		auto osc3TempoSyncEnabled = (bool)GetParam(Parameters::Osc3TempoSyncEnabled)->Value();
 		auto osc3TempoSyncTime = (TempoSyncTimes)(int)GetParam(Parameters::Osc3TempoSyncTime)->Value();
-		auto osc3Frequency = osc3TempoSyncEnabled ? GetParam(Parameters::Osc3Frequency)->Value()
-			: TempoSyncToFrequency(osc3TempoSyncTime);
+		auto osc3Frequency = osc3TempoSyncEnabled ? TempoSyncToFrequency(osc3TempoSyncTime)
+			: GetParam(Parameters::Osc3Frequency)->Value();
 		osc3Value = osc3.Next(dt, (Waveforms)(int)GetParam(Parameters::Osc3Waveform)->Value(), osc3Frequency);
 	}
 	if (osc4Used)
 	{
 		auto osc4TempoSyncEnabled = (bool)GetParam(Parameters::Osc4TempoSyncEnabled)->Value();
 		auto osc4TempoSyncTime = (TempoSyncTimes)(int)GetParam(Parameters::Osc4TempoSyncTime)->Value();
-		auto osc4Frequency = osc4TempoSyncEnabled ? GetParam(Parameters::Osc4Frequency)->Value()
-			: TempoSyncToFrequency(osc4TempoSyncTime);
+		auto osc4Frequency = osc4TempoSyncEnabled ? TempoSyncToFrequency(osc4TempoSyncTime)
+			: GetParam(Parameters::Osc4Frequency)->Value();
 		osc4Value = osc4.Next(dt, (Waveforms)(int)GetParam(Parameters::Osc4Waveform)->Value(), osc4Frequency);
 	}
 }
