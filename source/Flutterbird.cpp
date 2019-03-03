@@ -143,7 +143,7 @@ void Flutterbird::InitGraphics()
 		pGraphics->AttachControl(new ITextControl(topBar.GetHPadded(-16.f).GetVShifted(-20.f),
 			"Flutterbird", handwritingText));
 		parameterNameLabel = new ITextControl(topBar.GetHPadded(-16.f).GetVShifted(16.f),
-			"v2.0 alpha 1", infoText);
+			"v2.0 alpha 2", infoText);
 		pGraphics->AttachControl(parameterNameLabel);
 		parameterValueLabel = new ITextControl(topBar.GetHPadded(-16.f).GetVShifted(36.f),
 			"", infoText);
@@ -294,7 +294,7 @@ Flutterbird::Flutterbird(IPlugInstanceInfo instanceInfo)
 bool Flutterbird::SerializeState(IByteChunk & chunk) const
 {
 	TRACE;
-	chunk.PutStr("Flutterbird v2.0 alpha 1");
+	chunk.PutStr("Flutterbird v2.0 alpha 2");
 	return SerializeParams(chunk);
 }
 
