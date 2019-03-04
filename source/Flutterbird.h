@@ -13,8 +13,24 @@
 #include <string>
 #include "SvgSwitchControl.h"
 
+/*
+	Flutterbird is an audio effect plugin that applies regular or
+	chaotic fluctuations to the input audio's pitch, volume,
+	and/or panning.
+
+	Flutterbird writes audio to a circular "tape" that holds the last
+	10 seconds of input. The "write head" moves at a steady rate.
+	The "read head" moves in sync with the write head or slightly behind.
+	
+	The target distance behind the write head that the read head should be
+	is determined by the value of each oscillator and how much pitch
+	modulation is applied. The read head moves smoothly to the target position.
+	As it moves along the tape, it reads the audio slower or faster, creating
+	the pitch fluctuation effect.
+*/
+
 const int tapeLength = 10;
-const int numOscillators = 4;
+const int numOscillators = 4; // unused
 
 enum class Parameters
 {

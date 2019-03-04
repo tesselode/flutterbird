@@ -3,6 +3,10 @@
 #include "IControls.h"
 #include "ThemeColors.h"
 
+/*
+	The possible "neutral positions" for a knob. The outer arc of the knob
+	will be drawn from the origin to the angle the knob is pointing at.
+*/
 enum class KnobOrigin {
 	Left,
 	Center,
@@ -15,6 +19,7 @@ public:
 		: IVKnobControl(bounds, paramIdx), origin(o)
 	{}
 
+	// Changes the parameter the knob is assigned to.
 	void SetParameterIndex(int index)
 	{
 		mParamIdx = index;
@@ -50,6 +55,10 @@ public:
 private:
 	KnobOrigin origin;
 
+	/*
+		Returns the start and end angles of the knob's arc, given
+		the knob's current value and origin.
+	*/
 	void GetArcStartAndEndAngles(float knobAngle, float &start, float &end)
 	{
 		float originAngle = origin == KnobOrigin::Right ? mAngleMax :

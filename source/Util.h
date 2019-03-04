@@ -48,6 +48,8 @@ inline void adjustPanning(double inL, double inR, double angle, double &outL, do
 
 // https://stackoverflow.com/questions/1640258/need-a-fast-random-generator-for-c
 static unsigned long x = 123456789, y = 362436069, z = 521288629;
+
+// Returns a random integer
 inline unsigned long xorshift(void)
 {
 	unsigned long t;
@@ -62,6 +64,8 @@ inline unsigned long xorshift(void)
 }
 
 const double xorshiftMultiplier = 2.0 / ULONG_MAX;
+
+// Returns a random number between -1 and 1
 inline double random()
 {
 	return -1.0 + xorshift() * xorshiftMultiplier;

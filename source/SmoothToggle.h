@@ -1,5 +1,10 @@
 #pragma once
 
+/*
+	A switch that, when flipped, smoothly transitions from 0-1 or vice versa.
+	Used for parameters that would cause popping noises if they were not
+	transitioned smoothly.
+*/
 class SmoothToggle
 {
 public:

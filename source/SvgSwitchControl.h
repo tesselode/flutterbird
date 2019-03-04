@@ -3,6 +3,10 @@
 #include "IControls.h"
 #include "ThemeColors.h"
 
+/*
+	A switch control that uses an SVG for its inner graphics.
+	The graphic for each state should be arranged vertically in the SVG, like a framestrip.
+*/
 class SvgSwitchControl : public IVSwitchControl
 {
 public:

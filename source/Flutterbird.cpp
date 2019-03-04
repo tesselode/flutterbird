@@ -3,11 +3,16 @@
 #include "IControls.h"
 
 #if IPLUG_DSP
+/*
+	Gets a parameter by the Parameters enum class instead of an integer.
+	Saves a lot of casts to int throughout the code.
+*/
 IParam* Flutterbird::GetParam(Parameters parameter)
 {
 	return IEditorDelegate::GetParam((int)parameter);
 }
 
+// Sets the display text for a waveform parameter (i.e. Oscillator 1 Waveform)
 void Flutterbird::SetWaveformParameterDisplayText(IParam* parameter)
 {
 	parameter->SetDisplayText((int)Waveforms::Sine, "Sine");
@@ -17,6 +22,7 @@ void Flutterbird::SetWaveformParameterDisplayText(IParam* parameter)
 	parameter->SetDisplayText((int)Waveforms::Drift, "Drift");
 }
 
+// Sets the display text for a tempo sync time parameter (i.e. Oscillator 3 Tempo Sync Time)
 void Flutterbird::SetTempoSyncTimeParameterDisplayText(IParam* parameter)
 {
 	parameter->SetDisplayText((int)TempoSyncTimes::EightBars, "8 bars");
@@ -40,26 +46,33 @@ void Flutterbird::SetTempoSyncTimeParameterDisplayText(IParam* parameter)
 	parameter->SetDisplayText((int)TempoSyncTimes::TripletSixteenth, "Triplet sixteenth");
 }
 
+/*
+	Initializes the plugin's parameters when the plugin is first opened.
+*/
 void Flutterbird::InitParameters()
 {
+	// Displays a frequency as "[number] Hz"
 	auto frequencyDisplayFunc = IParam::DisplayFunc([](double value, WDL_String &out) {
 		std::ostringstream s;
 		s << std::fixed << std::setprecision(2) << value << "Hz";
 		out = WDL_String(s.str().c_str());
 	});
 
+	// Displays a percentage as "xx.x%"
 	auto percentageDisplayFunc = IParam::DisplayFunc([](double value, WDL_String &out) {
 		std::ostringstream s;
 		s << std::fixed << std::setprecision(0) << value * 100.0 << "%";
 		out = WDL_String(s.str().c_str());
 	});
 
+	// Displays a panning angle as a percentage
 	auto panningDisplayFunc = IParam::DisplayFunc([](double value, WDL_String &out) {
 		std::ostringstream s;
 		s << std::fixed << std::setprecision(0) << value / (twoPi / 4) * 100.0 << "%";
 		out = WDL_String(s.str().c_str());
 	});
 
+	// Oscillator 1 parameters
 	GetParam(Parameters::Osc1Waveform)->InitEnum("Osc 1 waveform", (int)Waveforms::Sine, (int)Waveforms::NumWaveforms);
 	GetParam(Parameters::Osc1Frequency)->InitDouble("Osc 1 frequency", .5, .01, 20.0, .01, "", 0, "", IParam::ShapePowCurve(2.0), IParam::EParamUnit::kUnitCustom, frequencyDisplayFunc);
 	GetParam(Parameters::Osc1TempoSyncEnabled)->InitBool("Osc 1 tempo sync enabled", false);
@@ -68,6 +81,7 @@ void Flutterbird::InitParameters()
 	GetParam(Parameters::Osc1ToVolume)->InitDouble("Osc 1 -> volume", 0.0, -1.0, 1.0, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
 	GetParam(Parameters::Osc1ToPanning)->InitDouble("Osc 1 -> panning", 0.0, -twoPi / 4, twoPi / 4, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, panningDisplayFunc);
 	
+	// Oscillator 2 parameters
 	GetParam(Parameters::Osc2Waveform)->InitEnum("Osc 2 waveform", (int)Waveforms::Sine, (int)Waveforms::NumWaveforms);
 	GetParam(Parameters::Osc2Frequency)->InitDouble("Osc 2 frequency", 2.5, .01, 20.0, .01, "", 0, "", IParam::ShapePowCurve(2.0), IParam::EParamUnit::kUnitCustom, frequencyDisplayFunc);
 	GetParam(Parameters::Osc2TempoSyncEnabled)->InitBool("Osc 2 tempo sync enabled", false);
@@ -76,6 +90,7 @@ void Flutterbird::InitParameters()
 	GetParam(Parameters::Osc2ToVolume)->InitDouble("Osc 2 -> volume", 0.0, -1.0, 1.0, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
 	GetParam(Parameters::Osc2ToPanning)->InitDouble("Osc 2 -> panning", 0.0, -twoPi / 4, twoPi / 4, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, panningDisplayFunc);
 
+	// Oscillator 3 parameters
 	GetParam(Parameters::Osc3Waveform)->InitEnum("Osc 3 waveform", (int)Waveforms::Sine, (int)Waveforms::NumWaveforms);
 	GetParam(Parameters::Osc3Frequency)->InitDouble("Osc 3 frequency", 5.0, .01, 20.0, .01, "", 0, "", IParam::ShapePowCurve(2.0), IParam::EParamUnit::kUnitCustom, frequencyDisplayFunc);
 	GetParam(Parameters::Osc3TempoSyncEnabled)->InitBool("Osc 3 tempo sync enabled", false);
@@ -84,6 +99,7 @@ void Flutterbird::InitParameters()
 	GetParam(Parameters::Osc3ToVolume)->InitDouble("Osc 3 -> volume", 0.0, -1.0, 1.0, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
 	GetParam(Parameters::Osc3ToPanning)->InitDouble("Osc 3 -> panning", 0.0, -twoPi / 4, twoPi / 4, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, panningDisplayFunc);
 
+	// Oscillator 4 parameters
 	GetParam(Parameters::Osc4Waveform)->InitEnum("Osc 4 waveform", (int)Waveforms::Sine, (int)Waveforms::NumWaveforms);
 	GetParam(Parameters::Osc4Frequency)->InitDouble("Osc 4 frequency", 7.5, .01, 20.0, .01, "", 0, "", IParam::ShapePowCurve(2.0), IParam::EParamUnit::kUnitCustom, frequencyDisplayFunc);
 	GetParam(Parameters::Osc4TempoSyncEnabled)->InitBool("Osc 4 tempo sync enabled", false);
@@ -92,6 +108,7 @@ void Flutterbird::InitParameters()
 	GetParam(Parameters::Osc4ToVolume)->InitDouble("Osc 4 -> volume", 0.0, -1.0, 1.0, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
 	GetParam(Parameters::Osc4ToPanning)->InitDouble("Osc 4 -> panning", 0.0, -twoPi / 4, twoPi / 4, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, panningDisplayFunc);
 
+	// Other parameters
 	GetParam(Parameters::GlobalToPitch)->InitDouble("Total -> pitch", .1, 0.0, 1.0, .01, "", 0, "", IParam::ShapePowCurve(2.0), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
 	GetParam(Parameters::GlobalToVolume)->InitDouble("Total -> volume", .5, 0.0, 1.0, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
 	GetParam(Parameters::GlobalToPanning)->InitDouble("Total -> panning", .5, 0.0, 1.0, .01, "", 0, "", IParam::ShapeLinear(), IParam::EParamUnit::kUnitCustom, percentageDisplayFunc);
@@ -111,6 +128,7 @@ void Flutterbird::InitParameters()
 #endif
 
 #if IPLUG_EDITOR
+// Initializes the graphics when the plugin is opened
 void Flutterbird::InitGraphics()
 {
 	mMakeGraphicsFunc = [&]() {
@@ -118,11 +136,14 @@ void Flutterbird::InitGraphics()
 	};
 
 	mLayoutFunc = [&](IGraphics* pGraphics) {
+		// load resources
 		auto waveformsSvg = pGraphics->LoadSVG(WAVEFORMS_SVG_FN);
 		auto bannerShadingSvg = pGraphics->LoadSVG(BANNER_SHADING_SVG_FN);
 		auto toggleSvg = pGraphics->LoadSVG(TOGGLE_SVG_FN);
 		pGraphics->LoadFont(HANDWRITING_FONT_FN);
 		pGraphics->LoadFont(MONOSPACE_FONT_FN);
+
+		// create text presets
 		const IText handwritingText{ 60, themeColorWhite, "Caveat-Bold", IText::kStyleNormal, IText::kAlignNear, IText::kVAlignMiddle };
 		const IText labelText{ 18, themeColorWhite, "CourierPrimeSans-Italic", IText::kStyleNormal, IText::kAlignCenter, IText::kVAlignMiddle };
 		const IText infoText{ 18, themeColorWhite, "CourierPrimeSans-Italic", IText::kStyleNormal, IText::kAlignNear, IText::kVAlignMiddle };
@@ -306,6 +327,7 @@ int Flutterbird::UnserializeState(const IByteChunk & chunk, int startPos)
 	return UnserializeParams(chunk, startPos);
 }
 
+// Given a tempo sync setting, gets the frequency an oscillator should run at
 double Flutterbird::TempoSyncToFrequency(TempoSyncTimes value)
 {
 	/*
@@ -338,6 +360,7 @@ double Flutterbird::TempoSyncToFrequency(TempoSyncTimes value)
 	return GetTempo() / (60.0 * numberOfBeats);
 }
 
+// Updates the value of each oscillator (if it's currently being used) and saves it
 void Flutterbird::UpdateOscillators()
 {
 	auto osc1ToPitch = GetParam(Parameters::Osc1ToPitch)->Value();
@@ -392,6 +415,7 @@ void Flutterbird::UpdateOscillators()
 	}
 }
 
+// Gets the position of the "read head"
 double Flutterbird::GetReadPosition()
 {
 	auto osc1ToPitch = GetParam(Parameters::Osc1ToPitch)->Value() * GetParam(Parameters::GlobalToPitch)->Value();
@@ -447,6 +471,7 @@ double Flutterbird::GetReadPosition()
 	return writePosition - relativeReadPosition * GetSampleRate();
 }
 
+// Updates the final volume of the output
 void Flutterbird::UpdateVolume()
 {
 	auto osc1ToVolume = GetParam(Parameters::Osc1ToVolume)->Value() * GetParam(Parameters::GlobalToVolume)->Value();
@@ -501,6 +526,7 @@ void Flutterbird::UpdateVolume()
 	volume += (target - volume) * 100.0 * dt;
 }
 
+// Updates the final panning of the output
 void Flutterbird::UpdatePanning()
 {
 	auto osc1ToPanning = GetParam(Parameters::Osc1ToPanning)->Value() * GetParam(Parameters::GlobalToPanning)->Value();
@@ -559,6 +585,7 @@ void Flutterbird::UpdatePanning()
 	panning += (target - panning) * 100.0 * dt;
 }
 
+// Gets an interpolated sample at an arbitrary position in an input stream
 double Flutterbird::GetSample(std::vector<double> &buffer, double position)
 {
 	int p0 = wrap(floor(position) - 1, 0, std::size(buffer) - 1);
@@ -607,6 +634,7 @@ void Flutterbird::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 		// write to the buffer
 		auto inL = inputs[0][s];
 		auto inR = inputs[1][s];
+		// mix the test tone with the actual input
 		if (testToneSwitch.value > 0.0)
 		{
 			testTonePhase += 440.0 * dt;
@@ -631,6 +659,8 @@ void Flutterbird::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 	}
 }
 
+// Resets the audio buffers for the left and right channels
+// and resets the write position
 void Flutterbird::InitBuffer()
 {
 	bufferL.clear();
@@ -665,6 +695,11 @@ void Flutterbird::OnParamChangeUI(int paramIdx, EParamSource source)
 	auto ui = GetUI();
 	if (!ui) return;
 
+	/*
+		When tempo sync is enabled/disabled for an oscillator,
+		change that oscillator's frequency knob to control either the frequency
+		or the tempo sync time.
+	*/
 	switch (paramIdx)
 	{
 	case (int)Parameters::Osc1TempoSyncEnabled:
@@ -691,6 +726,10 @@ void Flutterbird::OnParamChangeUI(int paramIdx, EParamSource source)
 		auto parameter = tempoSyncEnabled ? Parameters::Osc4TempoSyncTime : Parameters::Osc4Frequency;
 		osc4FrequencyKnob->SetParameterIndex((int)parameter);
 	}
+	/*
+		Gray out the oscillator pitch/volume/panning knobs if the global
+		pitch/volume/panning is set to 0
+	*/
 	case (int)Parameters::GlobalToPitch:
 	{
 		auto pitchModulationEnabled = (bool)GetParam(Parameters::GlobalToPitch)->Value() != 0.0;
@@ -720,6 +759,13 @@ void Flutterbird::OnParamChangeUI(int paramIdx, EParamSource source)
 	}
 	}
 
+	/*
+		Display parameter names and values in the top bar.
+		This is intentionally placed after the tempo sync knob changes
+		so that when you turn tempo sync on/off, you see the tempo sync
+		enabled parameter in the top bar instead of the frequency knob's
+		parameter name/value, which changes also and affects the text.
+	*/
 	switch (source)
 	{
 	case kUI:
