@@ -325,6 +325,7 @@
     <ClInclude Include="..\..\..\IPlug\IPlugUtilities.h" />
     <ClInclude Include="..\..\..\IPlug\IPlug_include_in_plug_hdr.h" />
     <ClInclude Include="..\..\..\IPlug\IPlug_include_in_plug_src.h" />
+    <ClInclude Include="..\Banner.h" />
     <ClInclude Include="..\Flutterbird.h" />
     <ClInclude Include="..\Knob.h" />
     <ClInclude Include="..\Oscillator.h" />

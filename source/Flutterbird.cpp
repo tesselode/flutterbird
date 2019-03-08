@@ -138,7 +138,6 @@ void Flutterbird::InitGraphics()
 	mLayoutFunc = [&](IGraphics* pGraphics) {
 		// load resources
 		auto waveformsSvg = pGraphics->LoadSVG(WAVEFORMS_SVG_FN);
-		auto bannerShadingSvg = pGraphics->LoadSVG(BANNER_SHADING_SVG_FN);
 		auto toggleSvg = pGraphics->LoadSVG(TOGGLE_SVG_FN);
 		pGraphics->LoadFont(HANDWRITING_FONT_FN);
 		pGraphics->LoadFont(MONOSPACE_FONT_FN);
@@ -159,8 +158,7 @@ void Flutterbird::InitGraphics()
 
 		// top bar
 		auto topBar = IRECT(0, 0, PLUG_WIDTH, PLUG_GUI_BASE_UNIT * 1.5);
-		pGraphics->AttachControl(new IPanelControl(topBar, themeColorAccent));
-		pGraphics->AttachControl(new ISVGControl(topBar, bannerShadingSvg));
+		pGraphics->AttachControl(new Banner(topBar));
 		pGraphics->AttachControl(new ITextControl(topBar.GetHPadded(-16.f).GetVShifted(-20.f),
 			"Flutterbird", handwritingText));
 		parameterNameLabel = new ITextControl(topBar.GetHPadded(-16.f).GetVShifted(16.f),

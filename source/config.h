@@ -54,4 +54,3 @@
 #define MONOSPACE_FONT_FN "CourierPrimeSans-Italic.ttf"
 #define WAVEFORMS_SVG_FN "waveforms.svg"
 #define TOGGLE_SVG_FN "toggle.svg"
-#define BANNER_SHADING_SVG_FN "banner_shading.svg"

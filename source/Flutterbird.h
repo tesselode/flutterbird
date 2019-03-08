@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Banner.h"
 #include <cmath>
 #include <iomanip>
 #include "IPlug_include_in_plug_hdr.h"

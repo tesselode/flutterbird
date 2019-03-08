@@ -282,6 +282,7 @@
     <ClInclude Include="..\SvgSwitchControl.h" />
     <ClInclude Include="..\ThemeColors.h" />
     <ClInclude Include="..\Util.h" />
+    <ClInclude Include="..\Banner.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resources">
