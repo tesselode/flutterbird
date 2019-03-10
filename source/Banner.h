@@ -22,7 +22,7 @@ public:
 
 			auto l = mainBounds.L;
 			auto r = mainBounds.R;
-			float x[] = { l + (r - l) * .45, l + (r - l) * .55, mainBounds.R, mainBounds.R };
+			float x[] = { l + (r - l) * .55, l + (r - l) * .65, mainBounds.R, mainBounds.R };
 			float y[] = { mainBounds.B, mainBounds.T, mainBounds.T, mainBounds.B };
 			g.PathConvexPolygon(x, y, 4);
 			g.PathFill(IPattern(IColor(64, 0, 0, 0)));
