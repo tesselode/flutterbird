@@ -9,6 +9,7 @@
 #include "ThemeColors.h"
 #include <vector>
 #include "Util.h"
+#include "SmallSwitchControl.h"
 #include "SmoothToggle.h"
 #include <sstream>
 #include <string>

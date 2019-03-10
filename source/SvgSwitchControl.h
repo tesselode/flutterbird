@@ -10,7 +10,7 @@
 class SvgSwitchControl : public IVSwitchControl
 {
 public:
-	SvgSwitchControl(IRECT bounds, ISVG svg, int paramIdx = kNoParameter)
+	SvgSwitchControl(IRECT bounds, ISVG svg, int paramIdx)
 		: IVSwitchControl(bounds, paramIdx),
 		switchContents(svg)
 	{}

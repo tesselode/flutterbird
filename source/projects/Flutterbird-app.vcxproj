@@ -330,6 +330,7 @@
     <ClInclude Include="..\Knob.h" />
     <ClInclude Include="..\Oscillator.h" />
     <ClInclude Include="..\resources\resource.h" />
+    <ClInclude Include="..\SmallSwitchControl.h" />
     <ClInclude Include="..\SmoothToggle.h" />
     <ClInclude Include="..\SvgSwitchControl.h" />
     <ClInclude Include="..\ThemeColors.h" />

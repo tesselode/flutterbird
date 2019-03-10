@@ -211,6 +211,8 @@ void Flutterbird::InitGraphics()
 		osc1FrequencyKnob = new Knob(mainSection.GetGridCell(0, 3, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Left, (int)Parameters::Osc1Frequency);
 		pGraphics->AttachControl(osc1FrequencyKnob);
+		pGraphics->AttachControl(new SmallSwitchControl(mainSection.GetGridCell(0, 3, rows, columns).GetScaledAboutCentre(scale / 4),
+			(int)Parameters::Osc1TempoSyncEnabled));
 		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(0, 4, rows, columns).GetScaledAboutCentre(scale),
 			KnobOrigin::Center, (int)Parameters::Osc1ToPitch));
 		pGraphics->AttachControl(new Knob(mainSection.GetGridCell(0, 5, rows, columns).GetScaledAboutCentre(scale),
