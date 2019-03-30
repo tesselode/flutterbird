@@ -15,6 +15,29 @@ public:
 		switchContents(svg)
 	{}
 
+	void SvgSwitchControl::OnMouseDown(float x, float y, const IMouseMod& mod) override
+	{
+		if (mNumStates > 2)
+		{
+			menu = IPopupMenu();
+			for (int i = 0; i <= GetParam()->GetMax(); i++)
+				menu.AddItem(new IPopupMenu::Item(GetParam()->GetDisplayTextAtIdx(i)));
+			GetUI()->CreatePopupMenu(menu, mRECT, this);
+			mMouseDown = true;
+		}
+		else
+		{
+			IVSwitchControl::OnMouseDown(x, y, mod);
+		}
+	}
+
+	void SvgSwitchControl::OnPopupMenuSelection(IPopupMenu* pSelectedMenu) override
+	{
+		if (pSelectedMenu == nullptr) return;
+		mValue = pSelectedMenu->GetChosenItemIdx() / ((double)mNumStates - 1.);
+		SetDirty(true);
+	}
+
 	void Draw(IGraphics& g) override
 	{
 		g.FillRect(mMouseIsOver ? themeColorLight : themeColorWhite, mRECT);
@@ -29,4 +52,5 @@ public:
 
 private:
 	ISVG switchContents;
+	IPopupMenu menu = IPopupMenu();
 };

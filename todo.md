@@ -2,7 +2,7 @@
 
 ## v2
 - [ ] UI niceties
-  - [ ] Right-click popup menu for waveform switches
+  - [x] Right-click popup menu for waveform switches
   - [ ] Maybe make the sync on/off buttons take up less space
 - [ ] Try to improve compatibility with older computers
   - [ ] Try using different graphics backends
