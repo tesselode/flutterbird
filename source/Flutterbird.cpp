@@ -2,14 +2,51 @@
 #include "IPlug_include_in_plug_src.h"
 #include "IControls.h"
 
+#if IPLUG_DSP
+void Flutterbird::InitParameters()
+{
+	GetParam(Osc1Frequency)->InitDouble("Oscillator 1 frequency", 5.0, 1.0, 10.0, .01, "hz");
+	GetParam(Osc1ToPitch)->InitDouble("Oscillator 1 to pitch", 0.0, -1.0, 1.0, .01);
+	GetParam(Osc2Frequency)->InitDouble("Oscillator 2 frequency", 5.0, 1.0, 10.0, .01, "hz");
+	GetParam(Osc2ToPitch)->InitDouble("Oscillator 2 to pitch", 0.0, -1.0, 1.0, .01);
+	GetParam(Osc3Frequency)->InitDouble("Oscillator 3 frequency", 5.0, 1.0, 10.0, .01, "hz");
+	GetParam(Osc3ToPitch)->InitDouble("Oscillator 3 to pitch", 0.0, -1.0, 1.0, .01);
+	GetParam(Osc4Frequency)->InitDouble("Oscillator 4 frequency", 5.0, 1.0, 10.0, .01, "hz");
+	GetParam(Osc4ToPitch)->InitDouble("Oscillator 4 to pitch", 0.0, -1.0, 1.0, .01);
+}
+
+void Flutterbird::InitTape()
+{
+	tapeL.clear();
+	tapeR.clear();
+	floatTapeL.clear();
+	floatTapeR.clear();
+	auto numberOfSamples = tapeLengthInSeconds * GetSampleRate();
+	for (int i = 0; i < numberOfSamples; i++)
+	{
+		tapeL.push_back(0.0);
+		tapeR.push_back(0.0);
+		floatTapeL.push_back(0.0);
+		floatTapeR.push_back(0.0);
+	}
+	writePosition = 0;
+	relativeReadPosition = 0.0;
+}
+
+void Flutterbird::CreateOscillators()
+{
+	for (int i = 0; i < numberOfOscillators; i++)
+		oscillators.push_back(Oscillator());
+}
+#endif
+
 Flutterbird::Flutterbird(const InstanceInfo& info)
 : Plugin(info, MakeConfig((int)Parameter::NumParameters, 1))
 {
 #if IPLUG_DSP
-	GetParam(Osc1Frequency)->InitDouble("Oscillator 1 frequency", 5.0, 1.0, 10.0, .01, "hz");
-	GetParam(Osc1ToPitch)->InitDouble("Oscillator 1 to pitch", 0.0, -1.0, 1.0, .01);
-
+	InitParameters();
 	InitTape();
+	CreateOscillators();
 #endif
 
 #if IPLUG_EDITOR // All UI methods and member variables should be within an IPLUG_EDITOR guard, should you want distributed UI
@@ -37,24 +74,6 @@ Flutterbird::Flutterbird(const InstanceInfo& info)
 }
 
 #if IPLUG_DSP
-void Flutterbird::InitTape()
-{
-	tapeL.clear();
-	tapeR.clear();
-	floatTapeL.clear();
-	floatTapeR.clear();
-	auto numberOfSamples = tapeLengthInSeconds * GetSampleRate();
-	for (int i = 0; i < numberOfSamples; i++)
-	{
-		tapeL.push_back(0.0);
-		tapeR.push_back(0.0);
-		floatTapeL.push_back(0.0);
-		floatTapeR.push_back(0.0);
-	}
-	writePosition = 0;
-	relativeReadPosition = 0.0;
-}
-
 double Flutterbird::GetSample(std::vector<double>& tape, double position)
 {
 	int sampleIndex0 = wrap(floor(position) - 1, 0, std::size(tape) - 1);
@@ -73,18 +92,32 @@ double Flutterbird::GetSample(std::vector<double>& tape, double position)
 
 void Flutterbird::UpdateOscillators()
 {
-	osc1.update(dt, GetParam(Osc1Frequency)->Value());
+	for (int i = 0; i < numberOfOscillators; i++)
+		oscillators[i].update(dt, GetParam(oscillatorFrequencyParameters[i])->Value());
 }
 
 double Flutterbird::GetTargetReadPosition()
 {
-	auto osc1Value = osc1.get(Sine);
-	return osc1Value * GetParam(Osc1ToPitch)->Value();
+	auto target = 0.0;
+	for (int i = 0; i < numberOfOscillators; i++)
+	{
+		auto oscToPitch = GetParam(oscillatorToPitchParameters[i])->Value();
+		if (oscToPitch == 0.0) continue;
+		auto oscValue = oscillators[i].get(Sine);
+		if (oscToPitch < 0.0)
+		{
+			oscToPitch *= -1.0;
+			oscValue = 1.0 - oscValue;
+		}
+		target += oscToPitch * oscValue;
+	}
+	return target;
 }
 
 bool Flutterbird::IsPitchModulationActive()
 {
-	if (GetParam(Osc1ToPitch)->Value() != 0.0) return true;
+	for (int i = 0; i < numberOfOscillators; i++)
+		if (GetParam(oscillatorToPitchParameters[i])->Value() != 0.0) return true;
 	return false;
 }
 
@@ -114,15 +147,12 @@ void Flutterbird::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 
 		// read from the tape and output the interpolated signal
 		auto readPosition = GetReadPosition();
-		auto outL = GetSample(tapeL, readPosition);
-		auto outR = GetSample(tapeR, readPosition);
-		outputs[0][s] = outL;
-		outputs[1][s] = outR;
+		outputs[0][s] = GetSample(tapeL, readPosition);
+		outputs[1][s] = GetSample(tapeR, readPosition);
 
 		// increment the write position for the next sample
 		writePosition++;
-		if (writePosition == std::size(tapeL))
-			writePosition = 0;
+		if (writePosition == std::size(tapeL)) writePosition = 0;
 	}
 }
 

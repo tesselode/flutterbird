@@ -6,12 +6,33 @@
 #include <vector>
 
 const int tapeLengthInSeconds = 10;
+const int numberOfOscillators = 4;
 
 enum Parameter
 {
 	Osc1Frequency,
 	Osc1ToPitch,
+	Osc2Frequency,
+	Osc2ToPitch,
+	Osc3Frequency,
+	Osc3ToPitch,
+	Osc4Frequency,
+	Osc4ToPitch,
 	NumParameters,
+};
+
+const Parameter oscillatorFrequencyParameters[] = {
+	Osc1Frequency,
+	Osc2Frequency,
+	Osc3Frequency,
+	Osc4Frequency,
+};
+
+const Parameter oscillatorToPitchParameters[] = {
+	Osc1ToPitch,
+	Osc2ToPitch,
+	Osc3ToPitch,
+	Osc4ToPitch,
 };
 
 using namespace iplug;
@@ -29,7 +50,9 @@ public:
 
 private:
 #if IPLUG_DSP
+	void InitParameters();
 	void InitTape();
+	void CreateOscillators();
 	double GetSample(std::vector<double>& tape, double position);
 	void UpdateOscillators();
 	double GetTargetReadPosition();
@@ -44,6 +67,6 @@ private:
 	std::vector<float> floatTapeR;
 	int writePosition = 0;
 	double relativeReadPosition = 0.0;
-	Oscillator osc1;
+	std::vector<Oscillator> oscillators;
 #endif
 };
