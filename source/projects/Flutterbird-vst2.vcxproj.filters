@@ -228,6 +228,7 @@
     <ClInclude Include="..\..\..\IGraphics\Extras\IGraphicsImGui.h">
       <Filter>IGraphics\Extras</Filter>
     </ClInclude>
+    <ClInclude Include="..\Util.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="IPlug">

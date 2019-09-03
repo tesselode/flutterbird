@@ -25,6 +25,9 @@ Flutterbird::Flutterbird(const InstanceInfo& info)
 			ImGui::Text("Write position:");
 			ImGui::SameLine();
 			ImGui::Text(std::to_string(writePosition).c_str());
+			ImGui::Text("Read position:");
+			ImGui::SameLine();
+			ImGui::Text(std::to_string(readPosition).c_str());
 		});
 	};
 #endif
@@ -46,6 +49,23 @@ void Flutterbird::InitTape()
 		floatTapeR.push_back(0.0);
 	}
 	writePosition = 0;
+	readPosition = 0.0;
+}
+
+double Flutterbird::GetSample(std::vector<double>& tape, double position)
+{
+	int p0 = wrap(floor(position) - 1, 0, std::size(tape) - 1);
+	int p1 = wrap(floor(position), 0, std::size(tape) - 1);
+	int p2 = wrap(ceil(position), 0, std::size(tape) - 1);
+	int p3 = wrap(ceil(position) + 1, 0, std::size(tape) - 1);
+
+	auto x = position - floor(position);
+	auto y0 = tape[p0];
+	auto y1 = tape[p1];
+	auto y2 = tape[p2];
+	auto y3 = tape[p3];
+
+	return interpolate(x, y0, y1, y2, y3);
 }
 
 void Flutterbird::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
@@ -61,8 +81,11 @@ void Flutterbird::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 		writePosition++;
 		if (writePosition == std::size(tapeL))
 			writePosition = 0;
-		outputs[0][s] = inL;
-		outputs[1][s] = inR;
+		readPosition += .5;
+		auto outL = GetSample(tapeL, readPosition);
+		auto outR = GetSample(tapeR, readPosition);
+		outputs[0][s] = outL;
+		outputs[1][s] = outR;
 	}
 }
 #endif
