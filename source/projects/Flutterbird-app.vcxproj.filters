@@ -92,6 +92,9 @@
     <ClCompile Include="..\..\..\IGraphics\Drawing\IGraphicsSkia.cpp">
       <Filter>IGraphics\Drawing</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\IGraphics\Extras\IGraphicsImGui.cpp">
+      <Filter>IGraphics\Extras</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Flutterbird.h" />
@@ -285,6 +288,9 @@
     <ClInclude Include="..\..\..\IGraphics\Drawing\IGraphicsSkia.h">
       <Filter>IGraphics\Drawing</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\IGraphics\Extras\IGraphicsImGui.h">
+      <Filter>IGraphics\Extras</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="resources">
@@ -316,6 +322,9 @@
     </Filter>
     <Filter Include="IPlug\APP\RTAudioMidi\include">
       <UniqueIdentifier>{649c5de3-b4c2-4de9-8d57-3b1762646259}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IGraphics\Extras">
+      <UniqueIdentifier>{1160c590-3dd0-4e82-8fe5-3831725e6b7b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
