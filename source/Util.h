@@ -1,5 +1,7 @@
 #pragma once
 
+const double twoPi = 4 * acos(0.0);
+
 // https://stackoverflow.com/a/707426
 inline int wrap(int kX, int const kLowerBound, int const kUpperBound)
 {

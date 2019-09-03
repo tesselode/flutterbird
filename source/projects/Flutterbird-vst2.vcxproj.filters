@@ -229,6 +229,7 @@
       <Filter>IGraphics\Extras</Filter>
     </ClInclude>
     <ClInclude Include="..\Util.h" />
+    <ClInclude Include="..\Oscillator.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="IPlug">

@@ -300,6 +300,7 @@
     <ClInclude Include="..\..\..\IPlug\IPlug_include_in_plug_src.h" />
     <ClInclude Include="..\..\..\IPlug\VST2\IPlugVST2.h" />
     <ClInclude Include="..\Flutterbird.h" />
+    <ClInclude Include="..\Oscillator.h" />
     <ClInclude Include="..\resources\resource.h" />
     <ClInclude Include="..\Util.h" />
   </ItemGroup>

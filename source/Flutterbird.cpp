@@ -3,9 +3,12 @@
 #include "IControls.h"
 
 Flutterbird::Flutterbird(const InstanceInfo& info)
-: Plugin(info, MakeConfig(0, 1))
+: Plugin(info, MakeConfig((int)Parameter::NumParameters, 1))
 {
 #if IPLUG_DSP
+	GetParam((int)Parameter::Osc1Frequency)->InitDouble("Oscillator 1 frequency", 5.0, 1.0, 10.0, .01, "hz");
+	GetParam((int)Parameter::Osc1ToPitch)->InitDouble("Oscillator 1 to pitch", 0.0, -1.0, 1.0, .01);
+
 	InitTape();
 #endif
 
@@ -25,9 +28,9 @@ Flutterbird::Flutterbird(const InstanceInfo& info)
 			ImGui::Text("Write position:");
 			ImGui::SameLine();
 			ImGui::Text(std::to_string(writePosition).c_str());
-			ImGui::Text("Read position:");
+			ImGui::Text("Relative read position:");
 			ImGui::SameLine();
-			ImGui::Text(std::to_string(readPosition).c_str());
+			ImGui::Text(std::to_string(relativeReadPosition).c_str());
 		});
 	};
 #endif
@@ -49,7 +52,7 @@ void Flutterbird::InitTape()
 		floatTapeR.push_back(0.0);
 	}
 	writePosition = 0;
-	readPosition = 0.0;
+	relativeReadPosition = 0.0;
 }
 
 double Flutterbird::GetSample(std::vector<double>& tape, double position)
@@ -68,24 +71,64 @@ double Flutterbird::GetSample(std::vector<double>& tape, double position)
 	return interpolate(x, y0, y1, y2, y3);
 }
 
+void Flutterbird::UpdateOscillators()
+{
+	osc1.update(dt, GetParam((int)Parameter::Osc1Frequency)->Value());
+}
+
+double Flutterbird::GetTargetReadPosition()
+{
+	auto osc1Value = osc1.get(Waveform::Sine);
+	return osc1Value * GetParam((int)Parameter::Osc1ToPitch)->Value();
+}
+
+bool Flutterbird::IsPitchModulationActive()
+{
+	if (GetParam((int)Parameter::Osc1ToPitch)->Value() != 0.0) return true;
+	return false;
+}
+
+void Flutterbird::UpdateReadPosition()
+{
+	auto followSpeed = IsPitchModulationActive() ? 1.0 : 10.0;
+	relativeReadPosition += (GetTargetReadPosition() - relativeReadPosition) * followSpeed * dt;
+}
+
+double Flutterbird::GetReadPosition()
+{
+	return writePosition - relativeReadPosition * GetSampleRate();
+}
+
 void Flutterbird::ProcessBlock(sample** inputs, sample** outputs, int nFrames)
 {
 	for (int s = 0; s < nFrames; s++)
 	{
-		auto inL = inputs[0][s];
-		auto inR = inputs[1][s];
-		tapeL[writePosition] = inL;
-		tapeR[writePosition] = inR;
+		UpdateOscillators();
+		UpdateReadPosition();
+
+		// write the input signal to the tape
+		tapeL[writePosition] = inputs[0][s];
+		tapeR[writePosition] = inputs[1][s];
 		floatTapeL[writePosition] = tapeL[writePosition];
 		floatTapeR[writePosition] = tapeR[writePosition];
-		writePosition++;
-		if (writePosition == std::size(tapeL))
-			writePosition = 0;
-		readPosition += .5;
+
+		// read from the tape and output the interpolated signal
+		auto readPosition = GetReadPosition();
 		auto outL = GetSample(tapeL, readPosition);
 		auto outR = GetSample(tapeR, readPosition);
 		outputs[0][s] = outL;
 		outputs[1][s] = outR;
+
+		// increment the write position for the next sample
+		writePosition++;
+		if (writePosition == std::size(tapeL))
+			writePosition = 0;
 	}
+}
+
+void Flutterbird::OnReset()
+{
+	dt = 1.0 / GetSampleRate();
+	InitTape();
 }
 #endif
