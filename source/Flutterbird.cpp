@@ -57,16 +57,16 @@ void Flutterbird::InitTape()
 
 double Flutterbird::GetSample(std::vector<double>& tape, double position)
 {
-	int p0 = wrap(floor(position) - 1, 0, std::size(tape) - 1);
-	int p1 = wrap(floor(position), 0, std::size(tape) - 1);
-	int p2 = wrap(ceil(position), 0, std::size(tape) - 1);
-	int p3 = wrap(ceil(position) + 1, 0, std::size(tape) - 1);
+	int sampleIndex0 = wrap(floor(position) - 1, 0, std::size(tape) - 1);
+	int sampleIndex1 = wrap(floor(position), 0, std::size(tape) - 1);
+	int sampleIndex2 = wrap(ceil(position), 0, std::size(tape) - 1);
+	int sampleIndex3 = wrap(ceil(position) + 1, 0, std::size(tape) - 1);
 
 	auto x = position - floor(position);
-	auto y0 = tape[p0];
-	auto y1 = tape[p1];
-	auto y2 = tape[p2];
-	auto y3 = tape[p3];
+	auto y0 = tape[sampleIndex0];
+	auto y1 = tape[sampleIndex1];
+	auto y2 = tape[sampleIndex2];
+	auto y3 = tape[sampleIndex3];
 
 	return interpolate(x, y0, y1, y2, y3);
 }
