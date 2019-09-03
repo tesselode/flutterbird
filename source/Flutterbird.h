@@ -7,7 +7,7 @@
 
 const int tapeLengthInSeconds = 10;
 
-enum class Parameter
+enum Parameter
 {
 	Osc1Frequency,
 	Osc1ToPitch,

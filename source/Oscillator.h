@@ -3,7 +3,7 @@
 #include <cmath>
 #include "Util.h"
 
-enum class Waveform
+enum Waveform
 {
 	Sine,
 	NumWaveforms,
@@ -22,7 +22,7 @@ public:
 	{
 		switch (waveform)
 		{
-		case Waveform::Sine:
+		case Sine:
 			return .5 + .5 * sin(phase * twoPi);
 		default:
 			return 0.0;

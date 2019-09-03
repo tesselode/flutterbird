@@ -6,8 +6,8 @@ Flutterbird::Flutterbird(const InstanceInfo& info)
 : Plugin(info, MakeConfig((int)Parameter::NumParameters, 1))
 {
 #if IPLUG_DSP
-	GetParam((int)Parameter::Osc1Frequency)->InitDouble("Oscillator 1 frequency", 5.0, 1.0, 10.0, .01, "hz");
-	GetParam((int)Parameter::Osc1ToPitch)->InitDouble("Oscillator 1 to pitch", 0.0, -1.0, 1.0, .01);
+	GetParam(Osc1Frequency)->InitDouble("Oscillator 1 frequency", 5.0, 1.0, 10.0, .01, "hz");
+	GetParam(Osc1ToPitch)->InitDouble("Oscillator 1 to pitch", 0.0, -1.0, 1.0, .01);
 
 	InitTape();
 #endif
@@ -73,18 +73,18 @@ double Flutterbird::GetSample(std::vector<double>& tape, double position)
 
 void Flutterbird::UpdateOscillators()
 {
-	osc1.update(dt, GetParam((int)Parameter::Osc1Frequency)->Value());
+	osc1.update(dt, GetParam(Osc1Frequency)->Value());
 }
 
 double Flutterbird::GetTargetReadPosition()
 {
-	auto osc1Value = osc1.get(Waveform::Sine);
-	return osc1Value * GetParam((int)Parameter::Osc1ToPitch)->Value();
+	auto osc1Value = osc1.get(Sine);
+	return osc1Value * GetParam(Osc1ToPitch)->Value();
 }
 
 bool Flutterbird::IsPitchModulationActive()
 {
-	if (GetParam((int)Parameter::Osc1ToPitch)->Value() != 0.0) return true;
+	if (GetParam(Osc1ToPitch)->Value() != 0.0) return true;
 	return false;
 }
 
