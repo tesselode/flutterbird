@@ -17,7 +17,7 @@ inline int wrap(int kX, int const kLowerBound, int const kUpperBound)
 	Given 4 samples and a point from 0-1 between y1 and y2, returns an
 	approximation of what the sample would be.
 */
-inline float interpolate(float x, float y0, float y1, float y2, float y3)
+inline double interpolate(double x, double y0, double y1, double y2, double y3)
 {
 	/*
 	interpolation code from Polynomial Interpolators for
@@ -26,9 +26,9 @@ inline float interpolate(float x, float y0, float y1, float y2, float y3)
 	*/
 
 	// 4-point, 2nd-order Watte tri-linear (x-form)
-	float ym1py2 = y0 + y3;
-	float c0 = y1;
-	float c1 = (3 / 2.0) * y2 - (1 / 2.0) * (y1 + ym1py2);
-	float c2 = 1 / 2.0 * (ym1py2 - y1 - y2);
+	double ym1py2 = y0 + y3;
+	double c0 = y1;
+	double c1 = (3 / 2.0) * y2 - (1 / 2.0) * (y1 + ym1py2);
+	double c2 = 1 / 2.0 * (ym1py2 - y1 - y2);
 	return (c2 * x + c1) * x + c0;
 }
